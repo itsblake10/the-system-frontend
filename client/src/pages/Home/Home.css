@@ -1,0 +1,11 @@
+.home__page {
+  min-height: 100vh;
+  max-width: 100vw;
+  height: fit-content;
+  margin: 0;
+  /* padding: 0 40px; */
+}
+
+.home__title {
+  color: #97e8ff;
+}

@@ -1,18 +1,25 @@
 // import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Footer from "./components/Footer";
+import MainLayout from "./layouts/MainLayout";
+import StartLayout from "./layouts/StartLayout";
+// import Header from "./components/Header/Header";
+import Home from "./pages/Home/Home";
+import Start from "./pages/Start/Start";
+// import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
     <>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<StartLayout />}>
+          <Route path="/" element={<Start />} />
+        </Route>
+
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
       </Routes>
-      <Footer />
     </>
   );
 }
