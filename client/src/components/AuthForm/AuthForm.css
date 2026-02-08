@@ -1,0 +1,24 @@
+/* .auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
+.auth-form__title {
+  color: #97e8ff;
+}
+
+.auth-form__fields {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form__label {
+}
+
+.auth-form__input {
+}
+
+.auth-form__submit-button {
+}

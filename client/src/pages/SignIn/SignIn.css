@@ -1,0 +1,20 @@
+.signin {
+  min-height: 100vh;
+  max-width: 100vw;
+  height: fit-content;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.signin-form__container {
+  width: 80%;
+  margin: 0 0 300px 0;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: #1c1f3f;
+  border: 2pt #15b1ff solid;
+}

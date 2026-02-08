@@ -3,10 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./layouts/MainLayout";
 import StartLayout from "./layouts/StartLayout";
-// import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import Start from "./pages/Start/Start";
-// import Footer from "./components/Footer/Footer";
+import SignUp from "./pages/Signup/Signup";
+import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
       <Routes>
         <Route element={<StartLayout />}>
           <Route path="/" element={<Start />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Route>
 
         <Route element={<MainLayout />}>

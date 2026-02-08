@@ -16,16 +16,24 @@
 
 .start__button {
   margin: 0 0 300px 0;
-  width: 90%;
-  font-size: 36px;
+  padding: 10px;
+  width: 98%;
+  max-height: min-content;
+  font-size: 34px;
   font-weight: bold;
   color: #97e8ff;
   cursor: pointer;
   border: 5pt solid;
   background: none;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .start__button:hover {
   color: #15b1ff;
   background-color: rgba(151, 232, 255, 0.1);
+  transform: scale(1.02);
 }
