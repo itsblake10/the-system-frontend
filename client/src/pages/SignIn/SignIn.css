@@ -13,13 +13,13 @@
 .signin-form__container {
   position: relative;
   box-sizing: border-box;
-  width: 70%;
+  width: 100%;
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #1c1f3f;
-  border: 2pt #15b1ff solid;
+  border: 2px #15b1ff solid;
 }
 
 .signin-form__exit-button {
@@ -44,7 +44,7 @@
 
 .signin-form__footer {
   box-sizing: border-box;
-  width: 70%;
+  width: 100%;
   margin: 0 0 300px 0;
   padding: 20px;
   gap: 5px;
@@ -52,7 +52,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #1c1f3f;
-  border: 2pt #15b1ff solid;
+  border: 2px #15b1ff solid;
 }
 
 .signin-form__footer-text {

@@ -1,11 +1,30 @@
 .header {
   max-width: 100vw;
-  /* position: relative; */
-  /* padding: 50px 50px 0 50px; */
+  position: relative;
+  padding: 20px 20px 0 20px;
   background-color: #13152f;
   box-sizing: content-box;
 }
 
 .header__container {
-  min-height: 100px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header__logo {
+  width: 40%;
+}
+
+.header__nav1-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header__nav1 {
+}
+
+.header__nav1-image {
 }
