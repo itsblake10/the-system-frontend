@@ -2,6 +2,7 @@ import "./Header.css";
 import theSystemLogo from "../../../public/the-system-logo.svg";
 import nav1 from "../../../public/nav1.svg";
 import PlayerProfile from "../PlayerProfile/PlayerProfile";
+import PlayerCurrency from "../PlayerCurrency/PlayerCurrency";
 
 const Header = () => {
   return (
@@ -17,7 +18,10 @@ const Header = () => {
             <img className="header__nav1-image" src={nav1} alt="Nav Menu" />
           </nav>
         </div>
-        <PlayerProfile />
+        <div className="header__profile">
+          <PlayerProfile />
+          <PlayerCurrency />
+        </div>
       </div>
     </header>
   );

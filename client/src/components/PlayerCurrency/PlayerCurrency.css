@@ -1,0 +1,47 @@
+.player-currency {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 auto;
+  gap: 8px;
+}
+
+.player-currency__coins,
+.player-currency__raid-keys {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.player-currency__label {
+  color: #97e8ff;
+  font-size: 8px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.player-currency__container {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+}
+
+.player-currency__coins-icon {
+}
+
+.player-currency__divider {
+  background-color: #97e8ff;
+  width: 7px;
+  height: 3px;
+  align-self: center;
+}
+
+.player-currency__coins-amount,
+.player-currency__raid-keys-amount {
+  color: #ffffff;
+  font-size: 10px;
+  align-self: center;
+}
+
+.player-currency__raid-keys-icon {
+  width: 23px;
+}

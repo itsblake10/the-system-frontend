@@ -28,3 +28,9 @@
 
 .header__nav1-image {
 }
+
+.header__profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
