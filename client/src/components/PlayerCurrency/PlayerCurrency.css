@@ -22,7 +22,7 @@
 .player-currency__container {
   display: flex;
   flex-direction: row;
-  gap: 3px;
+  gap: 5px;
 }
 
 .player-currency__coins-icon {
