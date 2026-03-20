@@ -1,0 +1,9 @@
+.copyright-modal__container {
+}
+
+.copyright-modal__text {
+  color: white;
+  font-size: 12px;
+  max-height: 250px;
+  overflow: scroll;
+}

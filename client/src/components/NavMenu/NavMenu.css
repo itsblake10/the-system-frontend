@@ -1,0 +1,39 @@
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-menu__list {
+  list-style: none;
+}
+
+.nav-menu__list-item {
+}
+
+.nav-menu__link {
+  color: #97e8ff;
+  font-size: 20px;
+}
+
+.nav-menu__link:hover {
+  color: #15b1ff;
+}
+
+.nav-menu__log-out {
+  padding: 0;
+  margin: 10px 0 0 0;
+  width: 85%;
+  max-height: min-content;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff6868;
+  cursor: pointer;
+  border: 3px solid;
+  border-radius: 0;
+  background: none;
+}
+
+.nav-menu__log-out:hover {
+  color: #ff0f0f;
+}

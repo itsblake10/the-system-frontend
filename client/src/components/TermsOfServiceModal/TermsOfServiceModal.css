@@ -1,0 +1,9 @@
+.tos-modal__container {
+}
+
+.tos-modal__text {
+  color: white;
+  font-size: 12px;
+  max-height: 250px;
+  overflow: scroll;
+}

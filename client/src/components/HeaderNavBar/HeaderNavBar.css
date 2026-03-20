@@ -39,5 +39,4 @@
 .header-nav-bar__link.active {
   background-color: #15b1ff;
   color: #13152f;
-  transform: scale(1.02);
 }

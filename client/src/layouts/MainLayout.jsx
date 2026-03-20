@@ -3,13 +3,13 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import HeaderNavBar from "../components/HeaderNavBar/HeaderNavBar";
 
-function MainLayout() {
+function MainLayout({ onOpenNavMenu, onOpenCopyright, onOpenTos }) {
   return (
     <>
-      <Header />
+      <Header onOpenNavMenu={onOpenNavMenu} />
       <HeaderNavBar />
       <Outlet />
-      <Footer />
+      <Footer onOpenCopyright={onOpenCopyright} onOpenTos={onOpenTos} />
     </>
   );
 }

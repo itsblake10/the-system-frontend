@@ -4,7 +4,7 @@ import nav1 from "../../../public/nav1.svg";
 import PlayerProfile from "../PlayerProfile/PlayerProfile";
 import PlayerCurrency from "../PlayerCurrency/PlayerCurrency";
 
-const Header = () => {
+const Header = ({ onOpenNavMenu }) => {
   return (
     <header className="header">
       <div className="header__container">
@@ -15,7 +15,9 @@ const Header = () => {
             alt="THE SYSTEM Logo"
           />
           <nav className="header__nav1">
-            <img className="header__nav1-image" src={nav1} alt="Nav Menu" />
+            <button className="header__nav1-button" onClick={onOpenNavMenu}>
+              <img className="header__nav1-image" src={nav1} alt="Nav Menu" />
+            </button>
           </nav>
         </div>
         <div className="header__profile">

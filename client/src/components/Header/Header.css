@@ -7,7 +7,7 @@
 }
 
 .header__container {
-  min-height: 160px;
+  min-height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -23,14 +23,20 @@
   justify-content: space-between;
 }
 
-.header__nav1 {
-}
+/* .header__nav1 {
+} */
 
-.header__nav1-image {
+/* .header__nav1-image {
+} */
+
+.header__nav1-button {
+  background: none;
+  padding: 0;
 }
 
 .header__profile {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  margin: 0 0 20px 0;
 }

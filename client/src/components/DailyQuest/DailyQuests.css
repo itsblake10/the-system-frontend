@@ -1,0 +1,73 @@
+.daily-quests {
+  background-color: #1c1f3f;
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.daily-quests__heading {
+  color: #97e8ff;
+  font-size: 24px;
+  margin: 5px 0 0 0;
+}
+
+.daily-quests__list-heading {
+  color: #97e8ff;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 5px 0 0 0;
+}
+
+.daily-quests__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.daily-quests__list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.daily-quests__quest {
+  color: #97e8ff;
+}
+
+.daily-quests__amount {
+  color: #97e8ff;
+}
+
+.daily-quests__warning {
+  color: #97e8ff;
+  font-size: 12px;
+  width: 70%;
+  align-self: center;
+}
+
+.daily-quests__penalty-text {
+  color: red;
+}
+
+.daily-quests__countdown-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.daily-quests__countdown-text {
+  color: #97e8ff;
+  font-size: 12px;
+}
+
+.daily-quests__countdown {
+  color: #97e8ff;
+  font-weight: bold;
+}

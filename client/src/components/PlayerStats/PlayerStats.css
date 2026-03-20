@@ -1,0 +1,62 @@
+.player-stats {
+  background-color: #1c1f3f;
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.player-stats__heading {
+  color: #97e8ff;
+  font-size: 18px;
+  text-decoration: underline;
+  margin: 5px 0 0 0;
+}
+
+.player-stats__stat-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px 0 15px 0;
+}
+
+.player-stats__list-left {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.player-stats__list-right {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.player-stats__list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+}
+
+.player-stats__icon {
+  color: #97e8ff;
+  min-width: 20px;
+  max-height: 20px;
+}
+
+.player-stats__name {
+  color: #97e8ff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.player-stats__amount {
+  color: #97e8ff;
+  font-weight: bold;
+  font-size: 16px;
+}
