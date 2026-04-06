@@ -7,12 +7,22 @@ const MainObjectives = () => {
       <ul className="main-objectives__list">
         <li className="main-objectives__list-item">
           <span className="main-objectives__objective">Gym Workout</span>
-          <span className="main-objectives__amount">[0/3]</span>
+          <div className="main-objectives__checkbox-container">
+            <button className="main-objectives__decrease-button">-</button>
+            <span className="main-objectives__amount">[0/3]</span>
+            <button className="main-objectives__increase-button">+</button>
+            <input className="main-objectives__checkbox" type="checkbox" />
+          </div>
         </li>
 
         <li className="main-objectives__list-item">
           <span className="main-objectives__objective">Meditation</span>
-          <span className="main-objectives__amount">[0/1]</span>
+          <div className="main-objectives__checkbox-container">
+            <button className="main-objectives__decrease-button">-</button>
+            <span className="main-objectives__amount">[0/1]</span>
+            <button className="main-objectives__increase-button">+</button>
+            <input className="main-objectives__checkbox" type="checkbox" />
+          </div>
         </li>
       </ul>
       <div className="main-objectives__countdown-container">

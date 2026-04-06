@@ -7,18 +7,35 @@
   min-width: 100%;
 }
 
+.daily-quests__heading-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 15px 0 0 0;
+  gap: 8px;
+  max-height: 30px;
+}
+
+.daily-quests__heading-icon {
+  border: 1px #97e8ff solid;
+  padding: 1.5px;
+}
+
 .daily-quests__heading {
   color: #97e8ff;
-  font-size: 24px;
-  margin: 5px 0 0 0;
+  font-size: 20px;
+  box-sizing: border-box;
+  border: 1px #97e8ff solid;
+  padding: 0 10px 0 10px;
+  line-height: 18pt;
 }
 
 .daily-quests__list-heading {
   color: #97e8ff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-decoration: underline;
-  margin: 5px 0 0 0;
+  margin: 10px 0 5px 0;
 }
 
 .daily-quests__list {
@@ -27,27 +44,65 @@
   flex-direction: column;
   margin: 0 auto;
   width: 80%;
+  gap: 5px;
 }
 
 .daily-quests__list-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-weight: 600;
 }
 
 .daily-quests__quest {
   color: #97e8ff;
+  align-self: center;
+  font-weight: bold;
 }
 
 .daily-quests__amount {
   color: #97e8ff;
+  margin: 0 5px;
+  align-self: center;
+  font-weight: bold;
+}
+
+.daily-quests__checkbox-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.daily-quests__increase-button,
+.daily-quests__decrease-button {
+  font-size: 22px;
+  color: #97e8ff;
+  background: none;
+  padding: 0;
+}
+
+.daily-quests__checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  align-self: center;
+  border: 1px #97e8ff solid;
+  border-radius: 10px;
+  width: 15px;
+  height: 15px;
+  margin: 3px 0 0 20px;
 }
 
 .daily-quests__warning {
   color: #97e8ff;
-  font-size: 12px;
+  font-size: 10px;
+  font-weight: 600;
   width: 70%;
   align-self: center;
+  text-align: start;
+  margin: 15px 0 10px 0;
 }
 
 .daily-quests__penalty-text {
@@ -60,6 +115,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin: 0 0 15px 0;
 }
 
 .daily-quests__countdown-text {
@@ -70,4 +126,5 @@
 .daily-quests__countdown {
   color: #97e8ff;
   font-weight: bold;
+  line-height: 20pt;
 }

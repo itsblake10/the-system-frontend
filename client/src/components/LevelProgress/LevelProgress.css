@@ -1,0 +1,80 @@
+.level-progress {
+  background-color: #1c1f3f;
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  margin: 0 0 15px 0;
+}
+
+.level-progress__heading {
+  color: #97e8ff;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 10px 0 10px 0;
+}
+
+.level-progress__container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.level-progress__level-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.level-progress__level {
+  color: #97e8ff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.level-progress__bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  border: 2px solid #97e8ff;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.level-progress__bar-level {
+  background-color: #97e8ff;
+  width: 98%;
+  height: 70%;
+  border: none;
+}
+
+.level-progress__xp {
+  color: #97e8ff;
+  font-weight: 600;
+  align-self: flex-end;
+}
+
+.level-progress__xp-amount {
+  color: #97e8ff;
+  font-weight: 400;
+}
+
+.level-progress__reward-title {
+  color: #97e8ff;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+}
+
+.level-progress__reward-list {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 15px 0;
+}
+
+.level-progress__reward-list-item {
+}

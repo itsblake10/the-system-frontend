@@ -1,22 +1,44 @@
 import "./DailyQuests.css";
+import dailyQuestsHeadingIcon from "../../../public/daily-quests-heading-icon.svg";
 
 const DailyQuests = () => {
   return (
     <div className="daily-quests">
-      <h2 className="daily-quests__heading">Daily Quest</h2>
-      <p className="daily-quests__list-heading">GOAL</p>
+      <div className="daily-quests__heading-container">
+        <img
+          className="daily-quests__heading-icon"
+          src={dailyQuestsHeadingIcon}
+        />
+        <h2 className="daily-quests__heading">Daily Quest</h2>
+      </div>
+      <h3 className="daily-quests__list-heading">GOAL</h3>
       <ul className="daily-quests__list">
         <li className="daily-quests__list-item">
           <span className="daily-quests__quest">Push-ups</span>
-          <span className="daily-quests__amount">[0/50]</span>
+          <div className="daily-quests__checkbox-container">
+            <button className="daily-quests__decrease-button">-</button>
+            <span className="daily-quests__amount">[0/50]</span>
+            <button className="daily-quests__increase-button">+</button>
+            <input className="daily-quests__checkbox" type="checkbox" />
+          </div>
         </li>
         <li className="daily-quests__list-item">
           <span className="daily-quests__quest">Sit-ups</span>
-          <span className="daily-quests__amount">[0/50]</span>
+          <div className="daily-quests__checkbox-container">
+            <button className="daily-quests__decrease-button">-</button>
+            <span className="daily-quests__amount">[0/50]</span>
+            <button className="daily-quests__increase-button">+</button>
+            <input className="daily-quests__checkbox" type="checkbox" />
+          </div>
         </li>
         <li className="daily-quests__list-item">
           <span className="daily-quests__quest">Chin-ups</span>
-          <span className="daily-quests__amount">[0/30]</span>
+          <div className="daily-quests__checkbox-container">
+            <button className="daily-quests__decrease-button">-</button>
+            <span className="daily-quests__amount">[0/30]</span>
+            <button className="daily-quests__increase-button">+</button>
+            <input className="daily-quests__checkbox" type="checkbox" />
+          </div>
         </li>
       </ul>
       <p className="daily-quests__warning">

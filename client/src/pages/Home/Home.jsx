@@ -2,6 +2,7 @@ import PlayerStats from "../../components/PlayerStats/PlayerStats";
 import DailyQuests from "../../components/DailyQuest/DailyQuests";
 import MainObjectives from "../../components/MainObjectives/MainObjectives";
 import "./Home.css";
+import LevelProgress from "../../components/LevelProgress/LevelProgress";
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
       <PlayerStats />
       <DailyQuests />
       <MainObjectives />
+      <LevelProgress />
     </main>
   );
 }
