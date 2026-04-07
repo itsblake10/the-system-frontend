@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                                  HOME PAGE                                 */
+/* -------------------------------------------------------------------------- */
+
 import PlayerStats from "../../components/PlayerStats/PlayerStats";
 import DailyQuests from "../../components/DailyQuest/DailyQuests";
 import MainObjectives from "../../components/MainObjectives/MainObjectives";

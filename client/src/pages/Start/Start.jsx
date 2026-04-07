@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                                 START PAGE                                 */
+/* -------------------------------------------------------------------------- */
+
 import "./Start.css";
 import theSystemLogo from "../../../public/the-system-logo.svg";
 import { useNavigate } from "react-router-dom";

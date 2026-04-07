@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                                SIGN IN PAGE                                */
+/* -------------------------------------------------------------------------- */
+
 import "./SignIn.css";
 import AuthForm from "../../components/AuthForm/AuthForm";
 import theSystemLogo from "../../../public/the-system-logo.svg";

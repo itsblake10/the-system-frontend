@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                             AUTH FORM COMPONENT                            */
+/* -------------------------------------------------------------------------- */
+
 import "./AuthForm.css";
 
 const AuthForm = ({ title, formName, fields, onSubmit, buttonText }) => {

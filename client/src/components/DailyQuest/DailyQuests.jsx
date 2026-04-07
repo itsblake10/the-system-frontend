@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                           DAILY QUESTS COMPONENT                           */
+/* -------------------------------------------------------------------------- */
+
 import "./DailyQuests.css";
 import dailyQuestsHeadingIcon from "../../../public/daily-quests-heading-icon.svg";
 

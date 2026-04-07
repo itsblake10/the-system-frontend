@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                          PLAYER PROFILE COMPONENT                          */
+/* -------------------------------------------------------------------------- */
+
 import "./PlayerProfile.css";
 import exampleProfileImage from "../../../public/example-profile-image.png";
 import manaIcon from "../../../public/mana-icon.svg";

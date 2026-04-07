@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                           PLAYER STATS COMPONENT                           */
+/* -------------------------------------------------------------------------- */
+
 import "./PlayerStats.css";
 import strIcon from "../../../public/str-icon.svg";
 import agiIcon from "../../../public/agi-icon.svg";

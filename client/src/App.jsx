@@ -8,7 +8,7 @@ import Raids from "./pages/Raids/Raids";
 import Inventory from "./pages/Inventory/Inventory";
 import Shop from "./pages/Shop/Shop";
 import Start from "./pages/Start/Start";
-import SignUp from "./pages/Signup/Signup";
+import SignUp from "./pages/SignUp/SignUp";
 import SignIn from "./pages/SignIn/SignIn";
 import Modal from "./components/Modal/Modal";
 import NavMenu from "./components/NavMenu/NavMenu";
@@ -16,6 +16,7 @@ import CopyrightModal from "./components/CopyrightModal/CopyrightModal";
 import TermsOfServiceModal from "./components/TermsOfServiceModal/TermsOfServiceModal";
 
 function App() {
+  /* --------------------------------- MODALS --------------------------------- */
   const [activeModal, setActiveModal] = useState(null);
 
   const handleModalClose = () => setActiveModal(null);
@@ -25,6 +26,7 @@ function App() {
   const onOpenCopyright = () => setActiveModal("copyright");
 
   const onOpenTos = () => setActiveModal("tos");
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <>

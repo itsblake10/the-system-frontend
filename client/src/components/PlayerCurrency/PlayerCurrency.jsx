@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                          PLAYER CURRENCY COMPONENT                         */
+/* -------------------------------------------------------------------------- */
+
 import "./PlayerCurrency.css";
 import coinIcon from "../../../public/coin-icon.svg";
 import raidKeyIcon from "../../../public/raid-key-icon.svg";
