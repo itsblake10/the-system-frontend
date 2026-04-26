@@ -23,54 +23,6 @@
   gap: 5px;
 }
 
-.main-objectives__list-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-weight: 600;
-}
-
-.main-objectives__checkbox-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.main-objectives__objective {
-  color: #97e8ff;
-  align-self: center;
-  font-weight: bold;
-}
-
-.main-objectives__amount {
-  color: #97e8ff;
-  margin: 0 5px;
-  align-self: center;
-  font-weight: bold;
-}
-
-.main-objectives__decrease-button,
-.main-objectives__increase-button {
-  font-size: 22px;
-  color: #97e8ff;
-  background: none;
-  padding: 0;
-  align-self: center;
-}
-
-.main-objectives__checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  align-self: center;
-  border: 1px #97e8ff solid;
-  border-radius: 10px;
-  width: 15px;
-  height: 15px;
-  margin: 3px 0 0 20px;
-}
-
 .main-objectives__countdown-container {
   display: flex;
   flex-direction: row;

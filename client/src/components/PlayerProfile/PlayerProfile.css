@@ -118,11 +118,18 @@
   overflow: hidden;
 }
 
-.player-profile__hp-bar-level,
-.player-profile__mp-bar-level {
+.player-profile__hp-bar-level {
   background-color: #97e8ff;
   border-radius: 10px;
   width: 95%;
+  height: 40%;
+  border: none;
+}
+
+.player-profile__mp-bar-level {
+  background-color: #97e8ff;
+  border-radius: 10px;
+  width: 0%;
   height: 40%;
   border: none;
 }

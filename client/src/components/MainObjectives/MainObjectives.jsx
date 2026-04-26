@@ -1,38 +1,47 @@
 /* -------------------------------------------------------------------------- */
 /*                          MAIN OBJECTIVES COMPONENT                         */
 /* -------------------------------------------------------------------------- */
-
 import "./MainObjectives.css";
+import { useContext, useState, useEffect } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import TaskItem from "../TaskItem/TaskItem";
+import { getDaysLeft, formatTime } from "../../utils/dateResets";
 
 const MainObjectives = () => {
+  const { player } = useContext(PlayerContext);
+
+  const [timeLeft, setTimeLeft] = useState(
+    getDaysLeft(player.mainObjectives.nextWeeklyReset),
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(getDaysLeft(player.mainObjectives.nextWeeklyReset));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [player.mainObjectives.nextWeeklyReset]);
+
   return (
     <div className="main-objectives">
       <h2 className="main-objectives__heading">Main Objectives</h2>
       <ul className="main-objectives__list">
-        <li className="main-objectives__list-item">
-          <span className="main-objectives__objective">Gym Workout</span>
-          <div className="main-objectives__checkbox-container">
-            <button className="main-objectives__decrease-button">-</button>
-            <span className="main-objectives__amount">[0/3]</span>
-            <button className="main-objectives__increase-button">+</button>
-            <input className="main-objectives__checkbox" type="checkbox" />
-          </div>
-        </li>
-
-        <li className="main-objectives__list-item">
-          <span className="main-objectives__objective">Meditation</span>
-          <div className="main-objectives__checkbox-container">
-            <button className="main-objectives__decrease-button">-</button>
-            <span className="main-objectives__amount">[0/1]</span>
-            <button className="main-objectives__increase-button">+</button>
-            <input className="main-objectives__checkbox" type="checkbox" />
-          </div>
-        </li>
+        {player.mainObjectives.objectiveList.map((task) => (
+          <TaskItem
+            key={task.id}
+            name={task.name}
+            currentAmount={task.currentAmount}
+            goalAmount={task.goalAmount}
+          />
+        ))}
       </ul>
       <div className="main-objectives__countdown-container">
         <p className="main-objectives__countdown-text">RESETS IN:</p>
         <time className="main-objectives__countdown">
-          <span className="main-objectives__days-left">4 DAYS</span>22:39:41
+          <span className="main-objectives__days-left">
+            {timeLeft.days} DAYS
+          </span>
+          {formatTime(timeLeft)}
         </time>
       </div>
     </div>

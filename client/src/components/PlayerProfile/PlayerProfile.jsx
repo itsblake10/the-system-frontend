@@ -6,13 +6,21 @@ import "./PlayerProfile.css";
 import exampleProfileImage from "../../../public/example-profile-image.png";
 import manaIcon from "../../../public/mana-icon.svg";
 import hpIcon from "../../../public/hp-icon.svg";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import { useContext } from "react";
 
 const PlayerProfile = () => {
+  const { player } = useContext(PlayerContext);
+
   return (
     <div className="player-profile">
       <div className="player-profile__left-container">
         <p className="player-profile__level-label">
-          LEVEL [<span className="player-profile__level">13</span>]
+          LEVEL [
+          <span className="player-profile__level">
+            {player.playerLevel.level}
+          </span>
+          ]
         </p>
         <div className="player-profile__image-container">
           <img className="player-profile__image" src={exampleProfileImage} />
@@ -22,15 +30,22 @@ const PlayerProfile = () => {
       <div className="player-profile__right-container">
         <div className="player-profile__info">
           <p className="player-profile__info-label">
-            Username:{" "}
-            <span className="player-profile__info-text">player_one</span>
+            Username: {""}
+            <span className="player-profile__info-text">
+              {player.playerInformation.username}
+            </span>
           </p>
           <p className="player-profile__info-label">
-            Title:{" "}
-            <span className="player-profile__info-text">Assassin Warrior</span>
+            Title: {""}
+            <span className="player-profile__info-text">
+              {player.playerInformation.title}
+            </span>
           </p>
           <p className="player-profile__info-label">
-            Job: <span className="player-profile__info-text">Defender</span>
+            Class:{" "}
+            <span className="player-profile__info-text">
+              {player.playerInformation.class}
+            </span>
           </p>
         </div>
 
@@ -40,7 +55,9 @@ const PlayerProfile = () => {
             <div className="player-profile__hp-container">
               <div className="player-profile__hp-text">
                 <p className="player-profile__status-label">HP</p>
-                <p className="player-profile__status-text">100/100</p>
+                <p className="player-profile__status-text">
+                  {player.playerStatus.health}/{player.playerStatus.maxHealth}
+                </p>
               </div>
               <div className="player-profile__hp-bar">
                 <span className="player-profile__hp-bar-level"></span>
@@ -53,7 +70,9 @@ const PlayerProfile = () => {
             <div className="player-profile__mp-container">
               <div className="player-profile__mp-text">
                 <p className="player-profile__status-label">MP</p>
-                <p className="player-profile__status-text">50/50</p>
+                <p className="player-profile__status-text">
+                  {player.playerStatus.mana}/{player.playerStatus.maxMana}
+                </p>
               </div>
               <div className="player-profile__mp-bar">
                 <span className="player-profile__mp-bar-level"></span>

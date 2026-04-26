@@ -1,11 +1,28 @@
 /* -------------------------------------------------------------------------- */
 /*                           DAILY QUESTS COMPONENT                           */
 /* -------------------------------------------------------------------------- */
-
 import "./DailyQuests.css";
 import dailyQuestsHeadingIcon from "../../../public/daily-quests-heading-icon.svg";
+import { useContext, useEffect, useState } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import TaskItem from "../TaskItem/TaskItem";
+import { getTimeLeft, formatTime } from "../../utils/dateResets";
 
 const DailyQuests = () => {
+  const { player } = useContext(PlayerContext);
+
+  const [timeLeft, setTimeLeft] = useState(
+    getTimeLeft(player.dailyQuests.nextDailyReset),
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(getTimeLeft(player.dailyQuests.nextDailyReset));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [player.dailyQuests.nextDailyReset]);
+
   return (
     <div className="daily-quests">
       <div className="daily-quests__heading-container">
@@ -17,33 +34,14 @@ const DailyQuests = () => {
       </div>
       <h3 className="daily-quests__list-heading">GOAL</h3>
       <ul className="daily-quests__list">
-        <li className="daily-quests__list-item">
-          <span className="daily-quests__quest">Push-ups</span>
-          <div className="daily-quests__checkbox-container">
-            <button className="daily-quests__decrease-button">-</button>
-            <span className="daily-quests__amount">[0/50]</span>
-            <button className="daily-quests__increase-button">+</button>
-            <input className="daily-quests__checkbox" type="checkbox" />
-          </div>
-        </li>
-        <li className="daily-quests__list-item">
-          <span className="daily-quests__quest">Sit-ups</span>
-          <div className="daily-quests__checkbox-container">
-            <button className="daily-quests__decrease-button">-</button>
-            <span className="daily-quests__amount">[0/50]</span>
-            <button className="daily-quests__increase-button">+</button>
-            <input className="daily-quests__checkbox" type="checkbox" />
-          </div>
-        </li>
-        <li className="daily-quests__list-item">
-          <span className="daily-quests__quest">Chin-ups</span>
-          <div className="daily-quests__checkbox-container">
-            <button className="daily-quests__decrease-button">-</button>
-            <span className="daily-quests__amount">[0/30]</span>
-            <button className="daily-quests__increase-button">+</button>
-            <input className="daily-quests__checkbox" type="checkbox" />
-          </div>
-        </li>
+        {player.dailyQuests.questList.map((task) => (
+          <TaskItem
+            key={task.id}
+            name={task.name}
+            currentAmount={task.currentAmount}
+            goalAmount={task.goalAmount}
+          />
+        ))}
       </ul>
       <p className="daily-quests__warning">
         WARNING: Failure to complete the daily quests will result in an
@@ -51,7 +49,7 @@ const DailyQuests = () => {
       </p>
       <div className="daily-quests__countdown-container">
         <p className="daily-quests__countdown-text">TIME LEFT:</p>
-        <time className="daily-quests__countdown">22:39:41</time>
+        <time className="daily-quests__countdown">{formatTime(timeLeft)}</time>
       </div>
     </div>
   );

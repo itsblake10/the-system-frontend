@@ -5,8 +5,12 @@
 import "./PlayerCurrency.css";
 import coinIcon from "../../../public/coin-icon.svg";
 import raidKeyIcon from "../../../public/raid-key-icon.svg";
+import { useContext } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
 
 const PlayerCurrency = () => {
+  const { player } = useContext(PlayerContext);
+
   return (
     <div className="player-currency">
       <div className="player-currency__coins">
@@ -14,7 +18,9 @@ const PlayerCurrency = () => {
         <div className="player-currency__container">
           <img className="player-currency__coins-icon" src={coinIcon} />
           <span className="player-currency__divider"></span>
-          <p className="player-currency__coins-amount">2347</p>
+          <p className="player-currency__coins-amount">
+            {player.currency.coins}
+          </p>
         </div>
       </div>
 
@@ -23,7 +29,9 @@ const PlayerCurrency = () => {
         <div className="player-currency__container">
           <img className="player-currency__raid-keys-icon" src={raidKeyIcon} />
           <span className="player-currency__divider"></span>
-          <p className="player-currency__raid-keys-amount">2344</p>
+          <p className="player-currency__raid-keys-amount">
+            {player.currency.raidKeys}
+          </p>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                            INITIAL PLAYER STATE                            */
 /* -------------------------------------------------------------------------- */
+import { getNextDailyReset, getNextWeeklyReset } from "./dateResets";
 
 export const initialPlayerState = {
   /* --------------------------------- PROFILE -------------------------------- */
@@ -11,7 +12,7 @@ export const initialPlayerState = {
     avatar: "",
   },
 
-  PlayerStatus: {
+  playerStatus: {
     health: 1000,
     maxHealth: 1000,
     armor: 0,
@@ -27,12 +28,12 @@ export const initialPlayerState = {
   },
 
   stats: {
-    strength: 0,
-    agility: 0,
-    perception: 0,
-    vitality: 0,
-    intelligence: 0,
-    fighting: 0,
+    str: 0,
+    agi: 0,
+    per: 0,
+    vit: 0,
+    int: 0,
+    fig: 0,
   },
 
   /* --------------------------------- ECONOMY -------------------------------- */
@@ -45,14 +46,37 @@ export const initialPlayerState = {
   inventory: [],
 
   /* -------------------------------- GAMEPLAY -------------------------------- */
-  DailyQuests: {
-    questList: [],
-    nextDailyReset: null,
+  dailyQuests: {
+    questList: [
+      {
+        id: "q1",
+        name: "Push-ups",
+        currentAmount: 0,
+        goalAmount: 50,
+        completed: false,
+      },
+      {
+        id: "q2",
+        name: "Sit-ups",
+        currentAmount: 0,
+        goalAmount: 50,
+        completed: false,
+      },
+    ],
+    nextDailyReset: getNextDailyReset(),
   },
 
   mainObjectives: {
-    objectiveList: [],
-    nextWeeklyReset: null,
+    objectiveList: [
+      {
+        id: "o1",
+        name: "Gym Workout",
+        currentAmount: 0,
+        goalAmount: 3,
+        completed: false,
+      },
+    ],
+    nextWeeklyReset: getNextWeeklyReset(),
   },
 
   activeRaid: null,
