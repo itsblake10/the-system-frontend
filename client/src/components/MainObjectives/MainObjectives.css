@@ -26,10 +26,11 @@
 .main-objectives__countdown-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin: 10px 0 15px 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .main-objectives__countdown-text {
@@ -42,10 +43,20 @@
   color: #97e8ff;
   font-size: 16px;
   font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
 }
 
 .main-objectives__days-left {
   color: #97e8ff;
   font-weight: bold;
-  margin: 0 8px 0 0;
+}
+
+.main-objectives__time-left {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 25px;
+  font-variant-numeric: tabular-nums;
 }

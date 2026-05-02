@@ -6,7 +6,7 @@ import { getNextDailyReset, getNextWeeklyReset } from "./dateResets";
 export const initialPlayerState = {
   /* --------------------------------- PROFILE -------------------------------- */
   playerInformation: {
-    username: "Player_one",
+    username: "",
     title: "Unassigned",
     class: "Unassigned",
     avatar: "",
@@ -27,7 +27,7 @@ export const initialPlayerState = {
     xpToNextLevel: 1000,
   },
 
-  stats: {
+  playerStats: {
     str: 0,
     agi: 0,
     per: 0,
@@ -47,13 +47,18 @@ export const initialPlayerState = {
 
   /* -------------------------------- GAMEPLAY -------------------------------- */
   dailyQuests: {
-    questList: [
+    taskList: [
       {
         id: "q1",
         name: "Push-ups",
         currentAmount: 0,
         goalAmount: 50,
         completed: false,
+        reward: {
+          xp: 250,
+          stats: [{ type: "str", amount: 0.01 }],
+        },
+        penalty: 25,
       },
       {
         id: "q2",
@@ -61,19 +66,31 @@ export const initialPlayerState = {
         currentAmount: 0,
         goalAmount: 50,
         completed: false,
+        reward: {
+          xp: 250,
+          stats: [{ type: "str", amount: 0.01 }],
+        },
+        penalty: 25,
       },
     ],
     nextDailyReset: getNextDailyReset(),
   },
 
   mainObjectives: {
-    objectiveList: [
+    taskList: [
       {
         id: "o1",
         name: "Gym Workout",
         currentAmount: 0,
         goalAmount: 3,
         completed: false,
+        reward: {
+          xp: 500,
+          stats: [
+            { type: "str", amount: 0.1 },
+            { type: "vit", amount: 0.2 },
+          ],
+        },
       },
     ],
     nextWeeklyReset: getNextWeeklyReset(),

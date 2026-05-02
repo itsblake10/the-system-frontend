@@ -23,19 +23,19 @@ const PlayerStats = () => {
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={strIcon} />
             <p className="player-stats__name">STR:</p>
-            <p className="player-stats__amount">{player.stats.str}</p>
+            <p className="player-stats__amount">{player.playerStats.str}</p>
           </li>
 
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={agiIcon} />
             <p className="player-stats__name">AGI:</p>
-            <p className="player-stats__amount">{player.stats.agi}</p>
+            <p className="player-stats__amount">{player.playerStats.agi}</p>
           </li>
 
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={perIcon} />
             <p className="player-stats__name">PER:</p>
-            <p className="player-stats__amount">{player.stats.per}</p>
+            <p className="player-stats__amount">{player.playerStats.per}</p>
           </li>
         </ul>
 
@@ -43,19 +43,19 @@ const PlayerStats = () => {
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={vitIcon} />
             <p className="player-stats__name">VIT:</p>
-            <p className="player-stats__amount">{player.stats.vit}</p>
+            <p className="player-stats__amount">{player.playerStats.vit}</p>
           </li>
 
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={intIcon} />
             <p className="player-stats__name">INT:</p>
-            <p className="player-stats__amount">{player.stats.int}</p>
+            <p className="player-stats__amount">{player.playerStats.int}</p>
           </li>
 
           <li className="player-stats__list-item">
             <img className="player-stats__icon" src={figIcon} />
             <p className="player-stats__name">FIG:</p>
-            <p className="player-stats__amount">{player.stats.fig}</p>
+            <p className="player-stats__amount">{player.playerStats.fig}</p>
           </li>
         </ul>
       </div>

@@ -34,13 +34,8 @@ const DailyQuests = () => {
       </div>
       <h3 className="daily-quests__list-heading">GOAL</h3>
       <ul className="daily-quests__list">
-        {player.dailyQuests.questList.map((task) => (
-          <TaskItem
-            key={task.id}
-            name={task.name}
-            currentAmount={task.currentAmount}
-            goalAmount={task.goalAmount}
-          />
+        {player.dailyQuests.taskList.map((task) => (
+          <TaskItem key={task.id} task={task} section="dailyQuests" />
         ))}
       </ul>
       <p className="daily-quests__warning">
@@ -49,7 +44,15 @@ const DailyQuests = () => {
       </p>
       <div className="daily-quests__countdown-container">
         <p className="daily-quests__countdown-text">TIME LEFT:</p>
-        <time className="daily-quests__countdown">{formatTime(timeLeft)}</time>
+        <time
+          className={
+            timeLeft.hours <= 2
+              ? "daily-quests__countdown daily-quests__countdown_red"
+              : "daily-quests__countdown"
+          }
+        >
+          {formatTime(timeLeft)}
+        </time>
       </div>
     </div>
   );

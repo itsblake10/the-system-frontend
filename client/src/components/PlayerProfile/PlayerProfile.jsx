@@ -7,10 +7,29 @@ import exampleProfileImage from "../../../public/example-profile-image.png";
 import manaIcon from "../../../public/mana-icon.svg";
 import hpIcon from "../../../public/hp-icon.svg";
 import { PlayerContext } from "../../contexts/PlayerContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const PlayerProfile = () => {
-  const { player } = useContext(PlayerContext);
+  const { player, dispatch } = useContext(PlayerContext);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+
+      if (new Date(player.dailyQuests.nextDailyReset) <= now) {
+        dispatch({ type: "RESET_DAILY" });
+      }
+
+      if (new Date(player.mainObjectives.nextWeeklyReset) <= now) {
+        dispatch({ type: "RESET_WEEKLY" });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [
+    player.dailyQuests.nextDailyReset,
+    player.mainObjectives.nextWeeklyReset,
+  ]);
 
   return (
     <div className="player-profile">

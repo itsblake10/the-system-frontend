@@ -26,13 +26,8 @@ const MainObjectives = () => {
     <div className="main-objectives">
       <h2 className="main-objectives__heading">Main Objectives</h2>
       <ul className="main-objectives__list">
-        {player.mainObjectives.objectiveList.map((task) => (
-          <TaskItem
-            key={task.id}
-            name={task.name}
-            currentAmount={task.currentAmount}
-            goalAmount={task.goalAmount}
-          />
+        {player.mainObjectives.taskList.map((task) => (
+          <TaskItem key={task.id} task={task} section="mainObjectives" />
         ))}
       </ul>
       <div className="main-objectives__countdown-container">
@@ -41,7 +36,9 @@ const MainObjectives = () => {
           <span className="main-objectives__days-left">
             {timeLeft.days} DAYS
           </span>
-          {formatTime(timeLeft)}
+          <span className="main-objectives__time-left">
+            {formatTime(timeLeft)}
+          </span>
         </time>
       </div>
     </div>

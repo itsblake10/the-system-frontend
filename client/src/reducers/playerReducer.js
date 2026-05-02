@@ -1,101 +1,135 @@
 /* -------------------------------------------------------------------------- */
 /*                               PLAYER REDUCER                               */
+
+import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets";
+import { applyXp } from "../../src/gameSystems/xpSystem.js";
+import { applyDamage } from "../gameSystems/damageSystem.js";
+import { applyStats } from "../gameSystems/statSystem.js";
+
 /* -------------------------------------------------------------------------- */
 export function playerReducer(state, action) {
   switch (action.type) {
-    /* --------------------------- GAIN XP / LEVEL UP --------------------------- */
-    case "GAIN_XP": {
-      const newXP = state.playerLevel.xp + action.payload;
+    /* ----------------------------- INCREMENT_TASK ----------------------------- */
+    case "INCREMENT_TASK": {
+      const { taskId, section } = action.payload;
 
-      if (newXP >= state.playerLevel.xpToNextLevel) {
+      const updatedList = state[section].taskList.map((task) => {
+        if (task.id !== taskId) return task;
+
+        const newAmount = Math.min(task.currentAmount + 1, task.goalAmount);
+
         return {
-          ...state,
-          playerLevel: {
-            ...state.playerLevel,
-            xp: newXP - state.playerLevel.xpToNextLevel,
-            level: state.playerLevel.level + 1,
-            xpToNextLevel: state.playerLevel.xpToNextLevel + 500,
-          },
+          ...task,
+          currentAmount: newAmount,
+          completed: newAmount >= task.goalAmount,
         };
-      }
+      });
 
       return {
         ...state,
-        playerLevel: {
-          ...state.playerLevel,
-          xp: newXP,
+        [section]: {
+          ...state[section],
+          taskList: updatedList,
         },
       };
     }
 
-    /* -------------------------- COMPLETE DAILY QUEST -------------------------- */
-    case "COMPLETE_DAILY_QUEST": {
-      const updatedQuests = state.dailyQuests.questList.map((quest) =>
-        quest.id === action.payload ? { ...quest, completed: true } : quest,
-      );
+    /* ----------------------------- DECREMENT TASK ----------------------------- */
+
+    case "DECREMENT_TASK": {
+      const { taskId, section } = action.payload;
+
+      const updatedList = state[section].taskList.map((task) => {
+        if (task.id !== taskId) return task;
+
+        const newAmount = Math.max(task.currentAmount - 1, 0);
+
+        return {
+          ...task,
+          currentAmount: newAmount,
+          completed: newAmount >= task.goalAmount,
+        };
+      });
 
       return {
         ...state,
-        dailyQuests: updatedQuests,
-      };
-    }
-
-    /* ---------------------------- MISS DAILY QUEST ---------------------------- */
-    case "MISS_DAILY_QUEST": {
-      let newArmor = state.playerStatus.armor - 10;
-      let newHealth = state.playerStatus.health;
-
-      if (newArmor < 0) {
-        newHealth += newArmor;
-        newArmor = 0;
-      }
-
-      return {
-        ...state,
-        playerStatus: {
-          ...state.playerStatus,
-          armor: newArmor,
-          health: Math.max(newHealth, 0),
+        [section]: {
+          ...state[section],
+          taskList: updatedList,
         },
       };
     }
 
-    /* ------------------------- COMPLETE MAIN OBJECTIVE ------------------------ */
-    case "COMPLETE_MAIN_OBJECTIVE": {
-      const updatedObjectives = state.mainObjectives.objectiveList.map(
-        (objective) =>
-          objective.id === action.payload
-            ? { ...objective, completed: true }
-            : objective,
-      );
+    /* ------------------------------- RESET DAILY ------------------------------ */
+    case "RESET_DAILY": {
+      let playerLevel = state.playerLevel;
+      let playerStatus = state.playerStatus;
+      let playerStats = state.playerStats;
+
+      const updatedTasks = state.dailyQuests.taskList.map((task) => {
+        if (task.completed) {
+          playerLevel = applyXp(playerLevel, task.reward?.xp || 0);
+          playerStats = applyStats(playerStats, task.reward.stats);
+        } else {
+          playerStatus = applyDamage(playerStatus, task.penalty || 0);
+        }
+
+        return {
+          ...task,
+          currentAmount: 0,
+          completed: false,
+        };
+      });
 
       return {
         ...state,
-        mainObjectives: updatedObjectives,
+        playerLevel,
+        playerStatus,
+        playerStats,
+        dailyQuests: {
+          ...state.dailyQuests,
+          taskList: updatedTasks,
+          nextDailyReset: getNextDailyReset(),
+        },
       };
     }
 
-    /* --------------------------- MISS MAIN OBJECTIVE -------------------------- */
-    // case "MISS_MAIN_OBJECTIVE": {
-    //   let newArmor = state.playerStatus.armor - 10;
-    //   let newHealth = state.playerStatus.health;
+    /* ------------------------------ RESET WEEKLY ------------------------------ */
+    case "RESET_WEEKLY": {
+      let playerLevel = state.playerLevel;
+      let playerStats = state.playerStats;
 
-    //   if (newArmor < 0) {
-    //     newHealth += newArmor;
-    //     newArmor = 0;
-    //   }
+      const updatedTasks = state.mainObjectives.taskList.map((task) => {
+        if (task.completed) {
+          playerLevel = applyXp(playerLevel, task.reward?.xp || 0);
+          playerStats = applyStats(playerStats, task.reward.stats);
+        }
 
+        return {
+          ...task,
+          currentAmount: 0,
+          completed: false,
+        };
+      });
+
+      return {
+        ...state,
+        playerLevel,
+        playerStats,
+        mainObjectives: {
+          ...state.mainObjectives,
+          taskList: updatedTasks,
+          nextWeeklyReset: getNextWeeklyReset(),
+        },
+      };
+    }
+
+    /* --------------------------- GAIN XP / LEVEL UP --------------------------- */
+    // case "GAIN_XP": {
     //   return {
     //     ...state,
-    //     playerStatus: {
-    //       ...state.playerStatus,
-    //       armor: newArmor,
-    //       health: Math.max(newHealth, 0),
-    //     },
+    //     playerLevel: applyXp(state.playerLevel, action.payload),
     //   };
     // }
-
-    default:
-      return state;
   }
 }
