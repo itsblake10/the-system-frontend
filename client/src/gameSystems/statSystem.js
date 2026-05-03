@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                             GAME SYSTEM (STATS)                            */
+/* -------------------------------------------------------------------------- */
+
+/* ------------------------- STAT POINT APPLICATION ------------------------- */
 export function applyStats(playerStats, statRewards) {
   let updated = { ...playerStats };
 
@@ -7,3 +12,4 @@ export function applyStats(playerStats, statRewards) {
 
   return updated;
 }
+/* ------------------------------------ . ----------------------------------- */

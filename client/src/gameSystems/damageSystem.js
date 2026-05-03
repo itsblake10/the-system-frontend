@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                            GAME SYSTEM (DAMAGE)                            */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------- DAMAGE APPLICATION --------------------------- */
 export function applyDamage(playerStatus, damage) {
   let armor = playerStatus.armor;
   let health = playerStatus.health;
@@ -15,3 +20,4 @@ export function applyDamage(playerStatus, damage) {
     health: Math.max(health, 0),
   };
 }
+/* ------------------------------------ . ----------------------------------- */

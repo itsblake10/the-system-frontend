@@ -10,11 +10,11 @@ import { getTimeLeft, formatTime } from "../../utils/dateResets";
 
 const DailyQuests = () => {
   const { player } = useContext(PlayerContext);
-
   const [timeLeft, setTimeLeft] = useState(
     getTimeLeft(player.dailyQuests.nextDailyReset),
   );
 
+  /* ----------------------------- SET DAILY RESET ---------------------------- */
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(getTimeLeft(player.dailyQuests.nextDailyReset));
@@ -22,6 +22,7 @@ const DailyQuests = () => {
 
     return () => clearInterval(interval);
   }, [player.dailyQuests.nextDailyReset]);
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="daily-quests">

@@ -9,11 +9,11 @@ import { getDaysLeft, formatTime } from "../../utils/dateResets";
 
 const MainObjectives = () => {
   const { player } = useContext(PlayerContext);
-
   const [timeLeft, setTimeLeft] = useState(
     getDaysLeft(player.mainObjectives.nextWeeklyReset),
   );
 
+  /* ---------------------------- SET WEEKLY RESET ---------------------------- */
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(getDaysLeft(player.mainObjectives.nextWeeklyReset));
@@ -21,6 +21,7 @@ const MainObjectives = () => {
 
     return () => clearInterval(interval);
   }, [player.mainObjectives.nextWeeklyReset]);
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="main-objectives">
@@ -33,7 +34,13 @@ const MainObjectives = () => {
       <div className="main-objectives__countdown-container">
         <p className="main-objectives__countdown-text">RESETS IN:</p>
         <time className="main-objectives__countdown">
-          <span className="main-objectives__days-left">
+          <span
+            className={
+              timeLeft.days === 0
+                ? "main-objectives__days-left main-objectives__days-left_red"
+                : "main-objectives__days-left"
+            }
+          >
             {timeLeft.days} DAYS
           </span>
           <span className="main-objectives__time-left">

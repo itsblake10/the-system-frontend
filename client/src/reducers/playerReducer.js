@@ -1,12 +1,11 @@
 /* -------------------------------------------------------------------------- */
 /*                               PLAYER REDUCER                               */
-
+/* -------------------------------------------------------------------------- */
 import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets";
 import { applyXp } from "../../src/gameSystems/xpSystem.js";
 import { applyDamage } from "../gameSystems/damageSystem.js";
 import { applyStats } from "../gameSystems/statSystem.js";
 
-/* -------------------------------------------------------------------------- */
 export function playerReducer(state, action) {
   switch (action.type) {
     /* ----------------------------- INCREMENT_TASK ----------------------------- */

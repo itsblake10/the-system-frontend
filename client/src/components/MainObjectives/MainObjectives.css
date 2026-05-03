@@ -53,6 +53,10 @@
   font-weight: bold;
 }
 
+.main-objectives__days-left_red {
+  color: red;
+}
+
 .main-objectives__time-left {
   font-family: monospace;
   font-size: 16px;

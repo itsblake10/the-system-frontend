@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 function SignUp() {
   const navigate = useNavigate();
 
+  /* ------------------------------- FORM FIELDS ------------------------------ */
   const fields = [
     { name: "Username:", type: "text", placeholder: "Username..." },
     { name: "Email:", type: "email", placeholder: "Email..." },
@@ -21,6 +22,7 @@ function SignUp() {
       placeholder: "Confirm Password...",
     },
   ];
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <main className="signup">

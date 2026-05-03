@@ -8,6 +8,7 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 const TaskItem = ({ task, section }) => {
   const { dispatch } = useContext(PlayerContext);
 
+  /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
   const incrementCounter = () => {
     dispatch({
       type: "INCREMENT_TASK",
@@ -27,6 +28,7 @@ const TaskItem = ({ task, section }) => {
       },
     });
   };
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <li className="task-item">

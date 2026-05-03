@@ -1,3 +1,8 @@
+/* -------------------------------------------------------------------------- */
+/*                              GAME SYSTEM (XP)                              */
+/* -------------------------------------------------------------------------- */
+
+/* ----------------------------- XP APPLICATION ----------------------------- */
 export function applyXp(playerLevel, amount) {
   let xp = playerLevel.xp + amount;
   let level = playerLevel.level;
@@ -11,3 +16,4 @@ export function applyXp(playerLevel, amount) {
 
   return { xp, level, xpToNextLevel: xpToNext };
 }
+/* ------------------------------------ . ----------------------------------- */

@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react";
 const PlayerProfile = () => {
   const { player, dispatch } = useContext(PlayerContext);
 
+  /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
@@ -30,6 +31,7 @@ const PlayerProfile = () => {
     player.dailyQuests.nextDailyReset,
     player.mainObjectives.nextWeeklyReset,
   ]);
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="player-profile">

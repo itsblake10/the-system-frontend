@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 function SignIn() {
   const navigate = useNavigate();
 
+  /* ------------------------------- FORM FIELDS ------------------------------ */
   const fields = [
     { name: "Username/Email:", type: "text", placeholder: "Username/Email..." },
     { name: "Password:", type: "password", placeholder: "Password..." },
   ];
+  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <main className="signin">
