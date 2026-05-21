@@ -2,6 +2,7 @@
 /*                             TASK ITEM COMPONENT                            */
 /* -------------------------------------------------------------------------- */
 import "./TaskItem.css";
+import checkmark from "../../../public/checkmark.svg";
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
@@ -50,6 +51,14 @@ const TaskItem = ({ task, section }) => {
           +
         </button>
         <input className="task-item__checkbox" type="checkbox" />
+        <img
+          className={
+            task.currentAmount === task.goalAmount
+              ? "task-item__checkmark task-item__checkmark_enabled"
+              : "task-item__checkmark"
+          }
+          src={checkmark}
+        />
       </div>
     </li>
   );

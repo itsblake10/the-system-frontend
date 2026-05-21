@@ -60,3 +60,14 @@
   height: 15px;
   margin: 4px 0 0 20px;
 }
+
+.task-item__checkmark {
+  visibility: hidden;
+  position: relative;
+  bottom: 2px;
+  right: 15px;
+}
+
+.task-item__checkmark_enabled {
+  visibility: visible;
+}

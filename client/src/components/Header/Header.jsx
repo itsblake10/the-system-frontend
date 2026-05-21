@@ -1,7 +1,6 @@
 /* -------------------------------------------------------------------------- */
 /*                              HEADER COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-
 import "./Header.css";
 import theSystemLogo from "../../../public/the-system-logo.svg";
 import nav1 from "../../../public/nav1.svg";

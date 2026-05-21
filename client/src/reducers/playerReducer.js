@@ -123,6 +123,11 @@ export function playerReducer(state, action) {
       };
     }
 
+    /* ------------------------------- LOAD PLAYER ------------------------------ */
+    case "LOAD_PLAYER": {
+      return action.payload;
+    }
+
     /* --------------------------- GAIN XP / LEVEL UP --------------------------- */
     // case "GAIN_XP": {
     //   return {

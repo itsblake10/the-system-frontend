@@ -1,3 +1,6 @@
+/* -------------------------------------------------------------------------- */
+/*                            AUTHENTICATION ROUTES                           */
+/* -------------------------------------------------------------------------- */
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -39,16 +42,38 @@ router.post("/signup", async (req, res) => {
 });
 
 /* ---------------------------------- LOGIN --------------------------------- */
-//future
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-/* -------------------------------- GET USER -------------------------------- */
-// router.get("/", async (req, res) => {
-//   try {
-//     const users = await User.find();
-//     res.status(200).json(users);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.status(200).json({
+      token,
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Login failed",
+      error: err.message,
+    });
+  }
+});
 
 export default router;
