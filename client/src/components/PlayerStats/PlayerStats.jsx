@@ -15,6 +15,10 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 const PlayerStats = () => {
   const { player } = useContext(PlayerContext);
 
+  if (!player?.playerStats) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="player-stats">
       <h2 className="player-stats__heading">STATS</h2>

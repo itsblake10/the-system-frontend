@@ -1,11 +1,19 @@
 /* -------------------------------------------------------------------------- */
 /*                               NAV MENU MODAL                               */
 /* -------------------------------------------------------------------------- */
-
 import "./NavMenu.css";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
 
-const NavMenu = () => {
+const NavMenu = ({ handleModalClose }) => {
+  const { logout } = useContext(PlayerContext);
+
+  const handleLogout = () => {
+    logout();
+    handleModalClose();
+  };
+
   return (
     <nav className="nav-menu">
       <ul className="nav-menu__list">
@@ -20,7 +28,9 @@ const NavMenu = () => {
           </NavLink>
         </li>
       </ul>
-      <button className="nav-menu__log-out">LOG OUT</button>
+      <button className="nav-menu__log-out" onClick={handleLogout}>
+        LOG OUT
+      </button>
     </nav>
   );
 };

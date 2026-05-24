@@ -8,6 +8,13 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 const LevelProgress = () => {
   const { player } = useContext(PlayerContext);
 
+  if (!player?.playerLevel) {
+    return <div>Loading...</div>;
+  }
+
+  const xpPercent =
+    (player.playerLevel.xp / player.playerLevel.xpToNextLevel) * 100;
+
   return (
     <div className="level-progress">
       <h2 className="level-progress__heading">NEXT LEVEL</h2>
@@ -19,7 +26,10 @@ const LevelProgress = () => {
           </p>
         </div>
         <div className="level-progress__bar">
-          <span className="level-progress__bar-level"></span>
+          <span
+            className="level-progress__bar-level"
+            style={{ width: `${xpPercent}%` }}
+          ></span>
         </div>
         <p className="level-progress__xp">
           XP:{" "}

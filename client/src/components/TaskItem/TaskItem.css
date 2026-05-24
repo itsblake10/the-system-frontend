@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 }
 
 .task-item__increase-button,
@@ -62,12 +63,16 @@
 }
 
 .task-item__checkmark {
-  visibility: hidden;
-  position: relative;
-  bottom: 2px;
-  right: 15px;
+  position: absolute;
+  top: 40%;
+  right: -5px;
+
+  transform: translateY(-50%);
+
+  opacity: 0;
+  pointer-events: none;
 }
 
 .task-item__checkmark_enabled {
-  visibility: visible;
+  opacity: 1;
 }

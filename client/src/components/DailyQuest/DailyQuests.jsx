@@ -10,18 +10,27 @@ import { getTimeLeft, formatTime } from "../../utils/dateResets";
 
 const DailyQuests = () => {
   const { player } = useContext(PlayerContext);
-  const [timeLeft, setTimeLeft] = useState(
-    getTimeLeft(player.dailyQuests.nextDailyReset),
+
+  if (!player?.dailyQuests) {
+    return <div>Loading...</div>;
+  }
+
+  const [timeLeft, setTimeLeft] = useState(() =>
+    player?.dailyQuests?.nextDailyReset
+      ? getTimeLeft(player.dailyQuests.nextDailyReset)
+      : { days: 0, hours: 0, minutes: 0, seconds: 0 },
   );
 
   /* ----------------------------- SET DAILY RESET ---------------------------- */
   useEffect(() => {
+    if (!player?.dailyQuests?.nextDailyReset) return;
+
     const interval = setInterval(() => {
       setTimeLeft(getTimeLeft(player.dailyQuests.nextDailyReset));
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [player.dailyQuests.nextDailyReset]);
+  }, [player?.dailyQuests?.nextDailyReset]);
   /* ------------------------------------ . ----------------------------------- */
 
   return (
@@ -35,7 +44,7 @@ const DailyQuests = () => {
       </div>
       <h3 className="daily-quests__list-heading">GOAL</h3>
       <ul className="daily-quests__list">
-        {player.dailyQuests.taskList.map((task) => (
+        {(player.dailyQuests.taskList ?? []).map((task) => (
           <TaskItem key={task.id} task={task} section="dailyQuests" />
         ))}
       </ul>
@@ -47,7 +56,7 @@ const DailyQuests = () => {
         <p className="daily-quests__countdown-text">TIME LEFT:</p>
         <time
           className={
-            timeLeft.hours <= 2
+            (timeLeft?.hours ?? 0) <= 2
               ? "daily-quests__countdown daily-quests__countdown_red"
               : "daily-quests__countdown"
           }

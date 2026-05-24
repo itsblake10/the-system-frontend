@@ -4,6 +4,7 @@
 import { createContext, useEffect, useReducer, useRef, useState } from "react";
 import { playerReducer } from "../reducers/playerReducer";
 import { initialPlayerState } from "../utils/initialPlayerState";
+import { getPlayer, savePlayer } from "../api/authApi";
 
 export const PlayerContext = createContext();
 
@@ -24,13 +25,14 @@ export function PlayerProvider({ children }) {
   );
 
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
   const hasLoaded = useRef(false);
+  const saveTimeout = useRef(null);
+  const hasInitialisedSave = useRef(false);
 
   /* -------------------------- LOAD PLAYER ON START -------------------------- */
   useEffect(() => {
     const fetchPlayer = async () => {
-      const token = localStorage.getItem("token");
-
       if (!token) {
         setLoading(false);
         return;
@@ -51,7 +53,7 @@ export function PlayerProvider({ children }) {
     };
 
     fetchPlayer();
-  }, []);
+  }, [token]);
 
   /* ---------------------- SAVE TO LOCAL STORAGE (CACHE) --------------------- */
   useEffect(() => {
@@ -64,21 +66,33 @@ export function PlayerProvider({ children }) {
   }, [player]);
 
   /* ----------------------------- SAVE TO BACKEND ---------------------------- */
-  const saveTimeout = useRef(null);
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) return;
+
+    if (!hasInitialisedSave.current) {
+      hasInitialisedSave.current = true;
+      return;
+    }
 
     clearTimeout(saveTimeout.current);
 
     saveTimeout.current = setTimeout(() => {
       savePlayer(token, player);
     }, 800);
-  }, [player]);
+  }, [player, token]);
+
+  /* --------------------------------- LOGOUT --------------------------------- */
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("player");
+
+    setToken(null);
+  };
 
   return (
-    <PlayerContext.Provider value={{ player, dispatch, loading }}>
+    <PlayerContext.Provider
+      value={{ player, dispatch, loading, token, setToken, logout }}
+    >
       {children}
     </PlayerContext.Provider>
   );

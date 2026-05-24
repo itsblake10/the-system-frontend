@@ -2,10 +2,10 @@
 /*                             AUTHENTICATION API                             */
 /* -------------------------------------------------------------------------- */
 
-const API_URL = "https://localhost:5000/api";
+const API_URL = "http://localhost:5000/api";
 
 /* --------------------------------- SIGN UP -------------------------------- */
-export async function signup(email, password, player) {
+export async function signup(email, password, username) {
   const res = await fetch(`${API_URL}/auth/signup`, {
     method: "POST",
     headers: {
@@ -14,7 +14,7 @@ export async function signup(email, password, player) {
     body: JSON.stringify({
       email,
       password,
-      player,
+      username,
     }),
   });
 
@@ -38,13 +38,28 @@ export async function login(email, password) {
 }
 
 /* ------------------------------- LOAD PLAYER ------------------------------ */
-export async function getPlayer(token, player) {
-  await fetch(`${API_URL}/player`, {
+export async function getPlayer(token) {
+  const res = await fetch(`${API_URL}/player`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
+}
+
+/* ------------------------------- SAVE PLAYER ------------------------------ */
+export async function savePlayer(token, player) {
+  const res = await fetch(`${API_URL}/player`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
-    body: json.stringify(player),
+    body: JSON.stringify(player),
   });
+
+  return res.json();
 }

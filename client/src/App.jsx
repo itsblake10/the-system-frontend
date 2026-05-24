@@ -14,6 +14,7 @@ import Modal from "./components/Modal/Modal";
 import NavMenu from "./components/NavMenu/NavMenu";
 import CopyrightModal from "./components/CopyrightModal/CopyrightModal";
 import TermsOfServiceModal from "./components/TermsOfServiceModal/TermsOfServiceModal";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   /* --------------------------------- MODALS --------------------------------- */
@@ -46,16 +47,44 @@ function App() {
             />
           }
         >
-          <Route path="/home" element={<Home />} />
-          <Route path="/raids" element={<Raids />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/raids"
+            element={
+              <ProtectedRoute>
+                <Raids />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/inventory"
+            element={
+              <ProtectedRoute>
+                <Inventory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/shop"
+            element={
+              <ProtectedRoute>
+                <Shop />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
 
       {activeModal === "nav-menu" && (
         <Modal title="MENU" onClose={handleModalClose}>
-          <NavMenu />
+          <NavMenu handleModalClose={handleModalClose} />
         </Modal>
       )}
 

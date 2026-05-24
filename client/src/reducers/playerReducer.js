@@ -125,7 +125,10 @@ export function playerReducer(state, action) {
 
     /* ------------------------------- LOAD PLAYER ------------------------------ */
     case "LOAD_PLAYER": {
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
 
     /* --------------------------- GAIN XP / LEVEL UP --------------------------- */

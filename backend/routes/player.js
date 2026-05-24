@@ -11,6 +11,11 @@ const router = express.Router();
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User no founnd" });
+    }
+
     res.status(200).json(user.player);
   } catch (err) {
     res.status(500).json({
@@ -21,13 +26,24 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 /* ------------------------------- SAVE PLAYER ------------------------------ */
-router.post("/", authMiddleware, async (req, res) => {
+router.put("/", authMiddleware, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.userId,
-      { player: req.body },
-      { new: true },
+      {
+        $set: {
+          player: req.body,
+        },
+      },
+      {
+        returnDocument: "after",
+        runValidators: true,
+      },
     );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     res.status(200).json(updatedUser.player);
   } catch (err) {

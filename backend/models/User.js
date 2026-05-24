@@ -6,7 +6,7 @@ import mongoose, { Schema } from "mongoose";
 /* ------------------------------ PLAYER SCHEMA ----------------------------- */
 const playerSchema = new mongoose.Schema({
   playerInformation: {
-    username: { type: String, default: "Player_one" },
+    username: { type: String, default: "" },
     title: { type: String, default: "Unassigned" },
     class: { type: String, default: "Unassigned" },
     avatar: { type: String, default: "" },
@@ -17,7 +17,7 @@ const playerSchema = new mongoose.Schema({
     maxHealth: { type: Number, default: 1000 },
     armor: { type: Number, default: 0 },
     mana: { type: Number, default: 0 },
-    maxMana: { type: Number, default: 50 },
+    maxMana: { type: Number, default: 500 },
   },
 
   playerLevel: {
@@ -45,12 +45,26 @@ const playerSchema = new mongoose.Schema({
 
   dailyQuests: {
     taskList: { type: Array, default: [] },
-    nextDailyReset: { type: Date },
+    nextDailyReset: {
+      type: Date,
+      default: () => {
+        const date = new Date();
+        date.setDate(date.getDate() + 1);
+        return date;
+      },
+    },
   },
 
   mainObjectives: {
     taskList: { type: Array, default: [] },
-    nextWeeklyReset: { type: Date },
+    nextWeeklyReset: {
+      type: Date,
+      default: () => {
+        const date = new Date();
+        date.setDate(date.getDate() + 7);
+        return date;
+      },
+    },
   },
 });
 

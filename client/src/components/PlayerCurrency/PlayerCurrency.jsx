@@ -11,6 +11,10 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 const PlayerCurrency = () => {
   const { player } = useContext(PlayerContext);
 
+  if (!player?.currency) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="player-currency">
       <div className="player-currency__coins">

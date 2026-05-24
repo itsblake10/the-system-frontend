@@ -12,8 +12,20 @@ import { useContext, useEffect } from "react";
 const PlayerProfile = () => {
   const { player, dispatch } = useContext(PlayerContext);
 
+  if (!player?.playerStatus || !player?.playerInformation) {
+    return <div>Loading...</div>;
+  }
+
+  const hpPercent =
+    (player.playerStatus.health / player.playerStatus.maxHealth) * 100;
+
+  const mpPercent =
+    (player.playerStatus.mana / player.playerStatus.maxMana) * 100;
+
   /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
+    if (!player?.dailyQuests || !player?.mainObjectives) return;
+
     const interval = setInterval(() => {
       const now = new Date();
 
@@ -27,10 +39,7 @@ const PlayerProfile = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [
-    player.dailyQuests.nextDailyReset,
-    player.mainObjectives.nextWeeklyReset,
-  ]);
+  }, [player, dispatch]);
   /* ------------------------------------ . ----------------------------------- */
 
   return (
@@ -81,7 +90,10 @@ const PlayerProfile = () => {
                 </p>
               </div>
               <div className="player-profile__hp-bar">
-                <span className="player-profile__hp-bar-level"></span>
+                <span
+                  className="player-profile__hp-bar-level"
+                  style={{ width: `${hpPercent}%` }}
+                ></span>
               </div>
             </div>
           </div>
@@ -96,7 +108,10 @@ const PlayerProfile = () => {
                 </p>
               </div>
               <div className="player-profile__mp-bar">
-                <span className="player-profile__mp-bar-level"></span>
+                <span
+                  className="player-profile__mp-bar-level"
+                  style={{ width: `${mpPercent}%` }}
+                ></span>
               </div>
             </div>
           </div>

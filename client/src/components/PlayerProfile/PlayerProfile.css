@@ -109,7 +109,7 @@
 .player-profile__hp-bar,
 .player-profile__mp-bar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 5px;
   border: 1px solid #97e8ff;
@@ -121,15 +121,19 @@
 .player-profile__hp-bar-level {
   background-color: #97e8ff;
   border-radius: 10px;
-  width: 95%;
   height: 40%;
   border: none;
+  margin: 0 2px 0 2px;
+
+  transition: width 0.3s ease;
 }
 
 .player-profile__mp-bar-level {
   background-color: #97e8ff;
   border-radius: 10px;
-  width: 0%;
   height: 40%;
   border: none;
+  margin: 0 2px 0 2px;
+
+  transition: width 0.3s ease;
 }
