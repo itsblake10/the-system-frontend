@@ -1,5 +1,5 @@
 .level-progress {
-  background-color: #1c1f3f;
+  background-color: rgba(19, 21, 47, 0.5);
   border: 2px #15b1ff solid;
   height: fit-content;
   display: flex;
