@@ -1,0 +1,68 @@
+.mma-mode-selection {
+  display: flex;
+  flex-direction: column;
+}
+
+.mma-mode-selection__title {
+  color: #97e8ff;
+  font-size: 18px;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.mma-mode-selection__subtxt {
+  color: #97e8ff;
+  font-size: 12px;
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+.mma-mode-selection__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0 0 30px 0;
+}
+
+.mma-mode-selection__button {
+  background: none;
+  border: #97e8ff 3px solid;
+  color: #97e8ff;
+  font-size: 20px;
+  font-weight: bolder;
+  line-height: 28px;
+  padding: 10px;
+}
+
+.mma-mode-selection__button_selected {
+  color: #15b1ff;
+  border: #15b1ff 3px solid;
+}
+
+.mma-mode-selection__button-text {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.mma-mode-selection__submit-button_disabled {
+  background: none;
+  border-radius: 0;
+  border: #97e8ff 3px solid;
+  color: #97e8ff;
+  opacity: 0.5;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 24px;
+  cursor: default;
+}
+
+.mma-mode-selection__submit-button_enabled {
+  opacity: 1;
+
+  transition: 0.3s;
+}
+
+.mma-mode-selection__submit-button_enabled:hover {
+  border: #15b1ff 3px solid;
+  color: #15b1ff;
+}

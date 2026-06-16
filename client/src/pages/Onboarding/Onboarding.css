@@ -1,0 +1,30 @@
+.onboarding {
+  min-height: 100vh;
+  max-width: 100vw;
+  height: fit-content;
+  gap: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.onboarding__container {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30px;
+  margin: 0 0 300px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1f3f;
+  border: 2px #15b1ff solid;
+}
+
+.onboarding__title {
+  color: #97e8ff;
+  font-size: 32px;
+  margin: 0 0 15px 0;
+}

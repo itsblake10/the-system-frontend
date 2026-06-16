@@ -6,6 +6,7 @@ import theSystemLogo from "../../../public/the-system-logo.svg";
 import nav1 from "../../../public/nav1.svg";
 import PlayerProfile from "../PlayerProfile/PlayerProfile";
 import PlayerCurrency from "../PlayerCurrency/PlayerCurrency";
+import HeaderNavBar from "../HeaderNavBar/HeaderNavBar";
 
 const Header = ({ onOpenNavMenu }) => {
   return (
@@ -28,6 +29,7 @@ const Header = ({ onOpenNavMenu }) => {
           <PlayerCurrency />
         </div>
       </div>
+      <HeaderNavBar />
     </header>
   );
 };

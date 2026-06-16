@@ -50,7 +50,7 @@ const DailyQuests = () => {
       </ul>
       <p className="daily-quests__warning">
         WARNING: Failure to complete the daily quests will result in an
-        appropriate <span className="daily-quests__penalty-text">penalty</span>
+        appropriate <span className="daily-quests__penalty-text">penalty</span>.
       </p>
       <div className="daily-quests__countdown-container">
         <p className="daily-quests__countdown-text">TIME LEFT:</p>

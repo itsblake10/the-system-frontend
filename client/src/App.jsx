@@ -14,7 +14,10 @@ import Modal from "./components/Modal/Modal";
 import NavMenu from "./components/NavMenu/NavMenu";
 import CopyrightModal from "./components/CopyrightModal/CopyrightModal";
 import TermsOfServiceModal from "./components/TermsOfServiceModal/TermsOfServiceModal";
+import DailyQuestListModal from "./components/DailyQuestListModal/DailyQuestListModal";
+import WeeklyObjectiveListModal from "./components/WeeklyObjectiveListModal/WeeklyObjectiveListModal";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Onboarding from "./pages/Onboarding/Onboarding";
 
 function App() {
   /* --------------------------------- MODALS --------------------------------- */
@@ -27,6 +30,20 @@ function App() {
   const onOpenCopyright = () => setActiveModal("copyright");
 
   const onOpenTos = () => setActiveModal("tos");
+
+  const [onSelectTask, setOnSelectTask] = useState(null);
+
+  const onOpenTaskModal = (modalType, callback) => {
+    setOnSelectTask(() => callback);
+    setActiveModal(modalType);
+  };
+
+  const handleSelectTask = (task) => {
+    if (onSelectTask) {
+      onSelectTask(task);
+    }
+    handleModalClose();
+  };
   /* ------------------------------------ . ----------------------------------- */
 
   return (
@@ -36,6 +53,10 @@ function App() {
           <Route path="/" element={<Start />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/onboarding"
+            element={<Onboarding onOpenTaskModal={onOpenTaskModal} />}
+          />
         </Route>
 
         <Route
@@ -97,6 +118,24 @@ function App() {
       {activeModal === "tos" && (
         <Modal title="TERMS OF SERVICE" onClose={handleModalClose}>
           <TermsOfServiceModal />
+        </Modal>
+      )}
+
+      {activeModal === "quest-list" && (
+        <Modal title="DAILY QUEST LIST" onClose={handleModalClose}>
+          <DailyQuestListModal
+            onSelectTask={handleSelectTask}
+            onClose={handleModalClose}
+          />
+        </Modal>
+      )}
+
+      {activeModal === "objective-list" && (
+        <Modal title="WEEKLY OBJECTIVE LIST" onClose={handleModalClose}>
+          <WeeklyObjectiveListModal
+            onSelectTask={handleSelectTask}
+            onClose={handleModalClose}
+          />
         </Modal>
       )}
     </>

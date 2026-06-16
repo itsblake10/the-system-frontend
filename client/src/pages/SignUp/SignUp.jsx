@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 import "./SignUp.css";
 import AuthForm from "../../components/AuthForm/AuthForm";
-import theSystemLogo from "../../../public/the-system-logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { signup } from "../../api/authApi";
@@ -91,7 +90,6 @@ function SignUp() {
 
   return (
     <main className="signup">
-      <img className="start__logo" src={theSystemLogo} alt="THE SYSTEM Logo" />
       <div className="signup-form__container">
         <button
           className="signup-form__exit-button"

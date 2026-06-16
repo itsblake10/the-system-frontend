@@ -18,8 +18,18 @@ const NavMenu = ({ handleModalClose }) => {
     <nav className="nav-menu">
       <ul className="nav-menu__list">
         <li className="nav-menu__list-item">
-          <NavLink to="/settings" className="nav-menu__link">
-            SETTINGS
+          <NavLink to="/game" className="nav-menu__link">
+            GAME
+          </NavLink>
+        </li>
+        <li className="nav-menu__list-item">
+          <NavLink to="/player" className="nav-menu__link">
+            PLAYER
+          </NavLink>
+        </li>
+        <li className="nav-menu__list-item">
+          <NavLink to="/account" className="nav-menu__link">
+            ACCOUNT
           </NavLink>
         </li>
         <li className="nav-menu__list-item">

@@ -54,4 +54,33 @@ router.put("/", authMiddleware, async (req, res) => {
   }
 });
 
+/* ------------------------------- ONBOARDING ------------------------------- */
+// router.put("/onboarding", authMiddleware, async (req, res) => {
+//   try {
+//     const updatedUser = await User.findByIdAndUpdate(
+//       req.userId,
+//       {
+//         $set: {
+//           player: req.body,
+//         },
+//       },
+//       {
+//         returnDocument: "after",
+//         runValidators: true,
+//       },
+//     );
+
+//     if (!updatedUser) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     res.status(200).json(updatedUser.player);
+//   } catch (err) {
+//     res.status(500).json({
+//       message: "Failed to save player",
+//       error: err.message,
+//     });
+//   }
+// });
+
 export default router;

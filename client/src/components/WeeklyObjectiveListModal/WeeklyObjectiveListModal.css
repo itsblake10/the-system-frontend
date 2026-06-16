@@ -1,0 +1,67 @@
+.objective-list-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.objective-list-modal__desc {
+  color: #97e8ff;
+  font-size: 14px;
+  margin: 5px 0 15px 0;
+}
+
+.objective-list-modal__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 15px 0;
+  width: 100%;
+  max-height: 200px;
+  overflow: scroll;
+  padding: 5px;
+  background-color: #075f8b3a;
+}
+
+.objective-list-modal__item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 3px;
+  width: 100%;
+  height: 80%;
+  padding: 4px 8px 4px 8px;
+  background: none;
+  border-radius: 0;
+  border: #97e8ff 3px solid;
+  color: #97e8ff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.objective-list-modal__item:hover {
+  border: #15b1ff 3px solid;
+  color: #15b1ff;
+}
+
+.objective-list-modal__quest {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.objective-list-modal__stats {
+  display: flex;
+  flex-direction: row;
+  font-weight: 400;
+  font-size: 12px;
+  gap: 4px;
+  align-self: center;
+}
+
+.objective-list-modal__stats-label {
+  font-weight: 600;
+}

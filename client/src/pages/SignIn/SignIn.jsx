@@ -4,7 +4,6 @@
 
 import "./SignIn.css";
 import AuthForm from "../../components/AuthForm/AuthForm";
-import theSystemLogo from "../../../public/the-system-logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { getPlayer, login } from "../../api/authApi";
@@ -73,7 +72,6 @@ function SignIn() {
 
   return (
     <main className="signin">
-      <img className="start__logo" src={theSystemLogo} alt="THE SYSTEM Logo" />
       <div className="signin-form__container">
         <button
           className="signin-form__exit-button"

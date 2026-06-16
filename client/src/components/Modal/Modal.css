@@ -32,9 +32,9 @@
   background: #1c1f3f;
   padding: 0 10px 10px 10px;
   border: 2px solid #15b1ff;
-  width: 200px;
+  width: 250px;
   position: relative;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
