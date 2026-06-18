@@ -1,6 +1,6 @@
 export const weeklyObjectives = [
   {
-    id: "gym-workout",
+    id: "o1",
     name: "Gym Workout",
     type: "objective",
     reward: {
@@ -16,7 +16,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "cardio-workout",
+    id: "o2",
     name: "Cardio Workout",
     type: "objective",
     reward: {
@@ -31,7 +31,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "bjj-class",
+    id: "o3",
     name: "BJJ Class",
     type: "objective",
     reward: {
@@ -49,7 +49,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "judo-class",
+    id: "o4",
     name: "Judo Class",
     type: "objective",
     reward: {
@@ -64,7 +64,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "muaythai-class",
+    id: "o5",
     name: "Muay-Thai Class",
     type: "objective",
     reward: {
@@ -83,7 +83,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "boxing-class",
+    id: "o6",
     name: "Boxing Class",
     type: "objective",
     reward: {
@@ -102,7 +102,7 @@ export const weeklyObjectives = [
   },
 
   {
-    id: "yoga-class",
+    id: "o7",
     name: "Yoga Class",
     type: "objective",
     reward: {

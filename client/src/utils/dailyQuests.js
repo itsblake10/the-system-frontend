@@ -1,6 +1,6 @@
 export const dailyQuests = [
   {
-    id: "pushups",
+    id: "q1",
     name: "Push-ups",
     type: "quest",
     reward: {
@@ -15,7 +15,7 @@ export const dailyQuests = [
   },
 
   {
-    id: "situps",
+    id: "q2",
     name: "Sit-ups",
     type: "quest",
     reward: {
@@ -30,7 +30,7 @@ export const dailyQuests = [
   },
 
   {
-    id: "chin-pullups",
+    id: "q3",
     name: "Chin/Pull-ups",
     type: "quest",
     reward: {
@@ -45,7 +45,7 @@ export const dailyQuests = [
   },
 
   {
-    id: "squats",
+    id: "q4",
     name: "Squats",
     type: "quest",
     reward: {
@@ -60,7 +60,7 @@ export const dailyQuests = [
   },
 
   {
-    id: "hand-gripper",
+    id: "q5",
     name: "Hand Gripper",
     type: "quest",
     reward: {
@@ -75,7 +75,7 @@ export const dailyQuests = [
   },
 
   {
-    id: "skipping",
+    id: "q6",
     name: "Skipping",
     type: "quest",
     reward: {

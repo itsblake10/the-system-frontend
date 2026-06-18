@@ -106,11 +106,17 @@
   font-size: 26px;
   font-weight: bold;
   line-height: 24px;
+  cursor: pointer;
 
   transition: 0.3s;
 }
 
-.quest-objective-selection__submit-button:hover {
+.quest-objective-selection__submit-button_enabled:hover {
   border: #15b1ff 3px solid;
   color: #15b1ff;
+}
+
+.quest-objective-selection__submit-button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }

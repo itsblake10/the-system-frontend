@@ -33,7 +33,7 @@ const MmaModeSelection = ({ data, updateData, next }) => {
         </button>
       </div>
       <button
-        className={`mma-mode-selection__submit-button_disabled ${data.mmaMode === "" ? "" : "mma-mode-selection__submit-button_enabled"}`}
+        className={`mma-mode-selection__submit-button ${data.mmaMode === "" ? "" : "mma-mode-selection__submit-button_enabled"}`}
         onClick={next}
         disabled={data.mmaMode === ""}
       >

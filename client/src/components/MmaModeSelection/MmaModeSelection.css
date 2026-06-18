@@ -44,20 +44,15 @@
   font-weight: 500;
 }
 
-.mma-mode-selection__submit-button_disabled {
+.mma-mode-selection__submit-button {
   background: none;
   border-radius: 0;
   border: #97e8ff 3px solid;
   color: #97e8ff;
-  opacity: 0.5;
   font-size: 26px;
   font-weight: bold;
   line-height: 24px;
-  cursor: default;
-}
-
-.mma-mode-selection__submit-button_enabled {
-  opacity: 1;
+  cursor: pointer;
 
   transition: 0.3s;
 }
@@ -65,4 +60,9 @@
 .mma-mode-selection__submit-button_enabled:hover {
   border: #15b1ff 3px solid;
   color: #15b1ff;
+}
+
+.mma-mode-selection__submit-button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }

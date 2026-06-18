@@ -33,8 +33,11 @@ function App() {
 
   const [onSelectTask, setOnSelectTask] = useState(null);
 
-  const onOpenTaskModal = (modalType, callback) => {
+  const [selectedTasks, setSelectedTasks] = useState([]);
+
+  const onOpenTaskModal = (modalType, callback, currentTasks = []) => {
     setOnSelectTask(() => callback);
+    setSelectedTasks(currentTasks);
     setActiveModal(modalType);
   };
 
@@ -126,6 +129,7 @@ function App() {
           <DailyQuestListModal
             onSelectTask={handleSelectTask}
             onClose={handleModalClose}
+            selectedQuests={selectedTasks}
           />
         </Modal>
       )}
@@ -135,6 +139,7 @@ function App() {
           <WeeklyObjectiveListModal
             onSelectTask={handleSelectTask}
             onClose={handleModalClose}
+            selectedObjectives={selectedTasks}
           />
         </Modal>
       )}

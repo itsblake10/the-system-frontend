@@ -60,14 +60,27 @@ const Onboarding = ({ onOpenTaskModal }) => {
   };
 
   /* ------------------------------- REMOVE TASK ------------------------------ */
-  //   const handleRemoveTask = (index) => {
-  //     setOnboardingData((prev) => ({
-  //       ...prev,
-  //       questObjectiveSelection: prev.questObjectiveSelection.filter(
-  //         (_, i) => i !== index,
-  //       ),
-  //     }));
-  //   };
+  const handleRemoveTask = (type, taskId) => {
+    setOnboardingData((prev) => {
+      if (type === "quest") {
+        return {
+          ...prev,
+          dailyQuests: prev.dailyQuests.filter((task) => task.id !== taskId),
+        };
+      }
+
+      if (type === "objective") {
+        return {
+          ...prev,
+          weeklyObjectives: prev.weeklyObjectives.filter(
+            (task) => task.id !== taskId,
+          ),
+        };
+      }
+
+      return prev;
+    });
+  };
 
   /* ------------------------------ HANDLE FINISH ----------------------------- */
   const handleFinish = () => {
@@ -87,6 +100,7 @@ const Onboarding = ({ onOpenTaskModal }) => {
           isFirst={isFirst}
           isLast={isLast}
           onAddTask={handleAddTask}
+          onRemoveTask={handleRemoveTask}
           onFinish={handleFinish}
           onOpenTaskModal={onOpenTaskModal}
         />

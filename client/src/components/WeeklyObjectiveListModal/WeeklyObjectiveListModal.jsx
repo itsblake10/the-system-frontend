@@ -4,8 +4,17 @@
 import "./WeeklyObjectiveListModal.css";
 import { weeklyObjectives } from "../../utils/weeklyObjectives";
 
-const WeeklyObjectiveListModal = ({ onClose, onSelectTask }) => {
+const WeeklyObjectiveListModal = ({
+  onClose,
+  onSelectTask,
+  selectedObjectives,
+}) => {
   const objectives = weeklyObjectives;
+
+  const availableObjectives = objectives.filter(
+    (objective) =>
+      !selectedObjectives.some((selected) => selected.id === objective.id),
+  );
 
   /* -------------------------------- ADD TASK -------------------------------- */
   const handleTaskAdd = (task) => {
@@ -20,8 +29,9 @@ const WeeklyObjectiveListModal = ({ onClose, onSelectTask }) => {
         cause your player to take damage.
       </p>
       <ul className="objective-list-modal__list">
-        {objectives.map((objective) => (
+        {availableObjectives.map((objective) => (
           <li
+            key={objective.id}
             className="objective-list-modal__item"
             onClick={() => handleTaskAdd(objective)}
           >

@@ -4,8 +4,12 @@
 import "./DailyQuestListModal.css";
 import { dailyQuests } from "../../utils/dailyQuests";
 
-const DailyQuestListModal = ({ onClose, onSelectTask }) => {
+const DailyQuestListModal = ({ onClose, onSelectTask, selectedQuests }) => {
   const quests = dailyQuests;
+
+  const availableQuests = quests.filter(
+    (quest) => !selectedQuests.some((selected) => selected.id === quest.id),
+  );
 
   /* -------------------------------- ADD TASK -------------------------------- */
   const handleTaskAdd = (task) => {
@@ -20,8 +24,9 @@ const DailyQuestListModal = ({ onClose, onSelectTask }) => {
         cause your player to take damage.
       </p>
       <ul className="quest-list-modal__list">
-        {quests.map((quest) => (
+        {availableQuests.map((quest) => (
           <li
+            key={quest.id}
             className="quest-list-modal__item"
             onClick={() => handleTaskAdd(quest)}
           >

@@ -7,6 +7,7 @@ import TaskSelectionItem from "../TaskSelectionItem/TaskSelectionItem";
 const QuestObjectiveSelection = ({
   data,
   onAddTask,
+  onRemoveTask,
   onFinish,
   onOpenTaskModal,
 }) => {
@@ -43,7 +44,7 @@ const QuestObjectiveSelection = ({
                 className="quest-objective-selection__qst-item"
               >
                 {quest ? (
-                  <TaskSelectionItem task={quest} />
+                  <TaskSelectionItem task={quest} onRemoveTask={onRemoveTask} />
                 ) : (
                   <button
                     type="button"
@@ -54,9 +55,13 @@ const QuestObjectiveSelection = ({
                     }`}
                     disabled={!isAvailable}
                     onClick={() =>
-                      onOpenTaskModal("quest-list", (quest) => {
-                        onAddTask("quest", quest);
-                      })
+                      onOpenTaskModal(
+                        "quest-list",
+                        (quest) => {
+                          onAddTask("quest", quest);
+                        },
+                        data.dailyQuests,
+                      )
                     }
                   >
                     +
@@ -92,7 +97,10 @@ const QuestObjectiveSelection = ({
                 className="quest-objective-selection__qst-item"
               >
                 {objective ? (
-                  <TaskSelectionItem task={objective} />
+                  <TaskSelectionItem
+                    task={objective}
+                    onRemoveTask={onRemoveTask}
+                  />
                 ) : (
                   <button
                     type="button"
@@ -103,9 +111,13 @@ const QuestObjectiveSelection = ({
                     }`}
                     disabled={!isAvailable}
                     onClick={() =>
-                      onOpenTaskModal("objective-list", (objective) => {
-                        onAddTask("objective", objective);
-                      })
+                      onOpenTaskModal(
+                        "objective-list",
+                        (objective) => {
+                          onAddTask("objective", objective);
+                        },
+                        data.weeklyObjectives,
+                      )
                     }
                   >
                     +
@@ -117,8 +129,9 @@ const QuestObjectiveSelection = ({
         </ul>
       </div>
       <button
-        className="quest-objective-selection__submit-button"
+        className={`quest-objective-selection__submit-button ${data.dailyQuests.length < 2 ? "" : "quest-objective-selection__submit-button_enabled"}`}
         onClick={onFinish}
+        disabled={data.dailyQuests.length < 2}
       >
         FINISH
       </button>

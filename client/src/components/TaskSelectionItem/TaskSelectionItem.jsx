@@ -2,7 +2,7 @@
 /*                             TASK ITEM COMPONENT                            */
 /* -------------------------------------------------------------------------- */
 import "./TaskSelectionItem.css";
-const TaskSelectionItem = ({ task, section }) => {
+const TaskSelectionItem = ({ task, section, onRemoveTask }) => {
   /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
   const incrementCounter = () => {
     dispatch({
@@ -35,16 +35,19 @@ const TaskSelectionItem = ({ task, section }) => {
         >
           -
         </button>
-        <span className="task-selection__amount">
-          [{task?.goalAmount || 0}]
-        </span>
+        <span className="task-selection__amount">[{task?.amount || 0}]</span>
         <button
           className="task-selection__increase-button"
           onClick={incrementCounter}
         >
           +
         </button>
-        <button className="task-selection__delete">X</button>
+        <button
+          className="task-selection__delete"
+          onClick={() => onRemoveTask(task.type, task.id)}
+        >
+          X
+        </button>
       </div>
     </div>
   );
