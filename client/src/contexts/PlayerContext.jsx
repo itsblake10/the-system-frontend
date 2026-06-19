@@ -3,27 +3,12 @@
 /* -------------------------------------------------------------------------- */
 import { createContext, useEffect, useReducer, useRef, useState } from "react";
 import { playerReducer } from "../reducers/playerReducer";
-import { initialPlayerState } from "../utils/initialPlayerState";
 import { getPlayer, savePlayer } from "../api/authApi";
 
 export const PlayerContext = createContext();
 
-const loadPlayer = (initialPlayerState) => {
-  try {
-    const saved = localStorage.getItem("player");
-    return saved ? JSON.parse(saved) : initialPlayerState;
-  } catch {
-    return initialPlayerState;
-  }
-};
-
 export function PlayerProvider({ children }) {
-  const [player, dispatch] = useReducer(
-    playerReducer,
-    initialPlayerState,
-    loadPlayer,
-  );
-
+  const [player, dispatch] = useReducer(playerReducer);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const hasLoaded = useRef(false);

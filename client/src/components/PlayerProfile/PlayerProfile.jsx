@@ -12,16 +12,6 @@ import { useContext, useEffect } from "react";
 const PlayerProfile = () => {
   const { player, dispatch } = useContext(PlayerContext);
 
-  if (!player?.playerStatus || !player?.playerInformation) {
-    return <div>Loading...</div>;
-  }
-
-  const hpPercent =
-    (player.playerStatus.health / player.playerStatus.maxHealth) * 100;
-
-  const mpPercent =
-    (player.playerStatus.mana / player.playerStatus.maxMana) * 100;
-
   /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
     if (!player?.dailyQuests || !player?.mainObjectives) return;
@@ -29,18 +19,30 @@ const PlayerProfile = () => {
     const interval = setInterval(() => {
       const now = new Date();
 
-      if (new Date(player.dailyQuests.nextDailyReset) <= now) {
+      const dailyReset = player?.dailyQuests?.nextDailyReset;
+      const weeklyReset = player?.mainObjectives?.nextWeeklyReset;
+
+      if (dailyReset && new Date(dailyReset) <= now) {
         dispatch({ type: "RESET_DAILY" });
       }
 
-      if (new Date(player.mainObjectives.nextWeeklyReset) <= now) {
+      if (weeklyReset && new Date(weeklyReset) <= now) {
         dispatch({ type: "RESET_WEEKLY" });
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [player, dispatch]);
-  /* ------------------------------------ . ----------------------------------- */
+
+  const hpPercent = player?.playerStatus
+    ? (player.playerStatus.health / player.playerStatus.maxHealth) * 100
+    : 0;
+
+  const mpPercent = player?.playerStatus
+    ? (player.playerStatus.mana / player.playerStatus.maxMana) * 100
+    : 0;
+
+  if (!player) return "Loading...";
 
   return (
     <div className="player-profile">

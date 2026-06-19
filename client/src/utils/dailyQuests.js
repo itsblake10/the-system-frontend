@@ -3,6 +3,7 @@ export const dailyQuests = [
     id: "q1",
     name: "Push-ups",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,
@@ -18,6 +19,7 @@ export const dailyQuests = [
     id: "q2",
     name: "Sit-ups",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,
@@ -33,6 +35,7 @@ export const dailyQuests = [
     id: "q3",
     name: "Chin/Pull-ups",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,
@@ -48,6 +51,7 @@ export const dailyQuests = [
     id: "q4",
     name: "Squats",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,
@@ -63,6 +67,7 @@ export const dailyQuests = [
     id: "q5",
     name: "Hand Gripper",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,
@@ -78,6 +83,7 @@ export const dailyQuests = [
     id: "q6",
     name: "Skipping",
     type: "quest",
+    goal: 0,
     reward: {
       xp: 50,
       coins: 5,

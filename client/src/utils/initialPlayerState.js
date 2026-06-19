@@ -47,52 +47,12 @@ export const initialPlayerState = {
 
   /* -------------------------------- GAMEPLAY -------------------------------- */
   dailyQuests: {
-    taskList: [
-      {
-        id: "q1",
-        name: "Push-ups",
-        currentAmount: 0,
-        goalAmount: 50,
-        completed: false,
-        reward: {
-          xp: 250,
-          stats: [{ type: "str", amount: 0.01 }],
-        },
-        penalty: 25,
-      },
-      {
-        id: "q2",
-        name: "Sit-ups",
-        currentAmount: 0,
-        goalAmount: 50,
-        completed: false,
-        reward: {
-          xp: 250,
-          stats: [{ type: "str", amount: 0.01 }],
-        },
-        penalty: 25,
-      },
-    ],
+    taskList: [],
     nextDailyReset: getNextDailyReset(),
   },
 
   mainObjectives: {
-    taskList: [
-      {
-        id: "o1",
-        name: "Gym Workout",
-        currentAmount: 0,
-        goalAmount: 3,
-        completed: false,
-        reward: {
-          xp: 500,
-          stats: [
-            { type: "str", amount: 0.1 },
-            { type: "vit", amount: 0.2 },
-          ],
-        },
-      },
-    ],
+    taskList: [],
     nextWeeklyReset: getNextWeeklyReset(),
   },
 

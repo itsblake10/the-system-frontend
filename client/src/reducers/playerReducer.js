@@ -15,12 +15,12 @@ export function playerReducer(state, action) {
       const updatedList = state[section].taskList.map((task) => {
         if (task.id !== taskId) return task;
 
-        const newAmount = Math.min(task.currentAmount + 1, task.goalAmount);
+        const newAmount = Math.min(task.amount + 1, task.goal);
 
         return {
           ...task,
-          currentAmount: newAmount,
-          completed: newAmount >= task.goalAmount,
+          amount: newAmount,
+          completed: newAmount >= task.goal,
         };
       });
 
@@ -41,12 +41,12 @@ export function playerReducer(state, action) {
       const updatedList = state[section].taskList.map((task) => {
         if (task.id !== taskId) return task;
 
-        const newAmount = Math.max(task.currentAmount - 1, 0);
+        const newAmount = Math.max(task.amount - 1, 0);
 
         return {
           ...task,
-          currentAmount: newAmount,
-          completed: newAmount >= task.goalAmount,
+          amount: newAmount,
+          completed: newAmount >= task.goal,
         };
       });
 
@@ -75,7 +75,7 @@ export function playerReducer(state, action) {
 
         return {
           ...task,
-          currentAmount: 0,
+          amount: 0,
           completed: false,
         };
       });
@@ -106,7 +106,7 @@ export function playerReducer(state, action) {
 
         return {
           ...task,
-          currentAmount: 0,
+          amount: 0,
           completed: false,
         };
       });

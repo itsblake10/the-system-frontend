@@ -1,3 +1,6 @@
+/* -------------------------------------------------------------------------- */
+/*                          PROTECTED ROUTE COMPONENT                         */
+/* -------------------------------------------------------------------------- */
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";

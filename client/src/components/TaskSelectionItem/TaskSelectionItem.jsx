@@ -1,29 +1,36 @@
 /* -------------------------------------------------------------------------- */
-/*                             TASK ITEM COMPONENT                            */
+/*                             TASK SELECTION ITEM                            */
 /* -------------------------------------------------------------------------- */
 import "./TaskSelectionItem.css";
-const TaskSelectionItem = ({ task, section, onRemoveTask }) => {
+
+const TaskSelectionItem = ({ task, onRemoveTask, updateTaskGoal }) => {
   /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
   const incrementCounter = () => {
-    dispatch({
-      type: "INCREMENT_TASK",
-      payload: {
-        taskId: task.id,
-        section,
+    const amount = task.type === "quest" ? 5 : 1;
+    const max = task.type === "quest" ? 100 : 10;
+
+    updateTaskGoal(
+      task.id,
+      {
+        ...task,
+        goal: Math.min(task.goal + amount, max),
       },
-    });
+      task.type,
+    );
   };
 
   const decrementCounter = () => {
-    dispatch({
-      type: "DECREMENT_TASK",
-      payload: {
-        taskId: task.id,
-        section,
+    const amount = task.type === "quest" ? 5 : 1;
+
+    updateTaskGoal(
+      task.id,
+      {
+        ...task,
+        goal: Math.max(task.goal - amount, 0),
       },
-    });
+      task.type,
+    );
   };
-  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="task-selection">
@@ -35,7 +42,7 @@ const TaskSelectionItem = ({ task, section, onRemoveTask }) => {
         >
           -
         </button>
-        <span className="task-selection__amount">[{task?.amount || 0}]</span>
+        <span className="task-selection__amount">[{task?.goal || 0}]</span>
         <button
           className="task-selection__increase-button"
           onClick={incrementCounter}

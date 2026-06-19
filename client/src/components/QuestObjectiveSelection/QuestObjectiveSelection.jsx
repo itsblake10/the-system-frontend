@@ -8,9 +8,16 @@ const QuestObjectiveSelection = ({
   data,
   onAddTask,
   onRemoveTask,
+  updateTaskGoal,
   onFinish,
   onOpenTaskModal,
 }) => {
+  const questSlots = Math.min(Math.max(data.dailyQuests.length + 1, 3), 5);
+  const objectiveSlots = Math.min(
+    Math.max(data.weeklyObjectives.length + 1, 3),
+    5,
+  );
+
   return (
     <div className="quest-objective-selection">
       <h2 className="quest-objective-selection__title">
@@ -34,7 +41,7 @@ const QuestObjectiveSelection = ({
           <p className="quest-objective-selection__list-label_goal">GOAL</p>
         </div>
         <ul className="quest-objective-selection__qst-list">
-          {Array.from({ length: 3 }).map((_id, index) => {
+          {Array.from({ length: questSlots }).map((_id, index) => {
             const quest = data.dailyQuests?.[index];
             const isAvailable = index <= data.dailyQuests.length;
 
@@ -44,7 +51,11 @@ const QuestObjectiveSelection = ({
                 className="quest-objective-selection__qst-item"
               >
                 {quest ? (
-                  <TaskSelectionItem task={quest} onRemoveTask={onRemoveTask} />
+                  <TaskSelectionItem
+                    task={quest}
+                    onRemoveTask={onRemoveTask}
+                    updateTaskGoal={updateTaskGoal}
+                  />
                 ) : (
                   <button
                     type="button"
@@ -87,7 +98,7 @@ const QuestObjectiveSelection = ({
           <p className="quest-objective-selection__list-label_goal">GOAL</p>
         </div>
         <ul className="quest-objective-selection__obj-list">
-          {Array.from({ length: 3 }).map((_id, index) => {
+          {Array.from({ length: objectiveSlots }).map((_id, index) => {
             const objective = data.weeklyObjectives?.[index];
             const isAvailable = index <= data.weeklyObjectives.length;
 
@@ -100,6 +111,7 @@ const QuestObjectiveSelection = ({
                   <TaskSelectionItem
                     task={objective}
                     onRemoveTask={onRemoveTask}
+                    updateTaskGoal={updateTaskGoal}
                   />
                 ) : (
                   <button

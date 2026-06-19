@@ -25,6 +25,20 @@ const Onboarding = ({ onOpenTaskModal }) => {
     }));
   };
 
+  /* ------------------------- UPDATE TASK GOAL AMOUNT ------------------------ */
+  const updateTaskGoal = (taskId, newData, type) => {
+    setOnboardingData((prev) => {
+      const key = type === "quest" ? "dailyQuests" : "weeklyObjectives";
+
+      return {
+        ...prev,
+        [key]: prev[key].map((task) =>
+          task.id === taskId ? { ...task, ...newData } : task,
+        ),
+      };
+    });
+  };
+
   /* ------------------------------- NAVIGATION ------------------------------- */
   const next = () => {
     setStep((s) => Math.min(s + 1, steps.length - 1));
@@ -95,6 +109,7 @@ const Onboarding = ({ onOpenTaskModal }) => {
         <StepComponent
           data={onboardingData}
           updateData={updateData}
+          updateTaskGoal={updateTaskGoal}
           next={next}
           //   back={back}
           isFirst={isFirst}
