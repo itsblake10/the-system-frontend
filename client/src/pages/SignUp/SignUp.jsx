@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { signup } from "../../api/authApi";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import { validateSignup } from "../../validation/validateSignup";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { setToken } = useContext(PlayerContext);
+  const { setToken } = useContext(PlayerContext) || {};
+  const [errors, setErrors] = useState({});
 
   /* ------------------------------- FORM FIELDS ------------------------------ */
   const fields = [
@@ -19,10 +21,17 @@ function SignUp() {
       label: "Username:",
       type: "text",
       placeholder: "Username...",
-      minlength: 5,
+      required: true,
+      minlength: 4,
       maxlength: 15,
     },
-    { key: "email", label: "Email:", type: "email", placeholder: "Email..." },
+    {
+      key: "email",
+      label: "Email:",
+      type: "email",
+      placeholder: "Email...",
+      required: true,
+    },
     {
       key: "confirmEmail",
       label: "Confirm Email:",
@@ -34,6 +43,8 @@ function SignUp() {
       label: "Password:",
       type: "password",
       placeholder: "Password...",
+      minlength: 8,
+      required: true,
     },
     {
       key: "confirmPassword",
@@ -42,8 +53,8 @@ function SignUp() {
       placeholder: "Confirm Password...",
     },
   ];
-  /* ------------------------------------ . ----------------------------------- */
 
+  /* -------------------------------- FORM DATA ------------------------------- */
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -52,6 +63,7 @@ function SignUp() {
     confirmPassword: "",
   });
 
+  /* ------------------------------ HANDLE CHANGE ----------------------------- */
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -59,21 +71,19 @@ function SignUp() {
     }));
   };
 
+  /* ------------------------------ HANDLE SUBMIT ----------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { username, email, confirmEmail, password, confirmPassword } =
-      formData;
+    const newErrors = validateSignup(formData);
 
-    if (email !== confirmEmail) {
-      alert("Emails do not match");
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+    const { username, email, password } = formData;
 
     try {
       const data = await signup(email, password, username);
@@ -82,9 +92,9 @@ function SignUp() {
 
       localStorage.setItem("token", data.token);
 
-      navigate("/home");
+      navigate("/onboarding");
     } catch (err) {
-      console.error(err);
+      setErrors({ api: err.message });
     }
   };
 
@@ -105,6 +115,7 @@ function SignUp() {
           buttonText="ENTER SYSTEM"
           onSubmit={handleSubmit}
           onChange={handleChange}
+          errors={errors}
         />
       </div>
       <div className="signup-form__footer">

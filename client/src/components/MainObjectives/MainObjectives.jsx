@@ -5,12 +5,12 @@ import "./MainObjectives.css";
 import { useContext, useState, useEffect } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import TaskItem from "../TaskItem/TaskItem";
-import { getDaysLeft, formatTime } from "../../utils/dateResets";
+import { getDaysLeft, formatTime } from "../../utils/countdowns";
 
 const MainObjectives = () => {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext) || {};
 
-  if (!player?.mainObjectives) {
+  if (!player?.mainObjectives?.taskList) {
     return <div>Loading...</div>;
   }
 
@@ -30,7 +30,6 @@ const MainObjectives = () => {
 
     return () => clearInterval(interval);
   }, [player?.mainObjectives?.nextWeeklyReset]);
-  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="main-objectives">

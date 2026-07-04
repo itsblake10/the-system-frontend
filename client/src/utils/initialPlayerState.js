@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                            INITIAL PLAYER STATE                            */
 /* -------------------------------------------------------------------------- */
-import { getNextDailyReset, getNextWeeklyReset } from "./dateResets";
+import { getNextDailyReset, getNextWeeklyReset } from "./countdowns.js";
 
 export const initialPlayerState = {
   /* --------------------------------- PROFILE -------------------------------- */

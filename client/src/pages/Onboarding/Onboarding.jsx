@@ -1,16 +1,23 @@
+/* -------------------------------------------------------------------------- */
+/*                                 ONBOARDING                                 */
+/* -------------------------------------------------------------------------- */
 import "./Onboarding.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MmaModeSelection from "../../components/MmaModeSelection/MmaModeSelection";
 import QuestObjectiveSelection from "../../components/QuestObjectiveSelection/QuestObjectiveSelection";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import { savePlayer } from "../../api/authApi";
 
 const Onboarding = ({ onOpenTaskModal }) => {
+  const { player, dispatch } = useContext(PlayerContext) || {};
   const navigate = useNavigate();
 
+  /* ----------------------------- ONBOARDING DATA ---------------------------- */
   const [onboardingData, setOnboardingData] = useState({
     mmaMode: "",
-    dailyQuests: [],
-    weeklyObjectives: [],
+    dailyQuests: { taskList: [] },
+    mainObjectives: { taskList: [] },
   });
 
   const [step, setStep] = useState(0);
@@ -28,13 +35,16 @@ const Onboarding = ({ onOpenTaskModal }) => {
   /* ------------------------- UPDATE TASK GOAL AMOUNT ------------------------ */
   const updateTaskGoal = (taskId, newData, type) => {
     setOnboardingData((prev) => {
-      const key = type === "quest" ? "dailyQuests" : "weeklyObjectives";
+      const key = type === "quest" ? "dailyQuests" : "mainObjectives";
 
       return {
         ...prev,
-        [key]: prev[key].map((task) =>
-          task.id === taskId ? { ...task, ...newData } : task,
-        ),
+        [key]: {
+          ...prev[key],
+          taskList: prev[key].taskList.map((task) =>
+            task.id === taskId ? { ...task, ...newData } : task,
+          ),
+        },
       };
     });
   };
@@ -58,14 +68,18 @@ const Onboarding = ({ onOpenTaskModal }) => {
       if (type === "quest") {
         return {
           ...prev,
-          dailyQuests: [...prev.dailyQuests, item],
+          dailyQuests: {
+            taskList: [...prev.dailyQuests.taskList, item],
+          },
         };
       }
 
       if (type === "objective") {
         return {
           ...prev,
-          weeklyObjectives: [...prev.weeklyObjectives, item],
+          mainObjectives: {
+            taskList: [...prev.mainObjectives.taskList, item],
+          },
         };
       }
 
@@ -79,16 +93,24 @@ const Onboarding = ({ onOpenTaskModal }) => {
       if (type === "quest") {
         return {
           ...prev,
-          dailyQuests: prev.dailyQuests.filter((task) => task.id !== taskId),
+          dailyQuests: {
+            ...prev.dailyQuests,
+            taskList: prev.dailyQuests.taskList.filter(
+              (task) => task.id !== taskId,
+            ),
+          },
         };
       }
 
       if (type === "objective") {
         return {
           ...prev,
-          weeklyObjectives: prev.weeklyObjectives.filter(
-            (task) => task.id !== taskId,
-          ),
+          mainObjectives: {
+            ...prev.mainObjectives,
+            taskList: prev.mainObjectives.taskList.filter(
+              (task) => task.id !== taskId,
+            ),
+          },
         };
       }
 
@@ -97,8 +119,20 @@ const Onboarding = ({ onOpenTaskModal }) => {
   };
 
   /* ------------------------------ HANDLE FINISH ----------------------------- */
-  const handleFinish = () => {
-    console.log("FINAL DATA:", onboardingData);
+  const handleFinish = async () => {
+    const updatedPlayer = {
+      ...player,
+      ...onboardingData,
+      onboarding: true,
+    };
+
+    dispatch({
+      type: "COMPLETE_ONBOARDING",
+      payload: updatedPlayer,
+    });
+
+    await savePlayer(updatedPlayer);
+
     navigate("/home");
   };
 

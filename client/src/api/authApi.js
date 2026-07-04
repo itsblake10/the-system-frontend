@@ -34,7 +34,13 @@ export async function login(email, password) {
     }),
   });
 
-  return res.json();
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Login failed.");
+  }
+
+  return data;
 }
 
 /* ------------------------------- LOAD PLAYER ------------------------------ */
@@ -53,7 +59,7 @@ export async function getPlayer(token) {
 /* ------------------------------- SAVE PLAYER ------------------------------ */
 export async function savePlayer(token, player) {
   const res = await fetch(`${API_URL}/player`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

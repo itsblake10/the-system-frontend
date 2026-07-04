@@ -7,8 +7,9 @@ import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
 const NavMenu = ({ handleModalClose }) => {
-  const { logout } = useContext(PlayerContext);
+  const { logout } = useContext(PlayerContext) || {};
 
+  /* --------------------------------- LOGOUT --------------------------------- */
   const handleLogout = () => {
     logout();
     handleModalClose();

@@ -1,8 +1,14 @@
-export const weeklyObjectives = [
+/* -------------------------------------------------------------------------- */
+/*                               MAIN OBJECTIVES                              */
+/* -------------------------------------------------------------------------- */
+
+export const mainObjectives = [
   {
     id: "o1",
     name: "Gym Workout",
     type: "objective",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -20,6 +26,8 @@ export const weeklyObjectives = [
     id: "o2",
     name: "Cardio Workout",
     type: "objective",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -36,6 +44,8 @@ export const weeklyObjectives = [
     id: "o3",
     name: "BJJ Class",
     type: "objective",
+    mma: true,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -55,6 +65,8 @@ export const weeklyObjectives = [
     id: "o4",
     name: "Judo Class",
     type: "objective",
+    mma: true,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -71,6 +83,8 @@ export const weeklyObjectives = [
     id: "o5",
     name: "Muay-Thai Class",
     type: "objective",
+    mma: true,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -91,6 +105,8 @@ export const weeklyObjectives = [
     id: "o6",
     name: "Boxing Class",
     type: "objective",
+    mma: true,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,
@@ -111,6 +127,8 @@ export const weeklyObjectives = [
     id: "o7",
     name: "Yoga Class",
     type: "objective",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 250,

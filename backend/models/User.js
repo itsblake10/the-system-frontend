@@ -2,11 +2,24 @@
 /*                             USER/PLAYER SCHEMAS                            */
 /* -------------------------------------------------------------------------- */
 import mongoose, { Schema } from "mongoose";
+import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets.js";
 
 /* ------------------------------ PLAYER SCHEMA ----------------------------- */
 const playerSchema = new mongoose.Schema({
+  onboarding: { type: Boolean, default: false },
+
+  mmaMode: { type: Boolean, default: false },
+
   playerInformation: {
-    username: { type: String, default: "" },
+    username: {
+      type: String,
+      required: true,
+      default: "",
+      minlength: 4,
+      maxlength: 15,
+      match: /^[A-Za-z0-9_]+$/,
+      unique: true,
+    },
     title: { type: String, default: "Unassigned" },
     class: { type: String, default: "Unassigned" },
     avatar: { type: String, default: "" },
@@ -47,11 +60,7 @@ const playerSchema = new mongoose.Schema({
     taskList: { type: Array, default: [] },
     nextDailyReset: {
       type: Date,
-      default: () => {
-        const date = new Date();
-        date.setDate(date.getDate() + 1);
-        return date;
-      },
+      default: getNextDailyReset,
     },
   },
 
@@ -59,11 +68,7 @@ const playerSchema = new mongoose.Schema({
     taskList: { type: Array, default: [] },
     nextWeeklyReset: {
       type: Date,
-      default: () => {
-        const date = new Date();
-        date.setDate(date.getDate() + 7);
-        return date;
-      },
+      default: getNextWeeklyReset,
     },
   },
 });
@@ -71,7 +76,11 @@ const playerSchema = new mongoose.Schema({
 /* ------------------------------- USER SCHEMA ------------------------------ */
 const userSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     password: { type: String, required: true },
     player: playerSchema,
   },

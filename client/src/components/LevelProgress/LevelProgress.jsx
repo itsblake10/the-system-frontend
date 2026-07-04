@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
 const LevelProgress = () => {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext) || {};
 
   if (!player?.playerLevel) {
     return <div>Loading...</div>;

@@ -20,4 +20,3 @@ export function applyDamage(playerStatus, damage) {
     health: Math.max(health, 0),
   };
 }
-/* ------------------------------------ . ----------------------------------- */

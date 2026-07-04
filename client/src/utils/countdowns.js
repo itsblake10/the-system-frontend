@@ -1,3 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                              DAYS / TIME LEFT                              */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                                 DATE RESETS                                */
+/* -------------------------------------------------------------------------- */
+
 /* -------------------------- GET NEXT DAILY RESET -------------------------- */
 export const getNextDailyReset = () => {
   const now = new Date();
@@ -6,7 +14,7 @@ export const getNextDailyReset = () => {
   reset.setHours(0, 0, 0, 0);
   reset.setDate(reset.getDate() + 1);
 
-  return reset.toISOString();
+  return reset;
 };
 
 /* -------------------------- GET NEXT WEEKLY RESET ------------------------- */
@@ -20,8 +28,10 @@ export const getNextWeeklyReset = () => {
 
   reset.setDate(reset.getDate() + daysUntilMonday);
 
-  return reset.toISOString();
+  return reset;
 };
+
+/* ------------------------------------ . ----------------------------------- */
 
 /* ------------------------------ GET TIME LEFT ----------------------------- */
 export const getTimeLeft = (resetISO) => {

@@ -26,7 +26,7 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 /* ------------------------------- SAVE PLAYER ------------------------------ */
-router.put("/", authMiddleware, async (req, res) => {
+router.patch("/", authMiddleware, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.userId,
@@ -36,7 +36,7 @@ router.put("/", authMiddleware, async (req, res) => {
         },
       },
       {
-        returnDocument: "after",
+        new: true,
         runValidators: true,
       },
     );
@@ -56,16 +56,20 @@ router.put("/", authMiddleware, async (req, res) => {
 
 /* ------------------------------- ONBOARDING ------------------------------- */
 // router.put("/onboarding", authMiddleware, async (req, res) => {
+//   console.log(req.body);
 //   try {
 //     const updatedUser = await User.findByIdAndUpdate(
 //       req.userId,
 //       {
 //         $set: {
-//           player: req.body,
+//           "player.onboarding": req.body.onboarding,
+//           "player.mmaMode": req.body.mmaMode,
+//           "player.dailyQuests": req.body.dailyQuests,
+//           "player.mainObjectives": req.body.mainObjectives,
 //         },
 //       },
 //       {
-//         returnDocument: "after",
+//         new: true,
 //         runValidators: true,
 //       },
 //     );

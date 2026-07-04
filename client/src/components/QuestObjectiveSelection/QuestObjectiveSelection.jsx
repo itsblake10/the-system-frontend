@@ -12,11 +12,29 @@ const QuestObjectiveSelection = ({
   onFinish,
   onOpenTaskModal,
 }) => {
-  const questSlots = Math.min(Math.max(data.dailyQuests.length + 1, 3), 5);
-  const objectiveSlots = Math.min(
-    Math.max(data.weeklyObjectives.length + 1, 3),
+  const questSlots = Math.min(
+    Math.max(data.dailyQuests.taskList.length + 1, 3),
     5,
   );
+  const objectiveSlots = Math.min(
+    Math.max(data.mainObjectives.taskList.length + 1, 3),
+    5,
+  );
+
+  /* --------------------- VALID QUESTS / OBJECTIVES CHECk -------------------- */
+  const dailyQuests = data.dailyQuests.taskList ?? [];
+  const mainObjectives = data.mainObjectives.taskList ?? [];
+
+  const hasEnoughDailyQuests = dailyQuests.length >= 2;
+
+  const validDailyQuests = dailyQuests.every((task) => (task.goal ?? 0) > 0);
+
+  const validMainObjectives =
+    mainObjectives.length === 0 ||
+    mainObjectives.every((task) => (task.goal ?? 0) > 0);
+
+  const submitButtonDisabled =
+    !hasEnoughDailyQuests || !validDailyQuests || !validMainObjectives;
 
   return (
     <div className="quest-objective-selection">
@@ -42,8 +60,8 @@ const QuestObjectiveSelection = ({
         </div>
         <ul className="quest-objective-selection__qst-list">
           {Array.from({ length: questSlots }).map((_id, index) => {
-            const quest = data.dailyQuests?.[index];
-            const isAvailable = index <= data.dailyQuests.length;
+            const quest = data.dailyQuests?.taskList[index];
+            const isAvailable = index <= data.dailyQuests?.taskList.length;
 
             return (
               <li
@@ -71,7 +89,8 @@ const QuestObjectiveSelection = ({
                         (quest) => {
                           onAddTask("quest", quest);
                         },
-                        data.dailyQuests,
+                        data.dailyQuests.taskList,
+                        data.mmaMode,
                       )
                     }
                   >
@@ -99,8 +118,8 @@ const QuestObjectiveSelection = ({
         </div>
         <ul className="quest-objective-selection__obj-list">
           {Array.from({ length: objectiveSlots }).map((_id, index) => {
-            const objective = data.weeklyObjectives?.[index];
-            const isAvailable = index <= data.weeklyObjectives.length;
+            const objective = data.mainObjectives?.taskList[index];
+            const isAvailable = index <= data.mainObjectives?.taskList.length;
 
             return (
               <li
@@ -128,7 +147,8 @@ const QuestObjectiveSelection = ({
                         (objective) => {
                           onAddTask("objective", objective);
                         },
-                        data.weeklyObjectives,
+                        data.mainObjectives.taskList,
+                        data.mmaMode,
                       )
                     }
                   >
@@ -141,9 +161,9 @@ const QuestObjectiveSelection = ({
         </ul>
       </div>
       <button
-        className={`quest-objective-selection__submit-button ${data.dailyQuests.length < 2 ? "" : "quest-objective-selection__submit-button_enabled"}`}
+        className={`quest-objective-selection__submit-button ${submitButtonDisabled ? "" : "quest-objective-selection__submit-button_enabled"}`}
         onClick={onFinish}
-        disabled={data.dailyQuests.length < 2}
+        disabled={submitButtonDisabled}
       >
         FINISH
       </button>

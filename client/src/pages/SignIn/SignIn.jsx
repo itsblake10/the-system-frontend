@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { getPlayer, login } from "../../api/authApi";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import { validateSignin } from "../../validation/validateSignin";
 
 function SignIn() {
   const navigate = useNavigate();
-  const { dispatch, setToken } = useContext(PlayerContext);
+  const { dispatch, setToken } = useContext(PlayerContext) || {};
+  const [errors, setErrors] = useState({});
 
   /* ------------------------------- FORM FIELDS ------------------------------ */
   const fields = [
@@ -20,23 +22,24 @@ function SignIn() {
       label: "Email:",
       type: "email",
       placeholder: "Email...",
-      minlength: 5,
-      maxlength: 15,
+      required: true,
     },
     {
       key: "password",
       label: "Password:",
       type: "password",
       placeholder: "Password...",
+      required: true,
     },
   ];
-  /* ------------------------------------ . ----------------------------------- */
 
+  /* -------------------------------- FORM DATA ------------------------------- */
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  /* ------------------------------ HANDLE CHANGE ----------------------------- */
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -44,18 +47,22 @@ function SignIn() {
     }));
   };
 
+  /* ------------------------------ HANDLE SUBMIT ----------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password } = formData;
 
+    const newErrors = validateSignin(formData);
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
     try {
       const data = await login(email, password);
-
-      if (!data.token) {
-        alert(data.message || "Login Failed");
-        return;
-      }
 
       localStorage.setItem("token", data.token);
       setToken(data.token);
@@ -66,7 +73,9 @@ function SignIn() {
 
       navigate("/home");
     } catch (err) {
-      console.error(err);
+      setErrors({
+        api: err.message,
+      });
     }
   };
 
@@ -87,6 +96,7 @@ function SignIn() {
           buttonText="ENTER SYSTEM"
           onSubmit={handleSubmit}
           onChange={handleChange}
+          errors={errors}
         />
       </div>
       <div className="signin-form__footer">

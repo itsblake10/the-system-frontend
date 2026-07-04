@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
 const TaskItem = ({ task, section }) => {
-  const { dispatch } = useContext(PlayerContext);
+  const { dispatch } = useContext(PlayerContext) || {};
 
   /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
   const incrementCounter = () => {
@@ -29,7 +29,6 @@ const TaskItem = ({ task, section }) => {
       },
     });
   };
-  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <li className="task-item">
@@ -42,7 +41,7 @@ const TaskItem = ({ task, section }) => {
           -
         </button>
         <span className="task-item__amount">
-          [{task.currentAmount}/{task.goalAmount}]
+          [{task.amount ?? 0}/{task.goal}]
         </span>
         <button
           className="task-item__increase-button"
@@ -53,7 +52,7 @@ const TaskItem = ({ task, section }) => {
         <input className="task-item__checkbox" type="checkbox" />
         <img
           className={
-            task.currentAmount === task.goalAmount
+            task.amount === task.goal
               ? "task-item__checkmark task-item__checkmark_enabled"
               : "task-item__checkmark"
           }

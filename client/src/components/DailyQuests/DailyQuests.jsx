@@ -6,12 +6,12 @@ import dailyQuestsHeadingIcon from "../../../public/daily-quests-heading-icon.sv
 import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import TaskItem from "../TaskItem/TaskItem";
-import { getTimeLeft, formatTime } from "../../utils/dateResets";
+import { getTimeLeft, formatTime } from "../../utils/countdowns";
 
 const DailyQuests = () => {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext) || {};
 
-  if (!player?.dailyQuests) {
+  if (!player?.dailyQuests?.taskList) {
     return <div>Loading...</div>;
   }
 
@@ -31,7 +31,6 @@ const DailyQuests = () => {
 
     return () => clearInterval(interval);
   }, [player?.dailyQuests?.nextDailyReset]);
-  /* ------------------------------------ . ----------------------------------- */
 
   return (
     <div className="daily-quests">

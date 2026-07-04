@@ -4,12 +4,24 @@
 import "./DailyQuestListModal.css";
 import { dailyQuests } from "../../utils/dailyQuests";
 
-const DailyQuestListModal = ({ onClose, onSelectTask, selectedQuests }) => {
+const DailyQuestListModal = ({
+  onClose,
+  onSelectTask,
+  selectedQuests,
+  mmaMode,
+}) => {
   const quests = dailyQuests;
 
-  const availableQuests = quests.filter(
-    (quest) => !selectedQuests.some((selected) => selected.id === quest.id),
-  );
+  /* ---------------------------- AVAILABLE QUESTS ---------------------------- */
+  const availableQuests = quests.filter((quest) => {
+    const alreadySelectedQuests = selectedQuests.some(
+      (selected) => selected.id === quest.id,
+    );
+
+    const hiddenByMmaMode = !mmaMode && quest.mma;
+
+    return !alreadySelectedQuests && !hiddenByMmaMode;
+  });
 
   /* -------------------------------- ADD TASK -------------------------------- */
   const handleTaskAdd = (task) => {

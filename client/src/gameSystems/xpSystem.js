@@ -16,4 +16,3 @@ export function applyXp(playerLevel, amount) {
 
   return { xp, level, xpToNextLevel: xpToNext };
 }
-/* ------------------------------------ . ----------------------------------- */

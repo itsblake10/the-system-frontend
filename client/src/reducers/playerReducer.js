@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                               PLAYER REDUCER                               */
 /* -------------------------------------------------------------------------- */
-import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets";
+import { getNextDailyReset, getNextWeeklyReset } from "../utils/countdowns.js";
 import { applyXp } from "../../src/gameSystems/xpSystem.js";
 import { applyDamage } from "../gameSystems/damageSystem.js";
 import { applyStats } from "../gameSystems/statSystem.js";
@@ -12,7 +12,7 @@ export function playerReducer(state, action) {
     case "INCREMENT_TASK": {
       const { taskId, section } = action.payload;
 
-      const updatedList = state[section].taskList.map((task) => {
+      const updatedList = (state[section]?.taskList ?? []).map((task) => {
         if (task.id !== taskId) return task;
 
         const newAmount = Math.min(task.amount + 1, task.goal);
@@ -38,7 +38,7 @@ export function playerReducer(state, action) {
     case "DECREMENT_TASK": {
       const { taskId, section } = action.payload;
 
-      const updatedList = state[section].taskList.map((task) => {
+      const updatedList = (state[section]?.taskList ?? []).map((task) => {
         if (task.id !== taskId) return task;
 
         const newAmount = Math.max(task.amount - 1, 0);
@@ -130,6 +130,36 @@ export function playerReducer(state, action) {
         ...action.payload,
       };
     }
+
+    /* -------------------------- ONBOARDING COMPLETION ------------------------- */
+    case "COMPLETE_ONBOARDING": {
+      return {
+        ...state,
+        mmaMode: action.payload.mmaMode,
+
+        dailyQuests: {
+          ...state.dailyQuests,
+          taskList: action.payload.dailyQuests.taskList,
+        },
+
+        mainObjectives: {
+          ...state.mainObjectives,
+          taskList: action.payload.mainObjectives.taskList,
+        },
+
+        onboarding: action.payload.onboarding,
+      };
+    }
+
+    /* ----------------------- UPDATE PLAYER GAME SETTINGS ---------------------- */
+    // case "UPDATE_GAME_SETTINGS": {
+    //   return {
+    //     ...state,
+    //     dailyQuests: action.payload.dailyQuests,
+    //     mainObjectives: action.payload.mainObjectives,
+    //     mmaMode: action.payload.mmaMode,
+    //   };
+    // }
 
     /* --------------------------- GAIN XP / LEVEL UP --------------------------- */
     // case "GAIN_XP": {

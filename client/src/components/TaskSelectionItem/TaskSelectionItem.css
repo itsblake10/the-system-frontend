@@ -52,10 +52,17 @@
   transform-origin: center;
 }
 
-.task-selection__amount {
-  color: #97e8ff;
+.task-selection__amount-container {
   margin: 0 3px 0 5px;
   font-weight: bold;
+}
+
+.task-selection__amount {
+  color: #97e8ff;
+}
+
+.task-selection__amount_red {
+  color: #ff0000;
 }
 
 .task-selection__delete {

@@ -12,4 +12,3 @@ export function applyStats(playerStats, statRewards) {
 
   return updated;
 }
-/* ------------------------------------ . ----------------------------------- */

@@ -2,19 +2,26 @@
 /*                         WEEKLY OBJECTIVE LIST MODAL                        */
 /* -------------------------------------------------------------------------- */
 import "./WeeklyObjectiveListModal.css";
-import { weeklyObjectives } from "../../utils/weeklyObjectives";
+import { mainObjectives } from "../../utils/mainObjectives";
 
 const WeeklyObjectiveListModal = ({
   onClose,
   onSelectTask,
   selectedObjectives,
+  mmaMode,
 }) => {
-  const objectives = weeklyObjectives;
+  const objectives = mainObjectives;
 
-  const availableObjectives = objectives.filter(
-    (objective) =>
-      !selectedObjectives.some((selected) => selected.id === objective.id),
-  );
+  /* -------------------------- AVAILABLE OBJECTIVES -------------------------- */
+  const availableObjectives = objectives.filter((objective) => {
+    const alreadySelectedObjectives = selectedObjectives.some(
+      (selected) => selected.id === objective.id,
+    );
+
+    const hiddenByMmaMode = !mmaMode && objective.mma;
+
+    return !alreadySelectedObjectives && !hiddenByMmaMode;
+  });
 
   /* -------------------------------- ADD TASK -------------------------------- */
   const handleTaskAdd = (task) => {

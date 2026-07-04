@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
 const PlayerCurrency = () => {
-  const { player } = useContext(PlayerContext);
+  const { player } = useContext(PlayerContext) || {};
 
   if (!player?.currency) {
     return <div>Loading...</div>;

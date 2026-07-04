@@ -13,14 +13,54 @@ router.post("/signup", async (req, res) => {
   try {
     const { email, password, username } = req.body;
 
+    //Existing User Check
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
-      return res.status(400).json({ message: "Email already used" });
+      return res.status(400).json({ message: "Email already used." });
     }
 
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
-      return res.status(400).json({ message: "Username already used" });
+      return res.status(400).json({ message: "Username already used." });
+    }
+
+    //Username Checks
+    if (!username) {
+      return res.status(400).json({ message: "Username is required." });
+    }
+
+    if (username.length < 4 || username.length > 15) {
+      return res
+        .status(400)
+        .json({ message: "Username must be between 4 and 15 characters." });
+    }
+
+    if (!/^[A-Za-z0-9_]+$/.test(username)) {
+      return res.status(400).json({
+        message: "Username may only contain letters, numbers and underscores.",
+      });
+    }
+
+    //Email Checks
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res
+        .status(400)
+        .json({ message: "Please enter a valid email address." });
+    }
+
+    //Password Checks
+    if (!password) {
+      return res.status(400).json({ message: "Password is required." });
+    }
+
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -55,17 +95,23 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and password are required." });
+    }
+
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email or password." });
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      return res.status(400).json({
-        message: "Invalid credentials",
+      return res.status(401).json({
+        message: "Invalid email or password.",
       });
     }
 

@@ -15,7 +15,6 @@
   border: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .auth-form__label {
@@ -30,13 +29,29 @@
 
 .auth-form__input {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 12px;
   width: 100%;
-  min-height: 35px;
+  min-height: 30px;
   padding: 2px 2px 2px 4px;
   background-color: white;
   border: 2px solid #15b1ff;
   border-radius: 5px;
+  margin: 0 0 14px 0;
+}
+
+.auth-form__input_error {
+  border: 2px solid #ff0000;
+  margin: 0;
+}
+
+.auth-form__err-msg {
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 10px;
+  width: 100%;
+  color: #ff0000;
+  text-align: start;
+  margin: 0 0 0 5px;
 }
 
 .auth-form__submit-button {

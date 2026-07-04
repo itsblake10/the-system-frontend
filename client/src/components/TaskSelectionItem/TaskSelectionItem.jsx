@@ -42,7 +42,19 @@ const TaskSelectionItem = ({ task, onRemoveTask, updateTaskGoal }) => {
         >
           -
         </button>
-        <span className="task-selection__amount">[{task?.goal || 0}]</span>
+        <span className="task-selection__amount-container">
+          [
+          <span
+            className={
+              task?.goal === 0
+                ? "task-selection__amount_red"
+                : "task-selection__amount"
+            }
+          >
+            {task?.goal || 0}
+          </span>
+          ]
+        </span>
         <button
           className="task-selection__increase-button"
           onClick={incrementCounter}

@@ -1,8 +1,14 @@
+/* -------------------------------------------------------------------------- */
+/*                                DAILY QUESTS                                */
+/* -------------------------------------------------------------------------- */
+
 export const dailyQuests = [
   {
     id: "q1",
     name: "Push-ups",
     type: "quest",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,
@@ -19,6 +25,8 @@ export const dailyQuests = [
     id: "q2",
     name: "Sit-ups",
     type: "quest",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,
@@ -35,6 +43,8 @@ export const dailyQuests = [
     id: "q3",
     name: "Chin/Pull-ups",
     type: "quest",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,
@@ -51,6 +61,8 @@ export const dailyQuests = [
     id: "q4",
     name: "Squats",
     type: "quest",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,
@@ -67,6 +79,8 @@ export const dailyQuests = [
     id: "q5",
     name: "Hand Gripper",
     type: "quest",
+    mma: true,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,
@@ -83,6 +97,8 @@ export const dailyQuests = [
     id: "q6",
     name: "Skipping",
     type: "quest",
+    mma: false,
+    amount: 0,
     goal: 0,
     reward: {
       xp: 50,

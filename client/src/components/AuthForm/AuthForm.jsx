@@ -12,6 +12,7 @@ const AuthForm = ({
   onSubmit,
   onChange,
   buttonText,
+  errors,
 }) => {
   return (
     <form className="auth-form" name={formName} onSubmit={onSubmit}>
@@ -21,13 +22,19 @@ const AuthForm = ({
           <label className="auth-form__label" key={field.key}>
             {field.label}
             <input
-              className="auth-form__input"
+              className={`auth-form__input ${errors?.[field.key] || errors?.api ? "auth-form__input_error" : ""}`}
               name={field.key}
               type={field.type}
               placeholder={field.placeholder}
               value={formData[field.key] ?? ""}
               onChange={onChange}
             />
+
+            {errors?.[field.key] || errors?.api ? (
+              <p className="auth-form__err-msg">
+                {errors[field.key] || errors?.api}
+              </p>
+            ) : null}
           </label>
         ))}
       </fieldset>

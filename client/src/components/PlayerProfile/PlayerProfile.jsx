@@ -10,7 +10,7 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 import { useContext, useEffect } from "react";
 
 const PlayerProfile = () => {
-  const { player, dispatch } = useContext(PlayerContext);
+  const { player, dispatch } = useContext(PlayerContext) || {};
 
   /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
@@ -50,7 +50,7 @@ const PlayerProfile = () => {
         <p className="player-profile__level-label">
           LEVEL [
           <span className="player-profile__level">
-            {player.playerLevel.level}
+            {player?.playerLevel?.level}
           </span>
           ]
         </p>
@@ -64,19 +64,19 @@ const PlayerProfile = () => {
           <p className="player-profile__info-label">
             Username: {""}
             <span className="player-profile__info-text">
-              {player.playerInformation.username}
+              {player?.playerInformation?.username}
             </span>
           </p>
           <p className="player-profile__info-label">
             Title: {""}
             <span className="player-profile__info-text">
-              {player.playerInformation.title}
+              {player?.playerInformation?.title}
             </span>
           </p>
           <p className="player-profile__info-label">
             Class:{" "}
             <span className="player-profile__info-text">
-              {player.playerInformation.class}
+              {player?.playerInformation?.class}
             </span>
           </p>
         </div>
@@ -88,7 +88,8 @@ const PlayerProfile = () => {
               <div className="player-profile__hp-text">
                 <p className="player-profile__status-label">HP</p>
                 <p className="player-profile__status-text">
-                  {player.playerStatus.health}/{player.playerStatus.maxHealth}
+                  {player?.playerStatus?.health}/
+                  {player?.playerStatus?.maxHealth}
                 </p>
               </div>
               <div className="player-profile__hp-bar">
@@ -106,7 +107,7 @@ const PlayerProfile = () => {
               <div className="player-profile__mp-text">
                 <p className="player-profile__status-label">MP</p>
                 <p className="player-profile__status-text">
-                  {player.playerStatus.mana}/{player.playerStatus.maxMana}
+                  {player?.playerStatus?.mana}/{player?.playerStatus?.maxMana}
                 </p>
               </div>
               <div className="player-profile__mp-bar">

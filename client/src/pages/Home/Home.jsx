@@ -2,7 +2,7 @@
 /*                                  HOME PAGE                                 */
 /* -------------------------------------------------------------------------- */
 import PlayerStats from "../../components/PlayerStats/PlayerStats";
-import DailyQuests from "../../components/DailyQuest/DailyQuests";
+import DailyQuests from "../../components/DailyQuests/DailyQuests";
 import MainObjectives from "../../components/MainObjectives/MainObjectives";
 import "./Home.css";
 import LevelProgress from "../../components/LevelProgress/LevelProgress";
