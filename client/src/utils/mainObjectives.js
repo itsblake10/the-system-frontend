@@ -19,7 +19,7 @@ export const mainObjectives = [
         { type: "VIT", amount: 0.03 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -37,7 +37,7 @@ export const mainObjectives = [
         { type: "VIT", amount: 0.04 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -58,7 +58,7 @@ export const mainObjectives = [
         { type: "VIT", amount: 0.02 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -76,7 +76,7 @@ export const mainObjectives = [
         { type: "VIT", amount: 0.01 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -98,7 +98,7 @@ export const mainObjectives = [
         { type: "INT", amount: 0.01 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -120,7 +120,7 @@ export const mainObjectives = [
         { type: "INT", amount: 0.01 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 
   {
@@ -138,6 +138,6 @@ export const mainObjectives = [
         { type: "PER", amount: 0.04 },
       ],
     },
-    penalty: 25,
+    penalty: 50,
   },
 ];

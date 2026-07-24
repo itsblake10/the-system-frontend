@@ -4,9 +4,11 @@
 import { getNextDailyReset, getNextWeeklyReset } from "./countdowns.js";
 
 export const initialPlayerState = {
+  onboarding: false,
+  mmaMode: false,
+
   /* --------------------------------- PROFILE -------------------------------- */
   playerInformation: {
-    username: "",
     title: "Unassigned",
     class: "Unassigned",
     avatar: "",
@@ -44,6 +46,8 @@ export const initialPlayerState = {
   },
 
   inventory: [],
+
+  playerTitles: [],
 
   /* -------------------------------- GAMEPLAY -------------------------------- */
   dailyQuests: {

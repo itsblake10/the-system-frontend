@@ -1,32 +1,49 @@
 /* -------------------------------------------------------------------------- */
-/*                                 ONBOARDING                                 */
+/*                             GAME SETTINGS PAGE                             */
 /* -------------------------------------------------------------------------- */
-import "./Onboarding.css";
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import "./Game.css";
+import { useContext, useState } from "react";
 import MmaModeSelection from "../../components/MmaModeSelection/MmaModeSelection";
 import QuestObjectiveSelection from "../../components/QuestObjectiveSelection/QuestObjectiveSelection";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { savePlayer } from "../../api/authApi";
 
-const Onboarding = ({ onOpenTaskModal }) => {
-  const { player, dispatch } = useContext(PlayerContext) || {};
-  const navigate = useNavigate();
+function Game({ onOpenTaskModal }) {
+  const { player, dispatch } = useContext(PlayerContext);
 
-  /* ----------------------------- ONBOARDING DATA ---------------------------- */
-  const [onboardingData, setOnboardingData] = useState({
-    mmaMode: "",
-    dailyQuests: { taskList: [] },
-    mainObjectives: { taskList: [] },
+  const [gameSettings, setGameSettings] = useState({
+    mmaMode: player.mmaMode,
+    dailyQuests: {
+      taskList: player.dailyQuests.taskList.map((task) => ({ ...task })),
+    },
+    mainObjectives: {
+      taskList: player.mainObjectives.taskList.map((task) => ({ ...task })),
+    },
   });
 
-  const [step, setStep] = useState(0);
-  const steps = [MmaModeSelection, QuestObjectiveSelection];
-  const StepComponent = steps[step];
+  /* ----------------------- CHECK GAME SETTINGS CHANGED ---------------------- */
+  const mmaChanged = gameSettings.mmaMode !== player.mmaMode;
+
+  const questObjectiveChanged =
+    JSON.stringify(
+      gameSettings.dailyQuests.taskList.map(({ id, goal }) => ({ id, goal })),
+    ) !==
+      JSON.stringify(
+        player.dailyQuests.taskList.map(({ id, goal }) => ({ id, goal })),
+      ) ||
+    JSON.stringify(
+      gameSettings.mainObjectives.taskList.map(({ id, goal }) => ({
+        id,
+        goal,
+      })),
+    ) !==
+      JSON.stringify(
+        player.mainObjectives.taskList.map(({ id, goal }) => ({ id, goal })),
+      );
 
   /* ------------------------------- UPDATE DATA ------------------------------ */
   const updateData = (newData) => {
-    setOnboardingData((prev) => ({
+    setGameSettings((prev) => ({
       ...prev,
       ...newData,
     }));
@@ -34,7 +51,7 @@ const Onboarding = ({ onOpenTaskModal }) => {
 
   /* ------------------------- UPDATE TASK GOAL AMOUNT ------------------------ */
   const updateTaskGoal = (taskId, newData, type) => {
-    setOnboardingData((prev) => {
+    setGameSettings((prev) => {
       const key = type === "quest" ? "dailyQuests" : "mainObjectives";
 
       return {
@@ -49,22 +66,9 @@ const Onboarding = ({ onOpenTaskModal }) => {
     });
   };
 
-  /* ------------------------------- NAVIGATION ------------------------------- */
-  const next = () => {
-    setStep((s) => Math.min(s + 1, steps.length - 1));
-  };
-
-  //   const back = () => {
-  //     setStep((s) => Math.max(s - 1, 0));
-  //   };
-
-  /* ---------------------------- FIRST / LAST STEP --------------------------- */
-  const isFirst = step === 0;
-  const isLast = step === steps.length - 1;
-
   /* -------------------------------- ADD TASK -------------------------------- */
   const handleAddTask = (type, item) => {
-    setOnboardingData((prev) => {
+    setGameSettings((prev) => {
       if (type === "quest") {
         return {
           ...prev,
@@ -89,7 +93,7 @@ const Onboarding = ({ onOpenTaskModal }) => {
 
   /* ------------------------------- REMOVE TASK ------------------------------ */
   const handleRemoveTask = (type, taskId) => {
-    setOnboardingData((prev) => {
+    setGameSettings((prev) => {
       if (type === "quest") {
         return {
           ...prev,
@@ -118,45 +122,67 @@ const Onboarding = ({ onOpenTaskModal }) => {
     });
   };
 
-  /* ------------------------------ HANDLE FINISH ----------------------------- */
-  const handleFinish = async () => {
+  /* ----------------------------- HANDLE SAVE MMA ---------------------------- */
+  const handleSaveMma = async () => {
     const updatedPlayer = {
       ...player,
-      ...onboardingData,
-      onboarding: true,
+      mmaMode: gameSettings.mmaMode,
     };
 
     dispatch({
-      type: "COMPLETE_ONBOARDING",
+      type: "UPDATE_GAME_SETTINGS",
       payload: updatedPlayer,
     });
 
     await savePlayer(updatedPlayer);
+  };
 
-    navigate("/home");
+  /* -------------------- HANDLE SAVE QUESTS AND OBJECTIVES ------------------- */
+  const handleSaveQuestObjective = async () => {
+    const updatedPlayer = {
+      ...player,
+      dailyQuests: {
+        ...player.dailyQuests,
+        ...gameSettings.dailyQuests,
+      },
+      mainObjectives: {
+        ...player.mainObjectives,
+        ...gameSettings.mainObjectives,
+      },
+    };
+
+    dispatch({
+      type: "UPDATE_GAME_SETTINGS",
+      payload: updatedPlayer,
+    });
+
+    await savePlayer(updatedPlayer);
   };
 
   return (
-    <main className="onboarding">
-      <div className="onboarding__container">
-        <h1 className="onboarding__title">INITIAL SETUP</h1>
-        <StepComponent
-          data={onboardingData}
+    <main className="game__page">
+      <h1 className="game__title">GAME</h1>
+      <div className="game__container">
+        <MmaModeSelection
+          data={gameSettings}
           updateData={updateData}
-          updateTaskGoal={updateTaskGoal}
-          buttonText={isLast ? "FINISH" : "NEXT"}
-          next={next}
-          //   back={back}
-          isFirst={isFirst}
-          isLast={isLast}
+          next={handleSaveMma}
+          disabled={!mmaChanged}
+        />
+      </div>
+      <div className="game__container">
+        <QuestObjectiveSelection
+          data={gameSettings}
           onAddTask={handleAddTask}
           onRemoveTask={handleRemoveTask}
-          onFinish={handleFinish}
+          updateTaskGoal={updateTaskGoal}
           onOpenTaskModal={onOpenTaskModal}
+          onFinish={handleSaveQuestObjective}
+          disabled={!questObjectiveChanged}
         />
       </div>
     </main>
   );
-};
+}
 
-export default Onboarding;
+export default Game;

@@ -92,10 +92,18 @@
   color: #97e8ff;
   font-size: 26px;
   font-weight: bold;
+
+  transition: 0.2s;
 }
 
-.quest-objective-selection__add-button_disabled {
+.quest-objective-selection__add-button:not(:disabled):hover {
+  border: #15b1ff 3px solid;
+  color: #15b1ff;
+}
+
+.quest-objective-selection__add-button:disabled {
   opacity: 0.5;
+  cursor: default;
 }
 
 .quest-objective-selection__submit-button {
@@ -111,7 +119,7 @@
   transition: 0.3s;
 }
 
-.quest-objective-selection__submit-button_enabled:hover {
+.quest-objective-selection__submit-button:not(:disabled):hover {
   border: #15b1ff 3px solid;
   color: #15b1ff;
 }

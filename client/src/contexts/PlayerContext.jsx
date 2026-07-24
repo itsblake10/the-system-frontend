@@ -3,12 +3,13 @@
 /* -------------------------------------------------------------------------- */
 import { createContext, useEffect, useReducer, useRef, useState } from "react";
 import { playerReducer } from "../reducers/playerReducer";
-import { getPlayer, savePlayer } from "../api/authApi";
+import { getPlayer, getUser, savePlayer } from "../api/authApi";
 
 export const PlayerContext = createContext();
 
 export function PlayerProvider({ children }) {
   const [player, dispatch] = useReducer(playerReducer);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const hasLoaded = useRef(false);
@@ -24,12 +25,15 @@ export function PlayerProvider({ children }) {
       }
 
       try {
-        const data = await getPlayer(token);
+        const playerData = await getPlayer(token);
 
         dispatch({
           type: "LOAD_PLAYER",
-          payload: data,
+          payload: playerData,
         });
+
+        const userData = await getUser(token);
+        setUser(userData);
       } catch (err) {
         console.error(err);
       }
@@ -76,7 +80,16 @@ export function PlayerProvider({ children }) {
 
   return (
     <PlayerContext.Provider
-      value={{ player, dispatch, loading, token, setToken, logout }}
+      value={{
+        player,
+        user,
+        setUser,
+        dispatch,
+        loading,
+        token,
+        setToken,
+        logout,
+      }}
     >
       {children}
     </PlayerContext.Provider>

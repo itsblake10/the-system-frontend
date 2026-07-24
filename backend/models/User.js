@@ -56,6 +56,11 @@ const playerSchema = new mongoose.Schema({
 
   //   inventory: [],
 
+  playerTitles: {
+    type: [String],
+    default: ["Unassigned", "Novice"],
+  },
+
   dailyQuests: {
     taskList: { type: Array, default: [] },
     nextDailyReset: {

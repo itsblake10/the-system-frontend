@@ -15,21 +15,33 @@ const NavMenu = ({ handleModalClose }) => {
     handleModalClose();
   };
 
+  const handleSelect = () => {
+    handleModalClose();
+  };
+
   return (
     <nav className="nav-menu">
       <ul className="nav-menu__list">
         <li className="nav-menu__list-item">
-          <NavLink to="/game" className="nav-menu__link">
+          <NavLink to="/game" className="nav-menu__link" onClick={handleSelect}>
             GAME
           </NavLink>
         </li>
         <li className="nav-menu__list-item">
-          <NavLink to="/player" className="nav-menu__link">
+          <NavLink
+            to="/player"
+            className="nav-menu__link"
+            onClick={handleSelect}
+          >
             PLAYER
           </NavLink>
         </li>
         <li className="nav-menu__list-item">
-          <NavLink to="/account" className="nav-menu__link">
+          <NavLink
+            to="/account"
+            className="nav-menu__link"
+            onClick={handleSelect}
+          >
             ACCOUNT
           </NavLink>
         </li>

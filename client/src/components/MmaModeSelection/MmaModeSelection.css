@@ -57,7 +57,7 @@
   transition: 0.3s;
 }
 
-.mma-mode-selection__submit-button_enabled:hover {
+.mma-mode-selection__submit-button:not(:disabled):hover {
   border: #15b1ff 3px solid;
   color: #15b1ff;
 }

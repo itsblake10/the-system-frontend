@@ -16,10 +16,15 @@ import CopyrightModal from "./components/CopyrightModal/CopyrightModal";
 import TermsOfServiceModal from "./components/TermsOfServiceModal/TermsOfServiceModal";
 import DailyQuestListModal from "./components/DailyQuestListModal/DailyQuestListModal";
 import WeeklyObjectiveListModal from "./components/WeeklyObjectiveListModal/WeeklyObjectiveListModal";
+import PreviewImageModal from "./PreviewImageModal/PreviewImageModal.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Onboarding from "./pages/Onboarding/Onboarding";
 import OnboardingRoute from "./components/OnboardingRoute/OnboardingRoute.jsx";
 import { PlayerContext } from "./contexts/PlayerContext.jsx";
+import Game from "./pages/Game/Game.jsx";
+import Player from "./pages/Player/Player.jsx";
+import Account from "./pages/Account/Account.jsx";
+import ConfirmActionModal from "./components/ConfirmActionModal/ConfirmActionModal.jsx";
 
 function App() {
   /* --------------------------------- MODALS --------------------------------- */
@@ -33,17 +38,19 @@ function App() {
 
   const onOpenTos = () => setActiveModal("tos");
 
+  const onOpenPreviewImage = () => setActiveModal("preview-image");
+
   const [onSelectTask, setOnSelectTask] = useState(null);
 
   const [selectedTasks, setSelectedTasks] = useState([]);
 
+  const [confirmAction, setConfirmAction] = useState(null);
+
+  const [confirmMessage, setConfirmMessage] = useState("");
+
   const [mmaMode, setMmaMode] = useState(false);
 
   const { player, token, loading } = useContext(PlayerContext);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const onOpenTaskModal = (
     modalType,
@@ -57,6 +64,12 @@ function App() {
     setActiveModal(modalType);
   };
 
+  const onOpenConfirmModal = (action, message) => {
+    setConfirmAction(() => action);
+    setConfirmMessage(message);
+    setActiveModal("confirm");
+  };
+
   /* --------------- HANDLE SELECT TASK FOR TASK SELECTION MODAL -------------- */
   const handleSelectTask = (task) => {
     if (onSelectTask) {
@@ -65,11 +78,25 @@ function App() {
     handleModalClose();
   };
 
+  /* ----------------- HANDLE CONFIRM FOR CONFIRM ACTION MODAL ---------------- */
+  const handleConfirm = () => {
+    if (confirmAction) {
+      confirmAction();
+    }
+
+    handleModalClose();
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Routes>
         <Route element={<StartLayout />}>
           <Route path="/" element={<Start />} />
+
           <Route
             path="/signup"
             element={
@@ -123,6 +150,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/raids"
             element={
@@ -131,6 +159,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/inventory"
             element={
@@ -139,11 +168,39 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/shop"
             element={
               <ProtectedRoute>
                 <Shop />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/game"
+            element={
+              <ProtectedRoute>
+                <Game onOpenTaskModal={onOpenTaskModal} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/player"
+            element={
+              <ProtectedRoute>
+                <Player onOpenPreviewImage={onOpenPreviewImage} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account onOpenConfirmModal={onOpenConfirmModal} />
               </ProtectedRoute>
             }
           />
@@ -186,6 +243,22 @@ function App() {
             onClose={handleModalClose}
             selectedObjectives={selectedTasks}
             mmaMode={mmaMode}
+          />
+        </Modal>
+      )}
+
+      {activeModal === "preview-image" && (
+        <Modal title="IMAGE PREVIEW" onClose={handleModalClose}>
+          <PreviewImageModal />
+        </Modal>
+      )}
+
+      {activeModal === "confirm" && (
+        <Modal title="ARE YOU SURE?" onClose={handleModalClose}>
+          <ConfirmActionModal
+            handleModalClose={handleModalClose}
+            handleConfirm={handleConfirm}
+            message={confirmMessage}
           />
         </Modal>
       )}

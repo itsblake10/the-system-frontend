@@ -11,19 +11,21 @@ const QuestObjectiveSelection = ({
   updateTaskGoal,
   onFinish,
   onOpenTaskModal,
+  buttonText = "SAVE",
+  disabled,
 }) => {
   const questSlots = Math.min(
-    Math.max(data.dailyQuests.taskList.length + 1, 3),
+    Math.max(data?.dailyQuests?.taskList?.length + 1, 3),
     5,
   );
   const objectiveSlots = Math.min(
-    Math.max(data.mainObjectives.taskList.length + 1, 3),
+    Math.max(data?.mainObjectives?.taskList?.length + 1, 3),
     5,
   );
 
   /* --------------------- VALID QUESTS / OBJECTIVES CHECk -------------------- */
-  const dailyQuests = data.dailyQuests.taskList ?? [];
-  const mainObjectives = data.mainObjectives.taskList ?? [];
+  const dailyQuests = data?.dailyQuests.taskList ?? [];
+  const mainObjectives = data?.mainObjectives.taskList ?? [];
 
   const hasEnoughDailyQuests = dailyQuests.length >= 2;
 
@@ -35,6 +37,8 @@ const QuestObjectiveSelection = ({
 
   const submitButtonDisabled =
     !hasEnoughDailyQuests || !validDailyQuests || !validMainObjectives;
+
+  const isSubmitDisabled = submitButtonDisabled || disabled;
 
   return (
     <div className="quest-objective-selection">
@@ -161,11 +165,11 @@ const QuestObjectiveSelection = ({
         </ul>
       </div>
       <button
-        className={`quest-objective-selection__submit-button ${submitButtonDisabled ? "" : "quest-objective-selection__submit-button_enabled"}`}
+        className="quest-objective-selection__submit-button"
+        disabled={isSubmitDisabled}
         onClick={onFinish}
-        disabled={submitButtonDisabled}
       >
-        FINISH
+        {buttonText}
       </button>
     </div>
   );

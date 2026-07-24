@@ -3,7 +3,13 @@
 /* -------------------------------------------------------------------------- */
 import "./MmaModeSelection.css";
 
-const MmaModeSelection = ({ data, updateData, next }) => {
+const MmaModeSelection = ({
+  data,
+  updateData,
+  next,
+  buttonText = "SAVE",
+  disabled,
+}) => {
   return (
     <div className="mma-mode-selection">
       <h2 className="mma-mode-selection__title">MMA MODE:</h2>
@@ -14,7 +20,7 @@ const MmaModeSelection = ({ data, updateData, next }) => {
       </p>
       <div className="mma-mode-selection__buttons">
         <button
-          className={`mma-mode-selection__button ${data.mmaMode === true ? "mma-mode-selection__button_selected" : ""}`}
+          className={`mma-mode-selection__button ${data?.mmaMode === true ? "mma-mode-selection__button_selected" : ""}`}
           onClick={() => updateData({ mmaMode: true })}
         >
           YES
@@ -23,7 +29,7 @@ const MmaModeSelection = ({ data, updateData, next }) => {
           </p>
         </button>
         <button
-          className={`mma-mode-selection__button ${data.mmaMode === false ? "mma-mode-selection__button_selected" : ""}`}
+          className={`mma-mode-selection__button ${data?.mmaMode === false ? "mma-mode-selection__button_selected" : ""}`}
           onClick={() => updateData({ mmaMode: false })}
         >
           NO
@@ -33,11 +39,11 @@ const MmaModeSelection = ({ data, updateData, next }) => {
         </button>
       </div>
       <button
-        className={`mma-mode-selection__submit-button ${data.mmaMode === "" ? "" : "mma-mode-selection__submit-button_enabled"}`}
+        className="mma-mode-selection__submit-button"
         onClick={next}
-        disabled={data.mmaMode === ""}
+        disabled={data?.mmaMode === "" || disabled}
       >
-        NEXT
+        {buttonText}
       </button>
     </div>
   );

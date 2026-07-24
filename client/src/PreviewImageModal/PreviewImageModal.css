@@ -1,0 +1,8 @@
+.preview-img-modal__container {
+  margin: 10px 0 5px 0;
+}
+
+.preview-img-modal__image {
+  width: 90%;
+  border: #15b1ff 1px solid;
+}

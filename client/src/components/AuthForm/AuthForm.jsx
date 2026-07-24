@@ -13,9 +13,15 @@ const AuthForm = ({
   onChange,
   buttonText,
   errors,
+  variant = "",
+  disabled,
 }) => {
   return (
-    <form className="auth-form" name={formName} onSubmit={onSubmit}>
+    <form
+      className={`auth-form ${variant ? `auth-form--${variant}` : ""}`}
+      name={formName}
+      onSubmit={onSubmit}
+    >
       <h1 className="auth-form__title">{title}</h1>
       <fieldset className="auth-form__fields">
         {fields.map((field) => (
@@ -38,7 +44,11 @@ const AuthForm = ({
           </label>
         ))}
       </fieldset>
-      <button className="auth-form__submit-button" type="submit">
+      <button
+        className="auth-form__submit-button"
+        type="submit"
+        disabled={disabled}
+      >
         {buttonText}
       </button>
     </form>

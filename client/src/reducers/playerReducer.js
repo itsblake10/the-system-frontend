@@ -151,22 +151,33 @@ export function playerReducer(state, action) {
       };
     }
 
-    /* ----------------------- UPDATE PLAYER GAME SETTINGS ---------------------- */
-    // case "UPDATE_GAME_SETTINGS": {
-    //   return {
-    //     ...state,
-    //     dailyQuests: action.payload.dailyQuests,
-    //     mainObjectives: action.payload.mainObjectives,
-    //     mmaMode: action.payload.mmaMode,
-    //   };
-    // }
+    /* -------------------------- UPDATE GAME SETTINGS -------------------------- */
+    case "UPDATE_GAME_SETTINGS": {
+      return {
+        ...state,
+        mmaMode: action.payload.mmaMode ?? state.mmaMode,
 
-    /* --------------------------- GAIN XP / LEVEL UP --------------------------- */
-    // case "GAIN_XP": {
-    //   return {
-    //     ...state,
-    //     playerLevel: applyXp(state.playerLevel, action.payload),
-    //   };
-    // }
+        dailyQuests: {
+          ...state.dailyQuests,
+          ...action.payload.dailyQuests,
+        },
+
+        mainObjectives: {
+          ...state.mainObjectives,
+          ...action.payload.mainObjectives,
+        },
+      };
+    }
+
+    /* ----------------------------- UPDATE USERNAME ---------------------------- */
+    case "UPDATE_PLAYER_INFO": {
+      return {
+        ...state,
+        playerInformation: {
+          ...state.playerInformation,
+          ...action.payload,
+        },
+      };
+    }
   }
 }

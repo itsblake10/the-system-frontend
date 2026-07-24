@@ -1,0 +1,33 @@
+.change-username__container {
+  background-color: rgba(19, 21, 47, 0.5);
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding: 10px 20px 20px 20px;
+  box-sizing: border-box;
+  margin: 0 0 15px 0;
+}
+
+.change-username__title {
+  color: #97e8ff;
+  font-size: 16px;
+}
+
+.change-username__current {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+  gap: 10px;
+}
+
+.change-username__current-txt {
+  font-weight: 600;
+  color: #15b1ff;
+}
+
+.change-username__current-user {
+  color: #97e8ff;
+}

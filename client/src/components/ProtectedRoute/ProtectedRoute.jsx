@@ -16,7 +16,7 @@ export default function ProtectedRoute({ children }) {
     return <Navigate to="/signin" replace />;
   }
 
-  if (!player.onboarding) {
+  if (!player?.onboarding) {
     return <Navigate to="/onboarding" replace />;
   }
 
