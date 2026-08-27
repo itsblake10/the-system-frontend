@@ -2,7 +2,7 @@
 /*                         WEEKLY OBJECTIVE LIST MODAL                        */
 /* -------------------------------------------------------------------------- */
 import "./WeeklyObjectiveListModal.css";
-import { mainObjectives } from "../../utils/mainObjectives";
+import { mainObjectives } from "../../../utils/mainObjectives";
 
 const WeeklyObjectiveListModal = ({
   onClose,

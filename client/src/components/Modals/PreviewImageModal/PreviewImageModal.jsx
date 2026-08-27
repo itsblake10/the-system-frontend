@@ -2,12 +2,19 @@
 /*                             PREVIEW IMAGE MODAL                            */
 /* -------------------------------------------------------------------------- */
 import "./PreviewImageModal.css";
-import exampleProfileImage from "../../public/example-profile-image.png";
+import { useContext } from "react";
+import { PlayerContext } from "../../../contexts/PlayerContext";
 
 const PreviewImageModal = () => {
+  const { player } = useContext(PlayerContext) || {};
+
   return (
-    <div className="preview-img-modal__container">
-      <img className="preview-img-modal__image" src={exampleProfileImage} />
+    <div className="preview-img-modal">
+      <img
+        className="preview-img-modal__image"
+        src={player.playerInformation.avatar}
+        alt="Image Preview"
+      />
     </div>
   );
 };

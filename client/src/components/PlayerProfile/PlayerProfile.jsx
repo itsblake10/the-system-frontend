@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 
 import "./PlayerProfile.css";
-import exampleProfileImage from "../../../public/example-profile-image.png";
 import manaIcon from "../../../public/mana-icon.svg";
 import hpIcon from "../../../public/hp-icon.svg";
 import { PlayerContext } from "../../contexts/PlayerContext";
@@ -11,6 +10,8 @@ import { useContext, useEffect } from "react";
 
 const PlayerProfile = () => {
   const { player, dispatch } = useContext(PlayerContext) || {};
+
+  const playerAvatar = player.playerInformation.avatar || null;
 
   /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
@@ -55,7 +56,7 @@ const PlayerProfile = () => {
           ]
         </p>
         <div className="player-profile__image-container">
-          <img className="player-profile__image" src={exampleProfileImage} />
+          <img className="player-profile__image" src={playerAvatar} />
         </div>
       </div>
 

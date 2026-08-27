@@ -1,0 +1,167 @@
+.inventory-item-modal {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 0;
+}
+
+.inventory-item-modal__title {
+  color: #97e8ff;
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0 0 10px 0;
+}
+
+.inventory-item-modal__image-cont {
+  width: 100%;
+  border: #15b1ff 1px solid;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+}
+
+.inventory-item-modal__image {
+  width: 70%;
+  height: 70%;
+}
+
+.inventory-item-modal__specs-section {
+  border: #97e8ff 1px solid;
+  max-height: 100px;
+  margin: 14px 0 10px 0;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-item-modal__specs {
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  list-style-type: none;
+}
+
+.inventory-item-modal__specs-divide {
+  color: #97e8ff;
+  font-size: 12px;
+}
+
+.inventory-item-modal__specs-item {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+}
+
+.inventory-item-modal__specs-label {
+  color: #97e8ff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inventory-item-modal__specs-name {
+  color: white;
+  font-size: 11px;
+}
+
+.inventory-item-modal__specs-type {
+  color: white;
+  font-size: 11px;
+}
+
+.inventory-item-modal__specs-level {
+  color: #acff11;
+  font-size: 11px;
+}
+
+.inventory-item-modal__specs-rarity {
+  color: #00ff00;
+  font-size: 11px;
+}
+
+.inventory-item-modal__specs-qty {
+  color: white;
+  font-size: 11px;
+}
+
+.inventory-item-modal__specs-effect {
+  color: #00ff00;
+  font-size: 11px;
+}
+
+.inventory-item-modal__desc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 5px 0 5px;
+}
+
+.inventory-item-modal__desc-title {
+  color: #97e8ff;
+  font-size: 14px;
+  text-align: left;
+}
+
+.inventory-item-modal__message {
+  color: white;
+  margin: 25px 0 5px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inventory-item-modal__message_colour {
+  color: #00ff00;
+}
+
+.inventory-item-modal__desc-text {
+  color: white;
+  text-align: left;
+  font-size: 12px;
+}
+
+.inventory-item-modal__button {
+  background: none;
+  padding: 5px;
+  margin: 0 0 10px 0;
+  border-radius: 0;
+  border: #97e8ff 2.5px solid;
+  color: #97e8ff;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 24px;
+  cursor: pointer;
+  height: 50px;
+
+  transition: transform 0.2s ease;
+}
+
+.inventory-item-modal__button:not(.inventory-item-modal__button--red):not(
+    :disabled
+  ):hover {
+  color: #15b1ff;
+  border: #15b1ff 2.5px solid;
+  transform: scale(1.01);
+}
+
+.inventory-item-modal__button--red {
+  color: #ff0000;
+  border: #ff0000 2.5px solid;
+}
+
+.inventory-item-modal__button--red:not(:disabled):hover {
+  color: #ff0000;
+  border-color: #ff0000;
+  transform: scale(1.01);
+}
+
+.inventory-item-modal__button:disabled,
+.inventory-item-modal__button:disabled:hover {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}

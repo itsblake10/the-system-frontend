@@ -78,6 +78,28 @@ export function PlayerProvider({ children }) {
     setToken(null);
   };
 
+  /* ------------------------------- EQUIP ITEM ------------------------------- */
+  const toggleEquipment = (item) => {
+    dispatch({
+      type: "TOGGLE_EQUIPMENT",
+      payload: {
+        itemId: item.id,
+        slot: "weapon",
+      },
+    });
+  };
+
+  /* -------------------------------- USE ITEM -------------------------------- */
+  const useItem = (item) => {
+    dispatch({
+      type: "USE_ITEM",
+      payload: {
+        itemId: item.id,
+        effect: item.effect,
+      },
+    });
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -89,6 +111,8 @@ export function PlayerProvider({ children }) {
         token,
         setToken,
         logout,
+        useItem,
+        toggleEquipment,
       }}
     >
       {children}

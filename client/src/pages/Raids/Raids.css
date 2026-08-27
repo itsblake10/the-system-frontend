@@ -21,3 +21,9 @@
   background-color: #13152f;
   border: 2px #15b1ff solid;
 }
+
+.raids__placeholder {
+  color: #97e8ff;
+  font-weight: 600;
+  margin: 100px 0 0 0;
+}

@@ -178,7 +178,30 @@ export async function changeTitle(token, selectedTitle) {
   const data = await res.json();
 
   if (!res.ok) {
-    throw new Error(data.message || "Failed to change password.");
+    throw new Error(data.message || "Failed to change title.");
+  }
+
+  return data;
+}
+
+/* ------------------------------ CHANGE AVATAR ----------------------------- */
+export async function changeAvatar(token, file) {
+  const formData = new FormData();
+
+  formData.append("avatar", file);
+
+  const res = await fetch(`${API_URL}/user/avatar`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to change avatar.");
   }
 
   return data;

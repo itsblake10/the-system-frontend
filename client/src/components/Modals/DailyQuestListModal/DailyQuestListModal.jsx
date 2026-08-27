@@ -2,7 +2,7 @@
 /*                           DAILY QUEST LIST MODAL                           */
 /* -------------------------------------------------------------------------- */
 import "./DailyQuestListModal.css";
-import { dailyQuests } from "../../utils/dailyQuests";
+import { dailyQuests } from "../../../utils/dailyQuests";
 
 const DailyQuestListModal = ({
   onClose,

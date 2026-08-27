@@ -2,15 +2,15 @@
 /*                            PLAYER SETTINGS PAGE                            */
 /* -------------------------------------------------------------------------- */
 import "./Player.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
-import exampleProfileImage from "../../../public/example-profile-image.png";
 import ChangeUsername from "../../components/ChangeUsername/ChangeUsername";
-import { changeTitle } from "../../api/authApi";
+import { changeAvatar, changeTitle } from "../../api/authApi";
 
 function Player({ onOpenPreviewImage }) {
   const { player, token, dispatch } = useContext(PlayerContext);
 
+  /* -------------------------- CHANGE PLAYER TITLES -------------------------- */
   const [selectedTitle, setSelectedTitle] = useState(
     player.playerInformation.title ?? "Unassigned",
   );
@@ -30,6 +30,28 @@ function Player({ onOpenPreviewImage }) {
     });
   };
 
+  /* -------------------------- CHANGE PLAYER AVATAR -------------------------- */
+  const fileInputRef = useRef(null);
+
+  const handleChangeClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const data = await changeAvatar(token, file);
+
+    dispatch({
+      type: "UPDATE_PLAYER_INFO",
+      payload: {
+        avatar: data.avatar,
+      },
+    });
+  };
+
   return (
     <main className="player__page">
       <h1 className="player__title">PLAYER</h1>
@@ -37,7 +59,10 @@ function Player({ onOpenPreviewImage }) {
         <h2 className="player__change-pfp-title">CHANGE PROFILE IMAGE</h2>
         <div className="player__change-pfp">
           <div className="player__change-pfp-img-container">
-            <img className="player__change-pfp-img" src={exampleProfileImage} />
+            <img
+              className="player__change-pfp-img"
+              src={player.playerInformation.avatar}
+            />
           </div>
           <div className="player__change-pfp-buttons">
             <button
@@ -46,8 +71,20 @@ function Player({ onOpenPreviewImage }) {
             >
               VIEW
             </button>
-            <button className="player__change-pfp-button">CHANGE</button>
+            <button
+              className="player__change-pfp-button"
+              onClick={handleChangeClick}
+            >
+              CHANGE
+            </button>
           </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleImageChange}
+          />
         </div>
       </div>
 

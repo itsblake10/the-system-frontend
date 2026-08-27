@@ -10,13 +10,13 @@ import Shop from "./pages/Shop/Shop";
 import Start from "./pages/Start/Start";
 import SignUp from "./pages/SignUp/SignUp";
 import SignIn from "./pages/SignIn/SignIn";
-import Modal from "./components/Modal/Modal";
+import Modal from "./components/Modals/Modal/Modal.jsx";
 import NavMenu from "./components/NavMenu/NavMenu";
-import CopyrightModal from "./components/CopyrightModal/CopyrightModal";
-import TermsOfServiceModal from "./components/TermsOfServiceModal/TermsOfServiceModal";
-import DailyQuestListModal from "./components/DailyQuestListModal/DailyQuestListModal";
-import WeeklyObjectiveListModal from "./components/WeeklyObjectiveListModal/WeeklyObjectiveListModal";
-import PreviewImageModal from "./PreviewImageModal/PreviewImageModal.jsx";
+import CopyrightModal from "./components/Modals/CopyrightModal/CopyrightModal.jsx";
+import TermsOfServiceModal from "./components/Modals/TermsOfServiceModal/TermsOfServiceModal.jsx";
+import DailyQuestListModal from "./components/Modals/DailyQuestListModal/DailyQuestListModal.jsx";
+import WeeklyObjectiveListModal from "./components/Modals/WeeklyObjectiveListModal/WeeklyObjectiveListModal.jsx";
+import PreviewImageModal from "./components/Modals/PreviewImageModal/PreviewImageModal.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Onboarding from "./pages/Onboarding/Onboarding";
 import OnboardingRoute from "./components/OnboardingRoute/OnboardingRoute.jsx";
@@ -24,7 +24,9 @@ import { PlayerContext } from "./contexts/PlayerContext.jsx";
 import Game from "./pages/Game/Game.jsx";
 import Player from "./pages/Player/Player.jsx";
 import Account from "./pages/Account/Account.jsx";
-import ConfirmActionModal from "./components/ConfirmActionModal/ConfirmActionModal.jsx";
+import ConfirmActionModal from "./components/Modals/ConfirmActionModal/ConfirmActionModal.jsx";
+import InventoryItemModal from "./components/Modals/InventoryItemModal/InventoryItemModal.jsx";
+import ShopItemModal from "./components/Modals/ShopItemModal/ShopItemModal.jsx";
 
 function App() {
   /* --------------------------------- MODALS --------------------------------- */
@@ -40,6 +42,8 @@ function App() {
 
   const onOpenPreviewImage = () => setActiveModal("preview-image");
 
+  const [selectedItem, setSelectedItem] = useState([]);
+
   const [onSelectTask, setOnSelectTask] = useState(null);
 
   const [selectedTasks, setSelectedTasks] = useState([]);
@@ -48,10 +52,13 @@ function App() {
 
   const [confirmMessage, setConfirmMessage] = useState("");
 
+  const [selectedShopMode, setSelectedShopMode] = useState("buy");
+
   const [mmaMode, setMmaMode] = useState(false);
 
   const { player, token, loading } = useContext(PlayerContext);
 
+  /* ----------------------- OPEN ONBOARDING TASK MODAL ----------------------- */
   const onOpenTaskModal = (
     modalType,
     callback,
@@ -64,10 +71,24 @@ function App() {
     setActiveModal(modalType);
   };
 
+  /* --------------------------- OPEN CONFIRM MODAL --------------------------- */
   const onOpenConfirmModal = (action, message) => {
     setConfirmAction(() => action);
     setConfirmMessage(message);
     setActiveModal("confirm");
+  };
+
+  /* ------------------------ OPEN INVENTORY ITEM MODAL ----------------------- */
+  const onOpenInventoryItem = (item) => {
+    setSelectedItem(item);
+    setActiveModal("inventory-item");
+  };
+
+  /* -------------------------- OPEN SHOP ITEM MODAL -------------------------- */
+  const onOpenShopItem = (item, mode) => {
+    setSelectedItem(item);
+    setSelectedShopMode(mode);
+    setActiveModal("shop-item");
   };
 
   /* --------------- HANDLE SELECT TASK FOR TASK SELECTION MODAL -------------- */
@@ -78,7 +99,7 @@ function App() {
     handleModalClose();
   };
 
-  /* ----------------- HANDLE CONFIRM FOR CONFIRM ACTION MODAL ---------------- */
+  /* -------------------- HANDLE CONFIRM FOR CONFIRM MODAL -------------------- */
   const handleConfirm = () => {
     if (confirmAction) {
       confirmAction();
@@ -164,7 +185,7 @@ function App() {
             path="/inventory"
             element={
               <ProtectedRoute>
-                <Inventory />
+                <Inventory onOpenInventoryItem={onOpenInventoryItem} />
               </ProtectedRoute>
             }
           />
@@ -173,7 +194,7 @@ function App() {
             path="/shop"
             element={
               <ProtectedRoute>
-                <Shop />
+                <Shop onOpenShopItem={onOpenShopItem} />
               </ProtectedRoute>
             }
           />
@@ -260,6 +281,18 @@ function App() {
             handleConfirm={handleConfirm}
             message={confirmMessage}
           />
+        </Modal>
+      )}
+
+      {activeModal === "inventory-item" && (
+        <Modal title="" onClose={handleModalClose}>
+          <InventoryItemModal item={selectedItem} />
+        </Modal>
+      )}
+
+      {activeModal === "shop-item" && (
+        <Modal title="" onClose={handleModalClose}>
+          <ShopItemModal item={selectedItem} mode={selectedShopMode} />
         </Modal>
       )}
     </>

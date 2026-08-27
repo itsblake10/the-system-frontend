@@ -21,3 +21,33 @@
   background-color: #13152f;
   border: 2px #15b1ff solid;
 }
+
+.inventory__grid-container {
+  background-color: rgba(19, 21, 47, 0.5);
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding: 10px 20px 20px 20px;
+  box-sizing: border-box;
+  margin: 0 0 15px 0;
+}
+
+.inventory__grid-title {
+  color: #97e8ff;
+  margin: 0 0 8px 0;
+}
+
+.inventory__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  gap: 8px;
+}
+
+.inventory__grid-item {
+  border: 2px #97e8ff solid;
+  display: flex;
+  aspect-ratio: 1;
+  color: #97e8ff;
+}

@@ -23,7 +23,7 @@ const PlayerCurrency = () => {
           <img className="player-currency__coins-icon" src={coinIcon} />
           <span className="player-currency__divider"></span>
           <p className="player-currency__coins-amount">
-            {player.currency.coins}
+            {player.currency?.coins}
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@ const PlayerCurrency = () => {
           <img className="player-currency__raid-keys-icon" src={raidKeyIcon} />
           <span className="player-currency__divider"></span>
           <p className="player-currency__raid-keys-amount">
-            {player.currency.raidKeys}
+            {player.currency?.raidKeys}
           </p>
         </div>
       </div>

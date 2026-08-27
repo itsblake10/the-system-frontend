@@ -5,6 +5,7 @@ import { getNextDailyReset, getNextWeeklyReset } from "../utils/countdowns.js";
 import { applyXp } from "../../src/gameSystems/xpSystem.js";
 import { applyDamage } from "../gameSystems/damageSystem.js";
 import { applyStats } from "../gameSystems/statSystem.js";
+import { applyCurrency } from "../gameSystems/currencySystem.js";
 
 export function playerReducer(state, action) {
   switch (action.type) {
@@ -64,11 +65,15 @@ export function playerReducer(state, action) {
       let playerLevel = state.playerLevel;
       let playerStatus = state.playerStatus;
       let playerStats = state.playerStats;
+      let playerCurrency = state.currency;
 
       const updatedTasks = state.dailyQuests.taskList.map((task) => {
         if (task.completed) {
           playerLevel = applyXp(playerLevel, task.reward?.xp || 0);
-          playerStats = applyStats(playerStats, task.reward.stats);
+
+          playerStats = applyStats(playerStats, task.reward?.stats || []);
+
+          playerCurrency = applyCurrency(playerCurrency, task.reward || {});
         } else {
           playerStatus = applyDamage(playerStatus, task.penalty || 0);
         }
@@ -85,6 +90,7 @@ export function playerReducer(state, action) {
         playerLevel,
         playerStatus,
         playerStats,
+        currency: playerCurrency,
         dailyQuests: {
           ...state.dailyQuests,
           taskList: updatedTasks,
@@ -101,7 +107,7 @@ export function playerReducer(state, action) {
       const updatedTasks = state.mainObjectives.taskList.map((task) => {
         if (task.completed) {
           playerLevel = applyXp(playerLevel, task.reward?.xp || 0);
-          playerStats = applyStats(playerStats, task.reward.stats);
+          playerStats = applyStats(playerStats, task.reward?.stats || []);
         }
 
         return {
@@ -177,6 +183,160 @@ export function playerReducer(state, action) {
           ...state.playerInformation,
           ...action.payload,
         },
+      };
+    }
+
+    /* ---------------------------- TOGGLE EQUIPMENT ---------------------------- */
+    case "TOGGLE_EQUIPMENT": {
+      const { itemId, slot } = action.payload;
+      const currentlyEquipped = state.equipment?.[slot];
+
+      const inventoryItem = state.inventory.find(
+        (inventoryItem) => inventoryItem.id === itemId,
+      );
+
+      if (!inventoryItem || inventoryItem.quantity <= 0) {
+        return state;
+      }
+
+      return {
+        ...state,
+        equipment: {
+          ...state.equipment,
+          [slot]: currentlyEquipped === itemId ? null : itemId,
+        },
+      };
+    }
+
+    /* -------------------------------- USE ITEM -------------------------------- */
+    case "USE_ITEM": {
+      const { itemId, effect } = action.payload;
+
+      const inventoryItem = state.inventory.find(
+        (inventoryItem) => inventoryItem.id === itemId,
+      );
+
+      if (!inventoryItem || inventoryItem.quantity <= 0) {
+        return state;
+      }
+
+      let health = state.playerStatus.health;
+      let mana = state.playerStatus.mana;
+
+      if (effect.health) {
+        health = Math.min(health + effect.health, state.playerStatus.maxHealth);
+      }
+
+      if (effect.mana) {
+        mana = Math.min(mana + effect.mana, state.playerStatus.maxMana);
+      }
+
+      return {
+        ...state,
+
+        playerStatus: {
+          ...state.playerStatus,
+          health,
+          mana,
+        },
+
+        inventory: state.inventory
+          .map((inventoryItem) =>
+            inventoryItem.id === itemId
+              ? {
+                  ...inventoryItem,
+                  quantity: inventoryItem.quantity - 1,
+                }
+              : inventoryItem,
+          )
+          .filter((inventoryItem) => inventoryItem.quantity > 0),
+      };
+    }
+
+    /* -------------------------------- BUY ITEM -------------------------------- */
+    case "BUY_ITEM": {
+      const { item, qty } = action.payload;
+
+      const totalAmount = item.price.buy * qty;
+
+      if (state.currency.coins < totalAmount) {
+        return state;
+      }
+
+      const inventoryItem = state.inventory.find(
+        (inventoryItem) => inventoryItem.id === item.id,
+      );
+
+      return {
+        ...state,
+
+        currency: {
+          ...state.currency,
+          coins: state.currency.coins - totalAmount,
+        },
+
+        inventory: inventoryItem
+          ? state.inventory.map((inventoryItem) =>
+              inventoryItem.id === item.id
+                ? {
+                    ...inventoryItem,
+                    quantity: inventoryItem.quantity + qty,
+                  }
+                : inventoryItem,
+            )
+          : [
+              ...state.inventory,
+              {
+                id: item.id,
+                quantity: qty,
+              },
+            ],
+      };
+    }
+
+    /* -------------------------------- SELL ITEM ------------------------------- */
+    case "SELL_ITEM": {
+      const { item, qty } = action.payload;
+
+      const inventoryItem = state.inventory.find(
+        (inventoryItem) => inventoryItem.id === item.id,
+      );
+
+      if (!inventoryItem) {
+        return state;
+      }
+
+      if (inventoryItem.quantity < qty) {
+        return state;
+      }
+
+      if (
+        inventoryItem.id === state.equipment?.weapon &&
+        inventoryItem.quantity - qty < 1
+      ) {
+        return state;
+      }
+
+      const totalAmount = item.price.sell * qty;
+
+      return {
+        ...state,
+
+        currency: {
+          ...state.currency,
+          coins: state.currency.coins + totalAmount,
+        },
+
+        inventory: state.inventory
+          .map((inventoryItem) =>
+            inventoryItem.id === item.id
+              ? {
+                  ...inventoryItem,
+                  quantity: inventoryItem.quantity - qty,
+                }
+              : inventoryItem,
+          )
+          .filter((inventoryItem) => inventoryItem.quantity > 0),
       };
     }
   }

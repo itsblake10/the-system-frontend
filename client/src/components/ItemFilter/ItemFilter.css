@@ -1,0 +1,81 @@
+.item-filter {
+  background-color: rgba(19, 21, 47, 0.5);
+  border: 2px #15b1ff solid;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+  padding: 20px 20px 20px 20px;
+  box-sizing: border-box;
+}
+
+.item-filter__select {
+  color: #97e8ff;
+  width: 45%;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  border: 2px solid;
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.item-filter__option {
+  background-color: white;
+  color: black;
+}
+
+.item-filter__currency-cont {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-filter__currency-title {
+  color: #97e8ff;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+}
+
+.item-filter__currency {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.item-filter__coins-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.item-filter__coin-icon {
+  width: 30px;
+}
+
+.item-filter__divider {
+  background-color: #97e8ff;
+  width: 7px;
+  height: 3px;
+  align-self: center;
+}
+
+.item-filter__amount {
+  color: white;
+  font-size: 14px;
+}
+
+.item-filter__keys-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.item-filter__key-icon {
+  width: 35px;
+}

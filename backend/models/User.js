@@ -21,7 +21,7 @@ const playerSchema = new mongoose.Schema({
       unique: true,
     },
     title: { type: String, default: "Unassigned" },
-    class: { type: String, default: "Unassigned" },
+    class: { type: String, default: "New Recruit" },
     avatar: { type: String, default: "" },
   },
 
@@ -40,12 +40,12 @@ const playerSchema = new mongoose.Schema({
   },
 
   playerStats: {
-    str: { type: Number, default: 0 },
-    agi: { type: Number, default: 0 },
-    per: { type: Number, default: 0 },
-    vit: { type: Number, default: 0 },
-    int: { type: Number, default: 0 },
-    fig: { type: Number, default: 0 },
+    STR: { type: Number, default: 0 },
+    AGI: { type: Number, default: 0 },
+    PER: { type: Number, default: 0 },
+    VIT: { type: Number, default: 0 },
+    INT: { type: Number, default: 0 },
+    FIG: { type: Number, default: 0 },
   },
 
   currency: {
@@ -54,7 +54,40 @@ const playerSchema = new mongoose.Schema({
     raidKeys: { type: Number, default: 0 },
   },
 
-  //   inventory: [],
+  inventory: {
+    type: [
+      {
+        id: {
+          type: String,
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
+    default: [
+      {
+        id: "wk1",
+        quantity: 1,
+      },
+      {
+        id: "c1",
+        quantity: 1,
+      },
+    ],
+  },
+
+  equipment: {
+    weapon: {
+      type: String,
+      default: null,
+    },
+    armor: {
+      type: String,
+      default: null,
+    },
+  },
 
   playerTitles: {
     type: [String],

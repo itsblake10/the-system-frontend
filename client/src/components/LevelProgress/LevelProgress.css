@@ -6,6 +6,7 @@
   flex-direction: column;
   min-width: 100%;
   margin: 0 0 15px 0;
+  box-sizing: border-box;
 }
 
 .level-progress__heading {
