@@ -3,7 +3,13 @@
 /* -------------------------------------------------------------------------- */
 import { createContext, useEffect, useReducer, useRef, useState } from "react";
 import { playerReducer } from "../reducers/playerReducer";
-import { getPlayer, getUser, savePlayer } from "../api/authApi";
+import {
+  getPlayer,
+  toggleEquipment as toggleEquipmentApi,
+  useInventoryItem,
+} from "../api/playerApi";
+import { getUser } from "../api/userApi";
+import { buyShopItem, sellShopItem } from "../api/shopApi";
 
 export const PlayerContext = createContext();
 
@@ -54,22 +60,6 @@ export function PlayerProvider({ children }) {
     localStorage.setItem("player", JSON.stringify(player));
   }, [player]);
 
-  /* ----------------------------- SAVE TO BACKEND ---------------------------- */
-  useEffect(() => {
-    if (!token) return;
-
-    if (!hasInitialisedSave.current) {
-      hasInitialisedSave.current = true;
-      return;
-    }
-
-    clearTimeout(saveTimeout.current);
-
-    saveTimeout.current = setTimeout(() => {
-      savePlayer(token, player);
-    }, 800);
-  }, [player, token]);
-
   /* --------------------------------- LOGOUT --------------------------------- */
   const logout = () => {
     localStorage.removeItem("token");
@@ -78,26 +68,56 @@ export function PlayerProvider({ children }) {
     setToken(null);
   };
 
-  /* ------------------------------- EQUIP ITEM ------------------------------- */
-  const toggleEquipment = (item) => {
-    dispatch({
-      type: "TOGGLE_EQUIPMENT",
-      payload: {
-        itemId: item.id,
-        slot: "weapon",
-      },
-    });
+  /* ---------------------------- TOGGLE EQUIP ITEM --------------------------- */
+  const toggleEquipment = async (token, itemId) => {
+    try {
+      const playerData = await toggleEquipmentApi(token, itemId);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: playerData,
+      });
+    } catch (err) {
+      console.error("Failed to toggle equipment", err);
+    }
   };
 
   /* -------------------------------- USE ITEM -------------------------------- */
-  const useItem = (item) => {
-    dispatch({
-      type: "USE_ITEM",
-      payload: {
-        itemId: item.id,
-        effect: item.effect,
-      },
-    });
+  const useItem = async (token, itemId) => {
+    try {
+      const playerData = await useInventoryItem(token, itemId);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: playerData,
+      });
+    } catch (err) {
+      console.error("Failed to use item", err);
+    }
+  };
+
+  /* -------------------------------- BUY ITEM -------------------------------- */
+  const buyItem = async (token, itemId) => {
+    try {
+      const playerData = await buyShopItem(token, itemId);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: playerData,
+      });
+    } catch (err) {
+      console.error("Failed to buy item", err);
+    }
+  };
+
+  /* -------------------------------- SELL ITEM -------------------------------- */
+  const sellItem = async (token, itemId) => {
+    try {
+      const playerData = await sellShopItem(token, itemId);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: playerData,
+      });
+    } catch (err) {
+      console.error("Failed to sell item", err);
+    }
   };
 
   return (
@@ -112,6 +132,8 @@ export function PlayerProvider({ children }) {
         setToken,
         logout,
         useItem,
+        buyItem,
+        sellItem,
         toggleEquipment,
       }}
     >

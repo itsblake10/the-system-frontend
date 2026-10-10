@@ -6,8 +6,8 @@ import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import ChangeEmail from "../../components/ChangeEmail/ChangeEmail";
 import ChangePassword from "../../components/ChangePassword/ChangePassword";
-import { deleteAccount } from "../../api/authApi";
-import { resetAccount } from "../../api/authApi";
+import { deleteAccount } from "../../api/userApi";
+import { resetAccount } from "../../api/userApi";
 
 function Account({ onOpenConfirmModal }) {
   const { dispatch, token, logout } = useContext(PlayerContext);

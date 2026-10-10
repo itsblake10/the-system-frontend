@@ -10,10 +10,6 @@ import { getDaysLeft, formatTime } from "../../utils/countdowns";
 const MainObjectives = () => {
   const { player } = useContext(PlayerContext) || {};
 
-  if (!player?.mainObjectives?.taskList) {
-    return <div>Loading...</div>;
-  }
-
   const [timeLeft, setTimeLeft] = useState(() =>
     player?.mainObjectives?.nextWeeklyReset
       ? getDaysLeft(player.mainObjectives.nextWeeklyReset)
@@ -30,6 +26,10 @@ const MainObjectives = () => {
 
     return () => clearInterval(interval);
   }, [player?.mainObjectives?.nextWeeklyReset]);
+
+  if (!player?.mainObjectives?.taskList) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="main-objectives">

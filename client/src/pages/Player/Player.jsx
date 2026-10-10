@@ -5,7 +5,7 @@ import "./Player.css";
 import { useContext, useState, useRef } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import ChangeUsername from "../../components/ChangeUsername/ChangeUsername";
-import { changeAvatar, changeTitle } from "../../api/authApi";
+import { changeAvatar, changeTitle } from "../../api/playerApi";
 
 function Player({ onOpenPreviewImage }) {
   const { player, token, dispatch } = useContext(PlayerContext);
@@ -20,14 +20,22 @@ function Player({ onOpenPreviewImage }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedTitle = await changeTitle(token, selectedTitle);
+    try {
+      const updatedPlayer = await changeTitle(token, selectedTitle);
 
-    dispatch({
-      type: "UPDATE_PLAYER_INFO",
-      payload: {
-        title: updatedTitle.title,
-      },
-    });
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: {
+          ...player,
+          playerInformation: {
+            ...player.playerInformation,
+            title: updatedPlayer.title,
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   /* -------------------------- CHANGE PLAYER AVATAR -------------------------- */
@@ -42,14 +50,22 @@ function Player({ onOpenPreviewImage }) {
 
     if (!file) return;
 
-    const data = await changeAvatar(token, file);
+    try {
+      const updatedPlayer = await changeAvatar(token, file);
 
-    dispatch({
-      type: "UPDATE_PLAYER_INFO",
-      payload: {
-        avatar: data.avatar,
-      },
-    });
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: {
+          ...player,
+          playerInformation: {
+            ...player.playerInformation,
+            avatar: updatedPlayer.avatar,
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

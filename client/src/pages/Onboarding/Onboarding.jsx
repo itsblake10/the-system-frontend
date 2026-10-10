@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import MmaModeSelection from "../../components/MmaModeSelection/MmaModeSelection";
 import QuestObjectiveSelection from "../../components/QuestObjectiveSelection/QuestObjectiveSelection";
 import { PlayerContext } from "../../contexts/PlayerContext";
-import { savePlayer } from "../../api/authApi";
+import { completeOnboarding } from "../../api/playerApi";
 
 const Onboarding = ({ onOpenTaskModal }) => {
-  const { player, dispatch } = useContext(PlayerContext) || {};
+  const { dispatch, token } = useContext(PlayerContext) || {};
   const navigate = useNavigate();
 
   /* ----------------------------- ONBOARDING DATA ---------------------------- */
@@ -120,20 +120,18 @@ const Onboarding = ({ onOpenTaskModal }) => {
 
   /* ------------------------------ HANDLE FINISH ----------------------------- */
   const handleFinish = async () => {
-    const updatedPlayer = {
-      ...player,
-      ...onboardingData,
-      onboarding: true,
-    };
+    try {
+      const updatedPlayer = await completeOnboarding(token, onboardingData);
 
-    dispatch({
-      type: "COMPLETE_ONBOARDING",
-      payload: updatedPlayer,
-    });
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: updatedPlayer,
+      });
 
-    await savePlayer(updatedPlayer);
-
-    navigate("/home");
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -3,12 +3,17 @@
 /* -------------------------------------------------------------------------- */
 import "./Shop.css";
 import GameItem from "../../components/GameItem/GameItem";
-import { items } from "../../utils/gameItems.js";
-import { shopItems } from "../../utils/shopItems.js";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemFilter from "../../components/ItemFilter/ItemFilter.jsx";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import { getShopItems } from "../../api/shopApi.js";
+import { getInventoryItems } from "../../api/playerApi.js";
 
 function Shop({ onOpenShopItem }) {
+  const { token } = useContext(PlayerContext) || {};
+
+  const [inventoryItems, setInventoryItems] = useState([]);
+  const [shopItems, setShopItems] = useState([]);
   const [filter, setFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("buy");
 
@@ -16,7 +21,33 @@ function Shop({ onOpenShopItem }) {
 
   const shopSize = 50;
 
-  const inventoryItems = items;
+  useEffect(() => {
+    const loadInventoryItems = async () => {
+      try {
+        const data = await getInventoryItems(token);
+        setInventoryItems(data);
+      } catch (err) {
+        console.error("Failed to load inventory items:", err);
+      }
+    };
+    if (token) {
+      loadInventoryItems();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const loadShopItems = async () => {
+      try {
+        const data = await getShopItems();
+        setShopItems(data);
+      } catch (err) {
+        console.error("Failed to load shop items:", err);
+      }
+    };
+    if (token) {
+      loadShopItems();
+    }
+  }, []);
 
   const sellItems = inventoryItems
     .map((inventoryItem) => {

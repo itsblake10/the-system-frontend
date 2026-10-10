@@ -4,7 +4,7 @@ import AuthForm from "../../components/AuthForm/AuthForm";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { validateChangeUsername } from "../../validation/validateChangeUsername";
-import { changeUsername } from "../../api/authApi";
+import { changeUsername } from "../../api/playerApi";
 
 const ChangeUsername = () => {
   const { player, dispatch, token } = useContext(PlayerContext);
@@ -42,7 +42,10 @@ const ChangeUsername = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrors = validateChangeUsername(formData);
+    const newErrors = validateChangeUsername(
+      formData,
+      player?.playerInformation.username,
+    );
 
     setErrors(newErrors);
 
@@ -51,12 +54,16 @@ const ChangeUsername = () => {
     }
 
     try {
-      const data = await changeUsername(token, formData.newUsername);
+      const updatedPlayer = await changeUsername(token, formData.newUsername);
 
       dispatch({
-        type: "UPDATE_PLAYER_INFO",
+        type: "LOAD_PLAYER",
         payload: {
-          username: data.username,
+          ...player,
+          playerInformation: {
+            ...player.playerInformation,
+            username: updatedPlayer.username,
+          },
         },
       });
 

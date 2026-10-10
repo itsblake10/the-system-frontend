@@ -29,6 +29,7 @@ const playerSchema = new mongoose.Schema({
     health: { type: Number, default: 1000 },
     maxHealth: { type: Number, default: 1000 },
     armor: { type: Number, default: 0 },
+    maxArmor: { type: Number, default: 1000 },
     mana: { type: Number, default: 0 },
     maxMana: { type: Number, default: 500 },
   },
@@ -80,10 +81,6 @@ const playerSchema = new mongoose.Schema({
 
   equipment: {
     weapon: {
-      type: String,
-      default: null,
-    },
-    armor: {
       type: String,
       default: null,
     },

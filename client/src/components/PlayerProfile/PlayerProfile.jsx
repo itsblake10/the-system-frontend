@@ -1,39 +1,81 @@
 /* -------------------------------------------------------------------------- */
 /*                          PLAYER PROFILE COMPONENT                          */
 /* -------------------------------------------------------------------------- */
-
 import "./PlayerProfile.css";
 import manaIcon from "../../../public/mana-icon.svg";
 import hpIcon from "../../../public/hp-icon.svg";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { useContext, useEffect } from "react";
+import { dailyReset, weeklyReset } from "../../api/playerApi";
 
 const PlayerProfile = () => {
-  const { player, dispatch } = useContext(PlayerContext) || {};
+  const { player, dispatch, token } = useContext(PlayerContext) || {};
 
-  const playerAvatar = player.playerInformation.avatar || null;
+  const playerAvatar = player?.playerInformation.avatar || null;
 
   /* --------------------------- RESET DAILY/WEEKLY --------------------------- */
   useEffect(() => {
-    if (!player?.dailyQuests || !player?.mainObjectives) return;
+    if (!player?.dailyQuests || !player?.mainObjectives || !token) {
+      return;
+    }
 
-    const interval = setInterval(() => {
-      const now = new Date();
+    const dailyResetTime = new Date(
+      player.dailyQuests.nextDailyReset,
+    ).getTime();
 
-      const dailyReset = player?.dailyQuests?.nextDailyReset;
-      const weeklyReset = player?.mainObjectives?.nextWeeklyReset;
+    const weeklyResetTime = new Date(
+      player.mainObjectives.nextWeeklyReset,
+    ).getTime();
 
-      if (dailyReset && new Date(dailyReset) <= now) {
-        dispatch({ type: "RESET_DAILY" });
+    const resetDailyPlayer = async () => {
+      try {
+        const updatedPlayer = await dailyReset(token);
+
+        dispatch({
+          type: "LOAD_PLAYER",
+          payload: updatedPlayer,
+        });
+      } catch (err) {
+        console.error("Failed to reset daily quests:", err);
       }
+    };
 
-      if (weeklyReset && new Date(weeklyReset) <= now) {
-        dispatch({ type: "RESET_WEEKLY" });
+    const resetWeeklyPlayer = async () => {
+      try {
+        const updatedPlayer = await weeklyReset(token);
+
+        dispatch({
+          type: "LOAD_PLAYER",
+          payload: updatedPlayer,
+        });
+      } catch (err) {
+        console.error("Failed to reset weekly objectives:", err);
       }
-    }, 1000);
+    };
 
-    return () => clearInterval(interval);
-  }, [player, dispatch]);
+    const dailyTimeUntilReset = dailyResetTime - Date.now();
+    const weeklyTimeUntilReset = weeklyResetTime - Date.now();
+
+    const dailyTimeout = setTimeout(
+      resetDailyPlayer,
+      Math.max(dailyTimeUntilReset, 0),
+    );
+
+    const weeklyTimeout = setTimeout(
+      resetWeeklyPlayer,
+      Math.max(weeklyTimeUntilReset, 0),
+    );
+
+    return () => {
+      clearTimeout(dailyTimeout);
+      clearTimeout(weeklyTimeout);
+    };
+  }, [
+    player?.dailyQuests?.nextDailyReset,
+    player?.mainObjectives?.nextWeeklyReset,
+    token,
+    dispatch,
+  ]);
 
   const hpPercent = player?.playerStatus
     ? (player.playerStatus.health / player.playerStatus.maxHealth) * 100

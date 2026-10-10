@@ -6,7 +6,7 @@ import AuthForm from "../../components/AuthForm/AuthForm";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { validateChangeEmail } from "../../validation/validateChangeEmail";
-import { changeEmail } from "../../api/authApi";
+import { changeEmail } from "../../api/userApi";
 
 const ChangeEmail = () => {
   const { user, setUser, token } = useContext(PlayerContext);

@@ -3,16 +3,32 @@
 /* -------------------------------------------------------------------------- */
 import "./Inventory.css";
 import GameItem from "../../components/GameItem/GameItem";
-import { items } from "../../utils/gameItems.js";
 import ItemFilter from "../../components/ItemFilter/ItemFilter.jsx";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { PlayerContext } from "../../contexts/PlayerContext";
+import { getInventoryItems } from "../../api/playerApi.js";
 
 function Inventory({ onOpenInventoryItem }) {
+  const { token } = useContext(PlayerContext) || {};
+
   const [filter, setFilter] = useState("all");
+  const [inventoryItems, setInventoryItems] = useState([]);
 
   const inventorySize = 30;
 
-  const inventoryItems = items;
+  useEffect(() => {
+    const loadInventoryItems = async () => {
+      try {
+        const data = await getInventoryItems(token);
+        setInventoryItems(data);
+      } catch (err) {
+        console.error("Failed to load inventory items:", err);
+      }
+    };
+    if (token) {
+      loadInventoryItems();
+    }
+  }, [token]);
 
   const filteredItems = inventoryItems.filter(
     (item) => filter === "all" || item.itemType === filter,

@@ -2,8 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import authMiddleware from "../middleware/auth.js";
 import bcrypt from "bcrypt";
-import { initialPlayerState } from "../../client/src/utils/initialPlayerState.js";
-import { createAvatarUpload } from "../config/cloudinary.js";
+import { initialPlayerState } from "../utils/initialPlayerState.js";
 
 const router = express.Router();
 
@@ -22,34 +21,6 @@ router.get("/", authMiddleware, async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Failed to load user",
-      error: err.message,
-    });
-  }
-});
-
-/* ----------------------------- CHANGE USERNAME ---------------------------- */
-router.patch("/username", authMiddleware, async (req, res) => {
-  try {
-    const { newUsername } = req.body;
-
-    const user = await User.findById(req.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    user.player.playerInformation.username = newUsername;
-
-    await user.save();
-
-    res.status(200).json({
-      username: user.player.playerInformation.username,
-    });
-  } catch (err) {
-    res.status(500).json({
-      message: "Failed to change username",
       error: err.message,
     });
   }
@@ -127,74 +98,6 @@ router.patch("/password", authMiddleware, async (req, res) => {
   }
 });
 
-/* --------------------------- CHANGE PLAYER TITLE -------------------------- */
-router.patch("/title", authMiddleware, async (req, res) => {
-  try {
-    const { title } = req.body;
-
-    const user = await User.findById(req.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    user.player.playerInformation.title = title;
-
-    await user.save();
-
-    res.status(200).json({
-      title: user.player.playerInformation.title,
-    });
-  } catch (err) {
-    res.status(500).json({
-      message: "Failed to change title.",
-      error: err.message,
-    });
-  }
-});
-
-/* ------------------------------ CHANGE AVATAR ----------------------------- */
-router.patch("/avatar", authMiddleware, async (req, res) => {
-  const upload = createAvatarUpload(req.userId);
-
-  upload.single("avatar")(req, res, async (err) => {
-    if (err) {
-      console.log("MULTER/CLOUDINARY ERROR:", err);
-      console.log("ERROR MESSAGE:", err.message);
-
-      return res.status(500).json({
-        message: "Upload failed",
-        error: err.message,
-      });
-    }
-
-    try {
-      const user = await User.findById(req.userId);
-
-      if (!user) {
-        return res.status(404).json({
-          message: "User not found",
-        });
-      }
-
-      user.player.playerInformation.avatar = req.file.path;
-
-      await user.save();
-
-      res.status(200).json({
-        avatar: user.player.playerInformation.avatar,
-      });
-    } catch (err) {
-      res.status(500).json({
-        message: "Failed to change avatar.",
-        error: err.message,
-      });
-    }
-  });
-});
-
 /* ----------------------------- DELETE ACCOUNT ----------------------------- */
 router.delete("/", authMiddleware, async (req, res) => {
   try {
@@ -218,7 +121,7 @@ router.delete("/", authMiddleware, async (req, res) => {
 });
 
 /* ------------------------------ RESET ACCOUNT ----------------------------- */
-router.patch("/reset", authMiddleware, async (req, res) => {
+router.post("/reset", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
 

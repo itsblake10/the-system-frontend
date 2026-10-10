@@ -7,12 +7,13 @@ import { PlayerContext } from "../../../contexts/PlayerContext";
 import iconPlaceholder from "../../../../public/icon-placeholder.svg";
 
 const InventoryItemModal = ({ item }) => {
-  const { player, toggleEquipment, useItem } = useContext(PlayerContext) || {};
+  const { player, toggleEquipment, useItem, token } =
+    useContext(PlayerContext) || {};
 
   const itemIcon = item.image || iconPlaceholder;
 
   /* -------------------------------- ITEM QTY -------------------------------- */
-  const inventoryItem = player.inventory.find(
+  const inventoryItem = player?.inventory.find(
     (inventoryItem) => inventoryItem.id === item.id,
   );
 
@@ -22,12 +23,12 @@ const InventoryItemModal = ({ item }) => {
   const isCrafting = item.itemType === "Crafting";
   const isOwned = inventoryItem?.quantity > 0;
 
-  const isEquipped = player.equipment?.weapon === item.id;
+  const isEquipped = player?.equipment?.weapon === item.id;
 
   const healthFull =
-    player.playerStatus.health >= player.playerStatus.maxHealth;
+    player?.playerStatus.health >= player?.playerStatus.maxHealth;
 
-  const manaFull = player.playerStatus.mana >= player.playerStatus.maxMana;
+  const manaFull = player?.playerStatus.mana >= player?.playerStatus.maxMana;
 
   const enoughCrystals = (inventoryItem?.quantity ?? 0) >= item.crystalsNeeded;
 
@@ -61,7 +62,7 @@ const InventoryItemModal = ({ item }) => {
   }
 
   /* ----------------------------- MODAL MESSAGES ----------------------------- */
-  if (item.levelRequirement > player.playerLevel.level) {
+  if (item.levelRequirement > player?.playerLevel.level) {
     message = {
       type: "level",
       value: item.levelRequirement,
@@ -73,9 +74,9 @@ const InventoryItemModal = ({ item }) => {
   /* --------------------------- HANDLE BUTTON CLICK -------------------------- */
   const handleButtonClick = () => {
     if (isWeapon) {
-      toggleEquipment(item);
+      toggleEquipment(token, item.id);
     } else if (isConsumable) {
-      useItem(item);
+      useItem(item.id);
     }
   };
 

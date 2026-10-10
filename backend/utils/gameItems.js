@@ -1,27 +1,6 @@
-/* ------------------------------- SHOP ITEMS ------------------------------- */
-import combatKnife from "../../public/combat-knife.svg";
-import healthPotion from "../../public/health-potion.svg";
-import armorPlate from "../../public/armor-plate.svg";
-import karambitKnife from "../../public/karambit-knife.svg";
-import kunai from "../../public/kunai.svg";
-import trenchKnife from "../../public/trench-knife.svg";
-import machete from "../../public/machete.svg";
-import butterflyKnife from "../../public/butterfly-knife.svg";
-import katana from "../../public/katana.svg";
-import kukri from "../../public/kukri.svg";
-import battleAxe from "../../public/battle-axe.svg";
-import cutlassSword from "../../public/cutlass-sword.svg";
-import switchblade from "../../public/switchblade.svg";
-import scythe from "../../public/scythe.svg";
-import bowieKnife from "../../public/bowie-knife.svg";
-import pushDaggers from "../../public/push-daggers.svg";
-import scimitar from "../../public/scimitar.svg";
-import celticSword from "../../public/celtic-sword.svg";
-import longsword from "../../public/longsword.svg";
-import longbow from "../../public/longbow.svg";
-import compoundBow from "../../public/compound-bow.svg";
+/* ------------------------------- GAME ITEMS ------------------------------- */
 
-export const shopItems = [
+export const gameItems = [
   /* -------------------------------------------------------------------------- */
   /*                                   WEAPONS                                  */
   /* -------------------------------------------------------------------------- */
@@ -40,7 +19,7 @@ export const shopItems = [
       buy: 100,
       sell: 50,
     },
-    levelRequirement: 1,
+    level: 1,
     description: "Dagger made from someones bones, don't ask who...",
   },
 
@@ -57,10 +36,11 @@ export const shopItems = [
       buy: 500,
       sell: 400,
     },
-    levelRequirement: 7,
+    level: 7,
     description:
       "Military style fixed blade knife. Get up close and personal with your enemy!.",
-    image: combatKnife,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385699/combat-knife_svxacr.svg",
   },
 
   {
@@ -76,9 +56,10 @@ export const shopItems = [
       buy: 300,
       sell: 300,
     },
-    levelRequirement: 4,
+    level: 4,
     description: "???",
-    image: switchblade,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385695/switchblade_zypfdz.svg",
   },
 
   {
@@ -93,7 +74,7 @@ export const shopItems = [
       buy: 2000,
       sell: 1800,
     },
-    levelRequirement: 32,
+    level: 32,
     description:
       "A knife made from the scale of a dragon. How does one aquire a dragon scale? no clue.",
   },
@@ -110,9 +91,10 @@ export const shopItems = [
       buy: 950,
       sell: 800,
     },
-    levelRequirement: 25,
+    level: 25,
     description: "A classic. Some problems are best solved with a Machete.",
-    image: machete,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385700/machete_ojujuy.svg",
   },
 
   {
@@ -127,9 +109,10 @@ export const shopItems = [
       buy: 900,
       sell: 800,
     },
-    levelRequirement: 23,
+    level: 23,
     description: "???",
-    image: karambitKnife,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385698/karambit-knife_ewic6j.svg",
   },
 
   {
@@ -144,9 +127,10 @@ export const shopItems = [
       buy: 850,
       sell: 750,
     },
-    levelRequirement: 12,
+    level: 12,
     description: "???",
-    image: butterflyKnife,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385694/butterfly-knife_d6wr2g.svg",
   },
 
   {
@@ -161,9 +145,10 @@ export const shopItems = [
       buy: 1200,
       sell: 1000,
     },
-    levelRequirement: 27,
+    level: 27,
     description: "???",
-    image: kunai,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385704/kunai_nyaxii.svg",
   },
 
   {
@@ -178,9 +163,10 @@ export const shopItems = [
       buy: 1800,
       sell: 1700,
     },
-    levelRequirement: 30,
+    level: 30,
     description: "Worked well in WW1, works well now.",
-    image: trenchKnife,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385702/trench-knife_tcjsqt.svg",
   },
 
   {
@@ -195,9 +181,10 @@ export const shopItems = [
       buy: 1700,
       sell: 1550,
     },
-    levelRequirement: 28,
+    level: 28,
     description: "???",
-    image: bowieKnife,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385691/bowie-knife_wyhe0l.svg",
   },
 
   {
@@ -212,9 +199,10 @@ export const shopItems = [
       buy: 1000,
       sell: 850,
     },
-    levelRequirement: 26,
+    level: 26,
     description: "???",
-    image: pushDaggers,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385691/push-daggers_pdvwax.svg",
   },
 
   {
@@ -229,7 +217,7 @@ export const shopItems = [
       buy: 850,
       sell: 750,
     },
-    levelRequirement: 22,
+    level: 22,
     description: "Dagger made from a large fang belonging to a wild beast.",
   },
 
@@ -247,10 +235,11 @@ export const shopItems = [
       buy: 750,
       sell: 650,
     },
-    levelRequirement: 10,
+    level: 10,
     description:
       "Curved sword, originating from the Middle East, South Asia, and North Africa.",
-    image: scimitar,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385690/scimitar_jgsvw8.svg",
   },
 
   {
@@ -266,9 +255,10 @@ export const shopItems = [
       buy: 600,
       sell: 500,
     },
-    levelRequirement: 8,
+    level: 8,
     description: "The Longsword. You're gonna need two hands for this one ;)",
-    image: longsword,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385687/longsword_a2oxok.svg",
   },
 
   {
@@ -283,10 +273,11 @@ export const shopItems = [
       buy: 1900,
       sell: 1700,
     },
-    levelRequirement: 22,
+    level: 22,
     description:
       "Traditional Japanese sword used by Samurai warriors... or ordinary people like you I guess.",
-    image: katana,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385697/katana_vx1bq1.svg",
   },
 
   {
@@ -301,7 +292,7 @@ export const shopItems = [
       buy: 2200,
       sell: 1900,
     },
-    levelRequirement: 40,
+    level: 40,
     description:
       "The legendary Excalibur sword, only the chosen can weild this sword.",
   },
@@ -318,7 +309,7 @@ export const shopItems = [
       buy: 1100,
       sell: 1000,
     },
-    levelRequirement: 20,
+    level: 20,
     description: "???",
   },
 
@@ -334,9 +325,10 @@ export const shopItems = [
       buy: 800,
       sell: 700,
     },
-    levelRequirement: 9,
+    level: 9,
     description: "???",
-    image: kukri,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385697/kukri_y4ocj6.svg",
   },
 
   {
@@ -351,9 +343,10 @@ export const shopItems = [
       buy: 600,
       sell: 500,
     },
-    levelRequirement: 6,
+    level: 6,
     description: "???",
-    image: celticSword,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385687/celtic-sword_znpz9i.svg",
   },
 
   {
@@ -368,9 +361,10 @@ export const shopItems = [
       buy: 1100,
       sell: 900,
     },
-    levelRequirement: 25,
+    level: 25,
     description: "???",
-    image: cutlassSword,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385686/cutlass-sword_pgurk3.svg",
   },
 
   /* -------------------------------- POLEARMS -------------------------------- */
@@ -387,7 +381,7 @@ export const shopItems = [
       buy: 300,
       sell: 200,
     },
-    levelRequirement: 4,
+    level: 4,
     description: "???",
   },
 
@@ -404,9 +398,10 @@ export const shopItems = [
       buy: 900,
       sell: 800,
     },
-    levelRequirement: 22,
+    level: 22,
     description: "???",
-    image: battleAxe,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385696/battle-axe_ruwa2f.svg",
   },
 
   {
@@ -422,9 +417,10 @@ export const shopItems = [
       buy: 2200,
       sell: 2000,
     },
-    levelRequirement: 37,
+    level: 37,
     description: "???",
-    image: scythe,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385692/scythe_debafo.svg",
   },
 
   /* --------------------------------- ARCHERY -------------------------------- */
@@ -441,9 +437,10 @@ export const shopItems = [
       buy: 650,
       sell: 550,
     },
-    levelRequirement: 5,
+    level: 5,
     description: "???",
-    image: longbow,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385685/longbow_qw2w9x.svg",
   },
 
   {
@@ -459,7 +456,7 @@ export const shopItems = [
       buy: 950,
       sell: 800,
     },
-    levelRequirement: 10,
+    level: 10,
     description: "???",
   },
 
@@ -476,9 +473,10 @@ export const shopItems = [
       buy: 2250,
       sell: 2100,
     },
-    levelRequirement: 36,
+    level: 36,
     description: "???",
-    image: compoundBow,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385684/compound-bow_abvvzd.svg",
   },
 
   /* -------------------------------------------------------------------------- */
@@ -488,30 +486,33 @@ export const shopItems = [
     id: "a1",
     name: "Plain Armor",
     itemType: "Armor",
+    quantity: 0,
     effect: {
-      damage: 10,
+      armor: 10,
     },
     price: {
       buy: 250,
       sell: 200,
     },
-    levelRequirement: 3,
+    level: 3,
     description: "Plain armor plate for protection.",
-    image: armorPlate,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385685/armor-plate_whscrs.svg",
   },
 
   {
     id: "a2",
     name: "Re-enforced Armor",
     itemType: "Armor",
+    quantity: 0,
     effect: {
-      damage: 25,
+      armor: 25,
     },
     price: {
       buy: 400,
       sell: 300,
     },
-    levelRequirement: 10,
+    level: 10,
     description: "Re-enforced armor plate for extra protection.",
   },
 
@@ -519,14 +520,15 @@ export const shopItems = [
     id: "a3",
     name: "Titanium Armor",
     itemType: "Armor",
+    quantity: 0,
     effect: {
-      damage: 40,
+      armor: 40,
     },
     price: {
       buy: 600,
       sell: 500,
     },
-    levelRequirement: 30,
+    level: 30,
     description: "Titanium armor plate for extra extra protection.",
   },
 
@@ -545,6 +547,7 @@ export const shopItems = [
       sell: 50,
     },
     description: "Restores players Health.",
-    image: healthPotion,
+    image:
+      "https://res.cloudinary.com/dsvu6oqd2/image/upload/v1789385684/health-potion_xaxdus.svg",
   },
 ];

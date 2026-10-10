@@ -5,28 +5,37 @@ import "./TaskItem.css";
 import checkmark from "../../../public/checkmark.svg";
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import {
+  updateDailyQuestProgress,
+  updateMainObjectiveProgress,
+} from "../../api/playerApi";
 
 const TaskItem = ({ task, section }) => {
-  const { dispatch } = useContext(PlayerContext) || {};
+  const { dispatch, token } = useContext(PlayerContext) || {};
 
-  /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
-  const incrementCounter = () => {
+  /* ----------------------------- INCREMENT TASK ----------------------------- */
+  const incrementCounter = async () => {
+    const updatedPlayer =
+      section === "dailyQuests"
+        ? await updateDailyQuestProgress(token, task.id, task.amount + 1)
+        : await updateMainObjectiveProgress(token, task.id, task.amount + 1);
+
     dispatch({
-      type: "INCREMENT_TASK",
-      payload: {
-        taskId: task.id,
-        section,
-      },
+      type: "LOAD_PLAYER",
+      payload: updatedPlayer,
     });
   };
 
-  const decrementCounter = () => {
+  /* ----------------------------- DECREMENT TASK ----------------------------- */
+  const decrementCounter = async () => {
+    const updatedPlayer =
+      section === "dailyQuests"
+        ? await updateDailyQuestProgress(token, task.id, task.amount - 1)
+        : await updateMainObjectiveProgress(token, task.id, task.amount - 1);
+
     dispatch({
-      type: "DECREMENT_TASK",
-      payload: {
-        taskId: task.id,
-        section,
-      },
+      type: "LOAD_PLAYER",
+      payload: updatedPlayer,
     });
   };
 

@@ -2,14 +2,14 @@
 /*                             GAME SETTINGS PAGE                             */
 /* -------------------------------------------------------------------------- */
 import "./Game.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import MmaModeSelection from "../../components/MmaModeSelection/MmaModeSelection";
 import QuestObjectiveSelection from "../../components/QuestObjectiveSelection/QuestObjectiveSelection";
 import { PlayerContext } from "../../contexts/PlayerContext";
-import { savePlayer } from "../../api/authApi";
+import { updateGameSettings } from "../../api/playerApi";
 
 function Game({ onOpenTaskModal }) {
-  const { player, dispatch } = useContext(PlayerContext);
+  const { player, dispatch, token } = useContext(PlayerContext);
 
   const [gameSettings, setGameSettings] = useState({
     mmaMode: player.mmaMode,
@@ -20,6 +20,19 @@ function Game({ onOpenTaskModal }) {
       taskList: player.mainObjectives.taskList.map((task) => ({ ...task })),
     },
   });
+
+  /* -------------------------- SYNC PLAYER SETTINGS -------------------------- */
+  useEffect(() => {
+    setGameSettings({
+      mmaMode: player.mmaMode,
+      dailyQuests: {
+        taskList: player.dailyQuests.taskList.map((task) => ({ ...task })),
+      },
+      mainObjectives: {
+        taskList: player.mainObjectives.taskList.map((task) => ({ ...task })),
+      },
+    });
+  }, [player]);
 
   /* ----------------------- CHECK GAME SETTINGS CHANGED ---------------------- */
   const mmaChanged = gameSettings.mmaMode !== player.mmaMode;
@@ -73,6 +86,7 @@ function Game({ onOpenTaskModal }) {
         return {
           ...prev,
           dailyQuests: {
+            ...prev.dailyQuests,
             taskList: [...prev.dailyQuests.taskList, item],
           },
         };
@@ -82,6 +96,7 @@ function Game({ onOpenTaskModal }) {
         return {
           ...prev,
           mainObjectives: {
+            ...prev.mainObjectives,
             taskList: [...prev.mainObjectives.taskList, item],
           },
         };
@@ -124,39 +139,35 @@ function Game({ onOpenTaskModal }) {
 
   /* ----------------------------- HANDLE SAVE MMA ---------------------------- */
   const handleSaveMma = async () => {
-    const updatedPlayer = {
-      ...player,
-      mmaMode: gameSettings.mmaMode,
-    };
+    try {
+      const updatedPlayer = await updateGameSettings(token, {
+        mmaMode: gameSettings.mmaMode,
+      });
 
-    dispatch({
-      type: "UPDATE_GAME_SETTINGS",
-      payload: updatedPlayer,
-    });
-
-    await savePlayer(updatedPlayer);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: updatedPlayer,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   /* -------------------- HANDLE SAVE QUESTS AND OBJECTIVES ------------------- */
   const handleSaveQuestObjective = async () => {
-    const updatedPlayer = {
-      ...player,
-      dailyQuests: {
-        ...player.dailyQuests,
-        ...gameSettings.dailyQuests,
-      },
-      mainObjectives: {
-        ...player.mainObjectives,
-        ...gameSettings.mainObjectives,
-      },
-    };
+    try {
+      const updatedPlayer = await updateGameSettings(token, {
+        dailyQuests: gameSettings.dailyQuests,
+        mainObjectives: gameSettings.mainObjectives,
+      });
 
-    dispatch({
-      type: "UPDATE_GAME_SETTINGS",
-      payload: updatedPlayer,
-    });
-
-    await savePlayer(updatedPlayer);
+      dispatch({
+        type: "LOAD_PLAYER",
+        payload: updatedPlayer,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

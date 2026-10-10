@@ -6,6 +6,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import playerRoutes from "./routes/player.js";
 import userRoutes from "./routes/user.js";
+import shopRoutes from "./routes/shop.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/player", playerRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/shop", shopRoutes);
 
 /* ------------------------------- TEST ROUTE ------------------------------- */
 app.get("/", (req, res) => {

@@ -7,7 +7,7 @@ import { PlayerContext } from "../../../contexts/PlayerContext";
 import iconPlaceholder from "../../../../public/icon-placeholder.svg";
 
 const ShopItemModal = ({ item, mode }) => {
-  const { player, dispatch } = useContext(PlayerContext) || {};
+  const { player, buyItem, sellItem, token } = useContext(PlayerContext) || {};
 
   const [qty, setQty] = useState(1);
 
@@ -79,21 +79,9 @@ const ShopItemModal = ({ item, mode }) => {
   /* --------------------------- HANDLE BUTTON CLICK -------------------------- */
   const handleButtonClick = () => {
     if (isBuyMode) {
-      dispatch({
-        type: "BUY_ITEM",
-        payload: {
-          item,
-          qty: Number(qty),
-        },
-      });
-    } else if (!isBuyMode) {
-      dispatch({
-        type: "SELL_ITEM",
-        payload: {
-          item,
-          qty: Number(qty),
-        },
-      });
+      buyItem(token, item.id);
+    } else {
+      sellItem(token, item.id);
     }
   };
 

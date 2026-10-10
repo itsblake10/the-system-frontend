@@ -6,7 +6,8 @@ import "./SignIn.css";
 import AuthForm from "../../components/AuthForm/AuthForm";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import { getPlayer, login } from "../../api/authApi";
+import { login } from "../../api/authApi";
+import { getPlayer } from "../../api/playerApi";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { validateSignin } from "../../validation/validateSignin";
 
