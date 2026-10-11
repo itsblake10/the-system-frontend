@@ -4,6 +4,8 @@
 import "./TaskSelectionItem.css";
 
 const TaskSelectionItem = ({ task, onRemoveTask, updateTaskGoal }) => {
+  const isZero = task.goal === 0;
+
   /* ----------------------- INCREMENT/DECREMENT COUNTER ---------------------- */
   const incrementCounter = () => {
     const amount = task.type === "quest" ? 5 : 1;
@@ -39,6 +41,7 @@ const TaskSelectionItem = ({ task, onRemoveTask, updateTaskGoal }) => {
         <button
           className="task-selection__decrease-button"
           onClick={decrementCounter}
+          disabled={isZero}
         >
           -
         </button>

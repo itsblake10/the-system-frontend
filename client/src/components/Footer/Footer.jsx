@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 
 import "./Footer.css";
-import theSystemLogo from "../../../public/the-system-logo.svg";
 
 const Footer = ({ onOpenCopyright, onOpenTos }) => {
   const currentYear = new Date().getFullYear();
@@ -13,7 +12,7 @@ const Footer = ({ onOpenCopyright, onOpenTos }) => {
       <div className="footer__container">
         <img
           className="footer__logo"
-          src={theSystemLogo}
+          src="/the-system-logo.svg"
           alt="THE SYSTEM Logo"
         />
         <ul className="footer__nav">

@@ -44,6 +44,12 @@
   transform-origin: center;
 }
 
+.task-item__increase-button:disabled,
+.task-item__decrease-button:disabled {
+  opacity: 0;
+  cursor: default;
+}
+
 .task-item__amount {
   color: #97e8ff;
   margin: 0 5px;

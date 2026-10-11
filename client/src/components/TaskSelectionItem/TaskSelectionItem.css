@@ -52,6 +52,11 @@
   transform-origin: center;
 }
 
+.task-selection__decrease-button:disabled {
+  opacity: 0;
+  cursor: default;
+}
+
 .task-selection__amount-container {
   margin: 0 3px 0 5px;
   font-weight: bold;

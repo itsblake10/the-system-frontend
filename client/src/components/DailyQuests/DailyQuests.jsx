@@ -2,7 +2,6 @@
 /*                           DAILY QUESTS COMPONENT                           */
 /* -------------------------------------------------------------------------- */
 import "./DailyQuests.css";
-import dailyQuestsHeadingIcon from "../../../public/daily-quests-heading-icon.svg";
 import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import TaskItem from "../TaskItem/TaskItem";
@@ -37,7 +36,8 @@ const DailyQuests = () => {
       <div className="daily-quests__heading-container">
         <img
           className="daily-quests__heading-icon"
-          src={dailyQuestsHeadingIcon}
+          src="/daily-quests-heading-icon.svg"
+          alt="Heading Icon"
         />
         <h2 className="daily-quests__heading">Daily Quest</h2>
       </div>

@@ -4,13 +4,12 @@
 import "./InventoryItemModal.css";
 import { useContext } from "react";
 import { PlayerContext } from "../../../contexts/PlayerContext";
-import iconPlaceholder from "../../../../public/icon-placeholder.svg";
 
 const InventoryItemModal = ({ item }) => {
   const { player, toggleEquipment, useItem, token } =
     useContext(PlayerContext) || {};
 
-  const itemIcon = item.image || iconPlaceholder;
+  const itemIcon = item.image || "/icon-placeholder.svg";
 
   /* -------------------------------- ITEM QTY -------------------------------- */
   const inventoryItem = player?.inventory.find(

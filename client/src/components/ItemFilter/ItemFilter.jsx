@@ -2,8 +2,6 @@
 /*                                 ITEM FILTER                                */
 /* -------------------------------------------------------------------------- */
 import "./ItemFilter.css";
-import coinIcon from "../../../public/coin-icon.svg";
-import raidKeyIcon from "../../../public/raid-key-icon.svg";
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
@@ -44,7 +42,7 @@ const ItemFilter = ({ filter, setFilter }) => {
           <div className="item-filter__coins-cont">
             <img
               className="item-filter__coin-icon"
-              src={coinIcon}
+              src="/coin-icon.svg"
               alt="Coin Icon"
             />
             <span className="item-filter__divider"></span>
@@ -54,7 +52,7 @@ const ItemFilter = ({ filter, setFilter }) => {
           <div className="item-filter__keys-cont">
             <img
               className="item-filter__key-icon"
-              src={raidKeyIcon}
+              src="/raid-key-icon.svg"
               alt="Raid Key Icon"
             />
             <span className="item-filter__divider"></span>

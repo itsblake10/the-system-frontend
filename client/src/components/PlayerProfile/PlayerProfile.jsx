@@ -2,8 +2,6 @@
 /*                          PLAYER PROFILE COMPONENT                          */
 /* -------------------------------------------------------------------------- */
 import "./PlayerProfile.css";
-import manaIcon from "../../../public/mana-icon.svg";
-import hpIcon from "../../../public/hp-icon.svg";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { useContext, useEffect } from "react";
 import { dailyReset, weeklyReset } from "../../api/playerApi";
@@ -126,7 +124,11 @@ const PlayerProfile = () => {
 
         <div className="player-profile__status">
           <div className="player-profile__hp">
-            <img className="player-profile__hp-icon" src={hpIcon} />
+            <img
+              className="player-profile__hp-icon"
+              src="/hp-icon.svg"
+              alt="Health Icon"
+            />
             <div className="player-profile__hp-container">
               <div className="player-profile__hp-text">
                 <p className="player-profile__status-label">HP</p>
@@ -145,7 +147,11 @@ const PlayerProfile = () => {
           </div>
 
           <div className="player-profile__mp">
-            <img className="player-profile__mp-icon" src={manaIcon} />
+            <img
+              className="player-profile__mp-icon"
+              src="/mp-icon.svg"
+              alt="Mana Icon"
+            />
             <div className="player-profile__mp-container">
               <div className="player-profile__mp-text">
                 <p className="player-profile__status-label">MP</p>

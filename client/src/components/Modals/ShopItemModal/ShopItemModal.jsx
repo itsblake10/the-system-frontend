@@ -4,14 +4,13 @@
 import "./ShopItemModal.css";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../../../contexts/PlayerContext";
-import iconPlaceholder from "../../../../public/icon-placeholder.svg";
 
 const ShopItemModal = ({ item, mode }) => {
   const { player, buyItem, sellItem, token } = useContext(PlayerContext) || {};
 
   const [qty, setQty] = useState(1);
 
-  const itemIcon = item.image || iconPlaceholder;
+  const itemIcon = item.image || "/icon-placeholder.svg";
 
   const inventoryItem = player.inventory.find(
     (inventoryItem) => inventoryItem.id === item.id,

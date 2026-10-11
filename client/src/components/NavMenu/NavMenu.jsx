@@ -45,11 +45,6 @@ const NavMenu = ({ handleModalClose }) => {
             ACCOUNT
           </NavLink>
         </li>
-        <li className="nav-menu__list-item">
-          <NavLink to="/help" className="nav-menu__link">
-            HELP
-          </NavLink>
-        </li>
       </ul>
       <button className="nav-menu__log-out" onClick={handleLogout}>
         LOG OUT

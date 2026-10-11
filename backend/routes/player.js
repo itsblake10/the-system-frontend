@@ -336,7 +336,13 @@ router.post(
   async (req, res) => {
     try {
       const { taskId } = req.params;
-      const { amount } = req.body;
+      const amount = Number(req.body.amount);
+
+      if (!Number.isFinite(amount)) {
+        return res.status(400).json({
+          message: "Invalid quest progress amount.",
+        });
+      }
 
       const user = await User.findById(req.userId);
 
@@ -356,18 +362,37 @@ router.post(
         });
       }
 
-      task.amount = Math.max(0, Math.min(Number(amount), task.goal));
-      task.completed = task.amount >= task.goal;
+      const clampedAmount = Math.max(0, Math.min(amount, Number(task.goal)));
 
-      user.markModified("player.dailyQuests.taskList");
+      const updatedUser = await User.findOneAndUpdate(
+        {
+          _id: req.userId,
+          "player.dailyQuests.taskList.id": taskId,
+        },
+        {
+          $set: {
+            "player.dailyQuests.taskList.$.amount": clampedAmount,
+            "player.dailyQuests.taskList.$.completed":
+              clampedAmount >= Number(task.goal),
+          },
+        },
+        {
+          returnDocument: "after",
+          runValidators: true,
+        },
+      );
 
-      await user.save();
+      if (!updatedUser) {
+        return res.status(404).json({
+          message: "Daily quest no longer exists.",
+        });
+      }
 
-      res.status(200).json(user.player);
+      return res.status(200).json(updatedUser.player);
     } catch (err) {
-      console.error(err);
+      console.error("Daily quest progress update failed:", err);
 
-      res.status(500).json({
+      return res.status(500).json({
         message: "Failed to update daily quest progress.",
         error: err.message,
       });
@@ -382,7 +407,13 @@ router.post(
   async (req, res) => {
     try {
       const { taskId } = req.params;
-      const { amount } = req.body;
+      const amount = Number(req.body.amount);
+
+      if (!Number.isFinite(amount)) {
+        return res.status(400).json({
+          message: "Invalid objective progress amount.",
+        });
+      }
 
       const user = await User.findById(req.userId);
 
@@ -402,18 +433,37 @@ router.post(
         });
       }
 
-      task.amount = Math.max(0, Math.min(Number(amount), task.goal));
-      task.completed = task.amount >= task.goal;
+      const clampedAmount = Math.max(0, Math.min(amount, Number(task.goal)));
 
-      user.markModified("player.mainObjectives.taskList");
+      const updatedUser = await User.findOneAndUpdate(
+        {
+          _id: req.userId,
+          "player.mainObjectives.taskList.id": taskId,
+        },
+        {
+          $set: {
+            "player.mainObjectives.taskList.$.amount": clampedAmount,
+            "player.mainObjectives.taskList.$.completed":
+              clampedAmount >= Number(task.goal),
+          },
+        },
+        {
+          returnDocument: "after",
+          runValidators: true,
+        },
+      );
 
-      await user.save();
+      if (!updatedUser) {
+        return res.status(404).json({
+          message: "Main Objective no longer exists.",
+        });
+      }
 
-      res.status(200).json(user.player);
+      return res.status(200).json(updatedUser.player);
     } catch (err) {
-      console.error(err);
+      console.error("Main objective progress update failed:", err);
 
-      res.status(500).json({
+      return res.status(500).json({
         message: "Failed to update main objective progress.",
         error: err.message,
       });
