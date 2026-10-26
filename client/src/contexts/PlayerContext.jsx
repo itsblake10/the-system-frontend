@@ -19,8 +19,6 @@ export function PlayerProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const hasLoaded = useRef(false);
-  const saveTimeout = useRef(null);
-  const hasInitialisedSave = useRef(false);
 
   /* -------------------------- LOAD PLAYER ON START -------------------------- */
   useEffect(() => {

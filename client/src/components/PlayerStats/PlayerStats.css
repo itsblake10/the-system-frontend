@@ -11,15 +11,14 @@
 .player-stats__heading {
   color: #97e8ff;
   font-size: 18px;
-  text-decoration: underline;
-  margin: 5px 0 0 0;
+  margin: 10px 0 0 0;
 }
 
 .player-stats__stat-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 15px 0 15px 0;
+  margin: 10px 0 15px 0;
 }
 
 .player-stats__list-left {

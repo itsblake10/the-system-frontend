@@ -7,8 +7,11 @@ import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets.js";
 /* ------------------------------ PLAYER SCHEMA ----------------------------- */
 const playerSchema = new mongoose.Schema({
   onboarding: { type: Boolean, default: false },
-
   mmaMode: { type: Boolean, default: false },
+  timeZone: {
+    type: String,
+    default: "UTC",
+  },
 
   playerInformation: {
     username: {
@@ -95,7 +98,6 @@ const playerSchema = new mongoose.Schema({
     taskList: { type: Array, default: [] },
     nextDailyReset: {
       type: Date,
-      default: getNextDailyReset,
     },
   },
 
@@ -103,7 +105,6 @@ const playerSchema = new mongoose.Schema({
     taskList: { type: Array, default: [] },
     nextWeeklyReset: {
       type: Date,
-      default: getNextWeeklyReset,
     },
   },
 });

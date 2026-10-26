@@ -2,7 +2,8 @@
 /*                         WEEKLY OBJECTIVE LIST MODAL                        */
 /* -------------------------------------------------------------------------- */
 import "./WeeklyObjectiveListModal.css";
-import { mainObjectives } from "../../../utils/mainObjectives";
+import { getAllMainObjectives } from "../../../api/questObjectiveApi";
+import { useState, useEffect } from "react";
 
 const WeeklyObjectiveListModal = ({
   onClose,
@@ -10,7 +11,21 @@ const WeeklyObjectiveListModal = ({
   selectedObjectives,
   mmaMode,
 }) => {
-  const objectives = mainObjectives;
+  const [objectives, setObjectives] = useState([]);
+
+  /* -------------------------- FETCH DAILY QUESTS -------------------------- */
+  useEffect(() => {
+    const fetchMainObjectives = async () => {
+      try {
+        const mainObjectiveData = await getAllMainObjectives();
+        setObjectives(mainObjectiveData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMainObjectives();
+  }, []);
 
   /* -------------------------- AVAILABLE OBJECTIVES -------------------------- */
   const availableObjectives = objectives.filter((objective) => {

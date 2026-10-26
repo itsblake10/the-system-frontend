@@ -15,6 +15,7 @@
   box-sizing: border-box;
   width: 100%;
   padding: 40px;
+  margin: 150px 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,12 +58,12 @@
 
 .signin-form__footer-text {
   color: white;
-  font-size: 24px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .signin-form__footer-link {
-  font-size: 22px;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   color: #97e8ff;

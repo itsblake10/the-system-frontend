@@ -10,10 +10,6 @@ import { getTimeLeft, formatTime } from "../../utils/countdowns";
 const DailyQuests = () => {
   const { player } = useContext(PlayerContext) || {};
 
-  if (!player?.dailyQuests?.taskList) {
-    return <div>Loading...</div>;
-  }
-
   const [timeLeft, setTimeLeft] = useState(() =>
     player?.dailyQuests?.nextDailyReset
       ? getTimeLeft(player.dailyQuests.nextDailyReset)
@@ -31,6 +27,10 @@ const DailyQuests = () => {
     return () => clearInterval(interval);
   }, [player?.dailyQuests?.nextDailyReset]);
 
+  if (!player?.dailyQuests?.taskList) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="daily-quests">
       <div className="daily-quests__heading-container">
@@ -39,7 +39,7 @@ const DailyQuests = () => {
           src="/daily-quests-heading-icon.svg"
           alt="Heading Icon"
         />
-        <h2 className="daily-quests__heading">Daily Quest</h2>
+        <h2 className="daily-quests__heading">Daily Quests</h2>
       </div>
       <h3 className="daily-quests__list-heading">GOAL</h3>
       <ul className="daily-quests__list">

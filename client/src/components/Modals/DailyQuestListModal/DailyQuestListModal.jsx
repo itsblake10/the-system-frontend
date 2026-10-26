@@ -2,7 +2,8 @@
 /*                           DAILY QUEST LIST MODAL                           */
 /* -------------------------------------------------------------------------- */
 import "./DailyQuestListModal.css";
-import { dailyQuests } from "../../../utils/dailyQuests";
+import { getAllDailyQuests } from "../../../api/questObjectiveApi";
+import { useState, useEffect } from "react";
 
 const DailyQuestListModal = ({
   onClose,
@@ -10,7 +11,21 @@ const DailyQuestListModal = ({
   selectedQuests,
   mmaMode,
 }) => {
-  const quests = dailyQuests;
+  const [quests, setQuests] = useState([]);
+
+  /* -------------------------- FETCH DAILY QUESTS -------------------------- */
+  useEffect(() => {
+    const fetchDailyQuests = async () => {
+      try {
+        const dailyQuestData = await getAllDailyQuests();
+        setQuests(dailyQuestData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchDailyQuests();
+  }, []);
 
   /* ---------------------------- AVAILABLE QUESTS ---------------------------- */
   const availableQuests = quests.filter((quest) => {

@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import playerRoutes from "./routes/player.js";
 import userRoutes from "./routes/user.js";
 import shopRoutes from "./routes/shop.js";
+import questObjectiveRoutes from "./routes/questObjective.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,6 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/player", playerRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/shop", shopRoutes);
+app.use("/api/questObjective", questObjectiveRoutes);
 
 /* ------------------------------- TEST ROUTE ------------------------------- */
 app.get("/", (req, res) => {

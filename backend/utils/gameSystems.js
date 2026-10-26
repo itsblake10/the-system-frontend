@@ -18,7 +18,7 @@ export function applyXp(playerLevel, amount) {
 }
 
 /* ------------------------- STAT POINT APPLICATION ------------------------- */
-export function applyStats(playerStats, statRewards) {
+export function applyStats(playerStats, statRewards = []) {
   let updated = { ...playerStats };
 
   statRewards.forEach(({ type, amount }) => {
@@ -41,9 +41,11 @@ export function applyCurrency(currency, currencyRewards) {
 }
 
 /* --------------------------- DAMAGE APPLICATION --------------------------- */
-export function applyDamage(playerStatus, damage) {
-  let armor = playerStatus.armor;
-  let health = playerStatus.health;
+export function applyDamage(playerStatus, damage = 0) {
+  let armor = playerStatus.armor || 0;
+  let health = playerStatus.health || 0;
+
+  damage = Math.max(0, Number(damage) || 0);
 
   armor -= damage;
 

@@ -1,28 +1,35 @@
 /* -------------------------------------------------------------------------- */
 /*                                 DATE RESETS                                */
 /* -------------------------------------------------------------------------- */
+import { DateTime } from "luxon";
 
 /* -------------------------- GET NEXT DAILY RESET -------------------------- */
-export const getNextDailyReset = () => {
-  const now = new Date();
-  const reset = new Date(now);
-
-  reset.setHours(0, 0, 0, 0);
-  reset.setDate(reset.getDate() + 1);
-
-  return reset;
+export const getNextDailyReset = (timeZone = "UTC") => {
+  return DateTime.now()
+    .setZone(timeZone)
+    .startOf("day")
+    .plus({ days: 1 })
+    .toJSDate();
 };
 
 /* -------------------------- GET NEXT WEEKLY RESET ------------------------- */
-export const getNextWeeklyReset = () => {
-  const now = new Date();
-  const reset = new Date(now);
+export const getNextWeeklyReset = (timeZone = "UTC") => {
+  return DateTime.now()
+    .setZone(timeZone)
+    .startOf("week")
+    .plus({ weeks: 1 })
+    .toJSDate();
+};
 
-  reset.setHours(0, 0, 0, 0);
-  const day = reset.getDay();
-  const daysUntilMonday = (8 - day) % 7 || 7;
+/* --------------------------- ADVANCE RESET DATES -------------------------- */
+export const advanceDailyReset = (date, timeZone = "UTC") => {
+  return DateTime.fromJSDate(new Date(date), { zone: timeZone })
+    .plus({ days: 1 })
+    .toJSDate();
+};
 
-  reset.setDate(reset.getDate() + daysUntilMonday);
-
-  return reset;
+export const advanceWeeklyReset = (date, timeZone = "UTC") => {
+  return DateTime.fromJSDate(new Date(date), { zone: timeZone })
+    .plus({ weeks: 1 })
+    .toJSDate();
 };

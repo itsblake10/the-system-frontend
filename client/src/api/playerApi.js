@@ -1,15 +1,17 @@
 /* -------------------------------------------------------------------------- */
 /*                                 PLAYER API                                 */
 /* -------------------------------------------------------------------------- */
+import { getBrowserTimeZone } from "../utils/timeZone";
 
 const API_URL = "http://localhost:5000/api";
 
-/* ------------------------------- LOAD PLAYER ------------------------------ */
+/* ------------------------------- GET PLAYER ------------------------------ */
 export async function getPlayer(token) {
   const res = await fetch(`${API_URL}/player`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "X-Time-Zone": getBrowserTimeZone(),
       Authorization: `Bearer ${token}`,
     },
   });
@@ -42,6 +44,7 @@ export async function dailyReset(token) {
   const res = await fetch(`${API_URL}/player/resets/daily`, {
     method: "POST",
     headers: {
+      "X-Time-Zone": getBrowserTimeZone(),
       Authorization: `Bearer ${token}`,
     },
   });
@@ -60,6 +63,7 @@ export async function weeklyReset(token) {
   const res = await fetch(`${API_URL}/player/resets/weekly`, {
     method: "POST",
     headers: {
+      "X-Time-Zone": getBrowserTimeZone(),
       Authorization: `Bearer ${token}`,
     },
   });

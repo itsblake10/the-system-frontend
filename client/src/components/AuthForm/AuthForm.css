@@ -5,9 +5,10 @@
 }
 
 .auth-form__title {
-  font-size: 32pt;
+  font-size: 1.25rem;
   color: #97e8ff;
-  margin: 0 auto 20px auto;
+  margin: 0 0 20px 0;
+  text-align: center;
 }
 
 .auth-form__fields {
@@ -19,7 +20,7 @@
 
 .auth-form__label {
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #15b1ff;
   display: flex;
@@ -29,7 +30,7 @@
 
 .auth-form__input {
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 0.6rem;
   width: 100%;
   min-height: 30px;
   padding: 2px 2px 2px 4px;
@@ -59,11 +60,11 @@
   width: 100%;
   max-height: min-content;
   margin-top: 40px;
-  font-size: 24px;
+  font-size: 1rem;
   font-weight: bold;
   color: #97e8ff;
   cursor: pointer;
-  border: 3px solid;
+  border: 0.15rem solid;
   background: none;
 
   transition: transform 0.2s ease;

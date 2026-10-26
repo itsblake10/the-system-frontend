@@ -5,13 +5,7 @@ import express from "express";
 import User from "../models/User.js";
 import Item from "../models/Item.js";
 import authMiddleware from "../middleware/auth.js";
-import {
-  applyXp,
-  applyStats,
-  applyCurrency,
-  applyDamage,
-} from "../utils/gameSystems.js";
-import { getNextDailyReset, getNextWeeklyReset } from "../utils/dateResets.js";
+import { processPlayerResets } from "../utils/processPlayerResets.js";
 import { createAvatarUpload } from "../config/cloudinary.js";
 
 const router = express.Router();
@@ -19,16 +13,23 @@ const router = express.Router();
 /* ------------------------------- GET PLAYER ------------------------------- */
 router.get("/", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
+    const player = await processPlayerResets(
+      req.userId,
+      req.headers["x-time-zone"],
+    );
 
-    if (!user) {
-      return res.status(404).json({ message: "User no founnd" });
+    if (!player) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
     }
 
-    res.status(200).json(user.player);
+    return res.status(200).json(player);
   } catch (err) {
-    res.status(500).json({
-      message: "Failed to load player",
+    console.error("Failed to load player:", err);
+
+    return res.status(500).json({
+      message: "Failed to load player.",
       error: err.message,
     });
   }
@@ -77,62 +78,15 @@ router.post("/onboarding/complete", authMiddleware, async (req, res) => {
 /* ------------------------------- DAILY RESET ------------------------------ */
 router.post("/resets/daily", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User no founnd" });
-    }
-
-    const now = new Date();
-    const nextDailyReset = user.player.dailyQuests.nextDailyReset;
-
-    if (!nextDailyReset || nextDailyReset > now) {
-      return res.status(400).json({
-        message: "Daily reset is not due yet.",
-      });
-    }
-
-    user.player.dailyQuests.taskList = user.player.dailyQuests.taskList.map(
-      (task) => {
-        if (task.completed) {
-          user.player.playerLevel = applyXp(
-            user.player.playerLevel,
-            task.reward?.xp || 0,
-          );
-
-          user.player.playerStats = applyStats(
-            user.player.playerStats,
-            task.reward?.stats || [],
-          );
-
-          user.player.currency = applyCurrency(
-            user.player.currency,
-            task.reward || {},
-          );
-        } else {
-          user.player.playerStatus = applyDamage(
-            user.player.playerStatus,
-            task.penalty || 0,
-          );
-        }
-
-        return {
-          ...task,
-          amount: 0,
-          completed: false,
-        };
-      },
+    const player = await processPlayerResets(
+      req.userId,
+      req.headers["x-time-zone"],
     );
-
-    user.player.dailyQuests.nextDailyReset = getNextDailyReset();
-
-    await user.save();
-
-    res.status(200).json(user.player);
+    return res.status(200).json(player);
   } catch (err) {
-    console.error(err);
+    console.error("Daily reset failed:", err);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: "Failed to reset daily quests.",
       error: err.message,
     });
@@ -142,53 +96,15 @@ router.post("/resets/daily", authMiddleware, async (req, res) => {
 /* ------------------------------ WEEKLY RESET ------------------------------ */
 router.post("/resets/weekly", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    const now = new Date();
-    const nextWeeklyReset = user.player.mainObjectives.nextWeeklyReset;
-
-    if (!nextWeeklyReset || nextWeeklyReset > now) {
-      return res.status(400).json({
-        message: "weekly reset is not due yet.",
-      });
-    }
-
-    user.player.mainObjectives.taskList =
-      user.player.mainObjectives.taskList.map((task) => {
-        if (task.completed) {
-          user.player.palyerLevel = applyXp(
-            user.player.playerLevel,
-            task.reward?.xp || 0,
-          );
-
-          user.player.playerStats = applyStats(
-            user.player.playerStats,
-            task.reward?.xp || 0,
-          );
-        }
-
-        return {
-          ...task,
-          amount: 0,
-          completed: false,
-        };
-      });
-
-    user.player.mainObjectives.nextWeeklyReset = getNextWeeklyReset();
-
-    await user.save();
-
-    res.status(200).json(user.player);
+    const player = await processPlayerResets(
+      req.userId,
+      req.headers["x-time-zone"],
+    );
+    return res.status(200).json(player);
   } catch (err) {
-    console.error(err);
+    console.error("Weekly reset failed:", err);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: "Failed to reset weekly objectives.",
       error: err.message,
     });
